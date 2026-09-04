@@ -88,90 +88,79 @@ export function CertificateVisual({ index = 0, className = "" }) {
   );
 }
 
-export function StudentDeskIllustration({ avatar, name = "Rahul" }) {
+export function ProfileIdentityCard({
+  avatar,
+  profile = {},
+  skills = [],
+  projects = [],
+  readinessScore = 82,
+  onNavigate,
+}) {
+  const verifiedCount = skills.filter((s) => s.verified).length;
+  const projectCount = projects?.length || 0;
+
   return (
-    <div className="relative w-full max-w-[340px] h-[240px] flex items-end justify-center select-none overflow-visible">
-      {/* Decorative ambient dots and sparkles like the reference banner */}
-      <div className="absolute top-2 right-12 w-2 h-2 rounded-full bg-[#BA203B]/30 animate-ping" />
-      <div className="absolute top-8 left-10 w-2.5 h-2.5 rounded-full bg-[#BA203B]/40" />
-      <div className="absolute top-3 right-28 text-[#BA203B]/40 text-sm font-bold">✦</div>
-      <div className="absolute top-14 right-4 text-[#BA203B]/40 text-xs font-bold">+</div>
-      <div className="absolute top-20 left-4 text-[#BA203B]/30 text-xs font-bold">✦</div>
-
-      {/* Ergonomic Office Chair Back */}
-      <div className="absolute bottom-14 right-20 w-28 h-36 rounded-t-full bg-gradient-to-b from-[#2A2D3A] via-[#1C1F2B] to-[#101218] shadow-lg" />
-
-      {/* Character: Shoulders + Real Profile Picture Head */}
-      <div className="relative z-10 flex flex-col items-center -mb-2 mr-8">
-        {/* Profile Avatar Head (Replaces bitmoji/cartoon head with student's actual profile pic) */}
-        <div className="relative group cursor-pointer" title="Your Profile Identity">
+    <div className="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-2xl border border-[#E9E2E5] p-5 shadow-[0_8px_30px_rgba(16,18,24,0.06)] hover:shadow-[0_12px_36px_rgba(186,32,59,0.09)] transition-all duration-300">
+      {/* Header: Photo + Info */}
+      <div className="flex items-center gap-3.5 mb-4 pb-4 border-b border-[#F0EBEF]">
+        <div className="relative shrink-0">
           <img
             src={avatar}
-            alt={name}
-            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-white shadow-2xl ring-2 ring-[#BA203B]/30 group-hover:scale-105 transition-transform duration-200"
+            alt={profile?.name || "Student Profile"}
+            className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-md ring-2 ring-[#BA203B]/25"
           />
           <div
-            className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#2D9F75] border-2 border-white flex items-center justify-center text-white shadow"
-            title="Verified Student Identity"
+            className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#2D9F75] border-2 border-white flex items-center justify-center text-white shadow-sm"
+            title="Verified Identity"
           >
-            <BadgeCheck size={14} />
+            <BadgeCheck size={12} />
           </div>
         </div>
 
-        {/* Character Cardigan / Jacket (Stylish Crimson & White like reference) */}
-        <div className="w-28 h-14 rounded-t-3xl bg-gradient-to-r from-[#BA203B] via-[#E23E5B] to-[#831124] shadow-md mt-[-6px] flex items-center justify-center overflow-hidden">
-          <div className="w-10 h-12 bg-white rounded-t-full mt-2 opacity-95 shadow-inner" />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5">
+            <h3 className="text-base font-bold text-[#101218] truncate font-display">
+              {profile?.name || "Rahul Sharma"}
+            </h3>
+          </div>
+          <p className="text-xs text-[#707584] truncate mt-0.5">
+            {profile?.degree || "B.Tech"} {profile?.department ? `• ${profile.department}` : ""}
+          </p>
+          <div className="inline-flex items-center gap-1 px-2 py-0.5 mt-1.5 rounded-full bg-[#2D9F75]/10 border border-[#2D9F75]/20 text-[11px] font-semibold text-[#1B7352]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2D9F75] animate-pulse" />
+            <span>Verified Student ID</span>
+          </div>
         </div>
       </div>
 
-      {/* Desk and Workstation Foreground */}
-      <div className="absolute bottom-0 left-0 right-0 z-20">
-        {/* Coffee Cup and Laptop on Desk */}
-        <div className="relative flex items-end justify-between px-4 pb-1">
-          {/* Steaming Coffee Mug */}
-          <div className="relative flex flex-col items-center ml-2">
-            <div className="flex gap-1 mb-1">
-              <span className="w-1 h-3 rounded-full bg-[#BA203B]/40 animate-[bounce_1.6s_infinite]" />
-              <span className="w-1 h-4 rounded-full bg-[#BA203B]/60 animate-[bounce_1.6s_infinite_0.3s]" />
-            </div>
-            <div className="w-7 h-8 bg-white border border-[#E9E2E5] rounded-b-lg shadow-sm flex items-center justify-center relative">
-              <div className="w-2.5 h-3.5 border-2 border-[#E9E2E5] rounded-r-full absolute -right-2 top-1.5" />
-              <span className="text-[10px] text-[#BA203B]">☕</span>
-            </div>
-          </div>
-
-          {/* Open Laptop Screen */}
-          <div className="relative mr-4 flex flex-col items-center">
-            {/* Laptop Display Screen */}
-            <div className="w-28 sm:w-32 h-20 rounded-t-xl bg-[#101218] border-2 border-[#262934] p-1.5 shadow-xl relative">
-              <div className="w-full h-full rounded bg-[#1C1F2B] p-1.5 flex flex-col justify-between">
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#BA203B]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E23E5B]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#2D9F75]" />
-                  </div>
-                  <span className="text-[7px] text-[#707584] font-mono font-bold">SkillVerse</span>
-                </div>
-                <div className="space-y-1">
-                  <div className="w-3/4 h-1 rounded bg-[#BA203B]" />
-                  <div className="w-1/2 h-1 rounded bg-[#707584]/60" />
-                  <div className="w-2/3 h-1 rounded bg-[#2D9F75]" />
-                </div>
-                <div className="flex justify-end">
-                  <div className="w-3.5 h-3.5 rounded-full bg-[#BA203B]/30 flex items-center justify-center">
-                    <span className="text-[7px] text-[#BA203B]">⚡</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Laptop Base / Keyboard */}
-            <div className="w-36 sm:w-40 h-2 bg-[#262934] rounded-b-lg shadow-md" />
-          </div>
+      {/* Highlights Grid */}
+      <div className="grid grid-cols-3 gap-2 mb-4 text-center">
+        <div className="p-2.5 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5]">
+          <p className="text-lg font-extrabold text-[#BA203B] font-display">{verifiedCount}</p>
+          <p className="text-[10px] text-[#707584] font-medium uppercase tracking-wider">Verified</p>
         </div>
+        <div className="p-2.5 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5]">
+          <p className="text-lg font-extrabold text-[#101218] font-display">{projectCount}</p>
+          <p className="text-[10px] text-[#707584] font-medium uppercase tracking-wider">Projects</p>
+        </div>
+        <div className="p-2.5 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5]">
+          <p className="text-lg font-extrabold text-[#2D9F75] font-display">{readinessScore}%</p>
+          <p className="text-[10px] text-[#707584] font-medium uppercase tracking-wider">Readiness</p>
+        </div>
+      </div>
 
-        {/* Beveled 3D Desk Platform */}
-        <div className="w-full h-3.5 bg-white border-t-2 border-b-4 border-t-[#E9E2E5] border-b-[#DCD5D8] rounded-xl shadow-[0_4px_14px_rgba(16,18,24,0.08)]" />
+      {/* Target & Action */}
+      <div className="flex items-center justify-between pt-1 text-xs">
+        <div className="flex items-center gap-1.5 text-[#707584] truncate mr-2">
+          <span>🎯</span>
+          <span className="truncate">Goal: <strong className="text-[#101218] font-semibold">{profile?.careerGoal || "Data Analyst"}</strong></span>
+        </div>
+        <button
+          onClick={() => onNavigate && onNavigate("profile")}
+          className="text-[#BA203B] font-bold hover:underline shrink-0 flex items-center gap-0.5"
+        >
+          View Profile →
+        </button>
       </div>
     </div>
   );

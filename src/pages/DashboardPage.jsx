@@ -6,7 +6,7 @@ import { SectionHeading } from "../components/common/SectionHeading";
 import { LevelBadge, PriorityBadge } from "../components/common/Badges";
 import { ProgressBar, CircularProgress } from "../components/common/Progress";
 import { PrimaryButton, SecondaryButton } from "../components/common/FormControls";
-import { StudentDeskIllustration } from "../components/common/Visuals";
+import { ProfileIdentityCard } from "../components/common/Visuals";
 import { AddSkillModal } from "../components/modals/AddSkillModal";
 import { ProjectsShowcase } from "../components/projects/ProjectsShowcase";
 import { GAP_DATA, gapPriority, PROGRESS_DATA, getSkillIcon } from "../data/mockData";
@@ -33,11 +33,11 @@ export function DashboardPage({
 
   return (
     <div className="space-y-6">
-      {/* HERO SECTION WITH WORKSPACE & PROFILE AVATAR DESK ILLUSTRATION */}
-      <Card className="overflow-hidden border-[#E9E2E5] shadow-[0_4px_24px_rgba(186,32,59,0.06)] bg-gradient-to-r from-white via-white to-[#FCEBEF]/40">
-        <div className="grid lg:grid-cols-[1.3fr_1fr] items-center">
+      {/* HERO SECTION WITH PROFILE IDENTITY & SUMMARY CARD */}
+      <Card className="overflow-hidden border-[#E9E2E5] shadow-[0_4px_24px_rgba(186,32,59,0.06)] bg-gradient-to-r from-white via-white to-[#FCEBEF]/30">
+        <div className="grid lg:grid-cols-[1.25fr_1fr] items-center gap-6 p-6 sm:p-8">
           {/* Left Greeting & Readiness Column */}
-          <div className="p-7 sm:p-10">
+          <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCEBEF] border border-[#F5CAD3] text-[11px] font-bold text-[#BA203B] tracking-wider uppercase mb-3">
               <Sparkles size={13} />
               <span>YOUR JOURNEY. VERIFIED. LIMITLESS.</span>
@@ -69,14 +69,21 @@ export function DashboardPage({
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <PrimaryButton onClick={() => onNavigate("profile")}>View My Profile</PrimaryButton>
+              <PrimaryButton onClick={() => onNavigate("profile")}>View Full Profile</PrimaryButton>
               <SecondaryButton onClick={() => onNavigate("gap")}>Career Readiness</SecondaryButton>
             </div>
           </div>
 
-          {/* Right Column: Desk, Laptop, Coffee & Profile Avatar Workstation */}
-          <div className="hidden lg:flex items-center justify-center p-6 h-full bg-gradient-to-br from-[#FCEBEF]/60 via-white to-[#F8F6F8]">
-            <StudentDeskIllustration avatar={avatar} name={profile?.name || "Rahul Sharma"} />
+          {/* Right Column: Sleek Student Identity & Highlights Card */}
+          <div className="flex items-center justify-center lg:justify-end">
+            <ProfileIdentityCard
+              avatar={avatar}
+              profile={profile}
+              skills={skills}
+              projects={projects}
+              readinessScore={readinessScore}
+              onNavigate={onNavigate}
+            />
           </div>
         </div>
       </Card>
