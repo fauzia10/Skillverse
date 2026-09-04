@@ -32,17 +32,35 @@ export function DashboardPage({
 
   return (
     <div className="space-y-6">
-      {/* HERO SECTION WITH BIG PROFILE PHOTO */}
-      <Card className="overflow-hidden border-[#E9E2E5] shadow-[0_4px_24px_rgba(186,32,59,0.06)] bg-white">
-        <div className="grid lg:grid-cols-[1.3fr_1fr] items-center">
-          {/* Left Greeting & Readiness Column */}
-          <div className="p-7 sm:p-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCEBEF] border border-[#F5CAD3] text-[11px] font-bold text-[#BA203B] tracking-wider uppercase mb-3">
-              <Sparkles size={13} />
-              <span>YOUR JOURNEY. VERIFIED. LIMITLESS.</span>
+      {/* HERO SECTION - UNIFIED FULL WIDTH BANNER */}
+      <Card className="overflow-hidden border-[#E9E2E5] shadow-[0_4px_24px_rgba(186,32,59,0.06)] bg-gradient-to-r from-white via-[#FFFDFD] to-[#FAF8F9]">
+        <div className="p-7 sm:p-9">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCEBEF] border border-[#F5CAD3] text-[11px] font-bold text-[#BA203B] tracking-wider uppercase mb-4">
+            <Sparkles size={13} />
+            <span>YOUR JOURNEY. VERIFIED. LIMITLESS.</span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 mb-4">
+            {/* Compact Framed Avatar beside Name */}
+            <div
+              onClick={() => onNavigate("profile")}
+              className="relative shrink-0 group cursor-pointer w-fit"
+              title="Click to view full profile"
+            >
+              <img
+                src={avatar}
+                alt={profile?.name || "Rahul Sharma"}
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-white shadow-[0_4px_16px_rgba(186,32,59,0.14)] ring-2 ring-[#BA203B]/20 group-hover:scale-105 transition-transform duration-200"
+              />
+              <div
+                className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#2D9F75] border-2 border-white flex items-center justify-center text-white shadow"
+                title="Verified Student Identity"
+              >
+                <BadgeCheck size={14} />
+              </div>
             </div>
-            
-            <div className="mb-2">
+
+            <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#101218] font-display">
                 Hi, {profile?.name ? profile.name.split(" ")[0] : "Rahul"}! 👋
               </h2>
@@ -50,48 +68,27 @@ export function DashboardPage({
                 Build your future, one verified skill at a time.
               </p>
             </div>
-
-            <p className="text-sm text-[#707584] mb-4 max-w-md leading-relaxed">
-              Your digital identity, achievements, projects, verified certificates, and career readiness score — all unified in one platform.
-            </p>
-
-            <p className="text-xs font-semibold text-[#101218] mb-5 px-3 py-2 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5] inline-block">
-              🎓 {profile?.degree || "B.Tech"} {profile?.department || "Computer Science"} · {profile?.year || "Semester 5"} · {profile?.college || "ABC University"}
-            </p>
-
-            <div className="mb-6 max-w-xs">
-              <div className="flex justify-between text-xs text-[#707584] mb-1.5 font-medium">
-                <span>Profile completion</span>
-                <span className="font-bold text-[#BA203B]">82%</span>
-              </div>
-              <ProgressBar value={82} colorClass="bg-gradient-to-r from-[#BA203B] to-[#E23E5B]" />
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <PrimaryButton onClick={() => onNavigate("profile")}>View My Profile</PrimaryButton>
-              <SecondaryButton onClick={() => onNavigate("gap")}>Career Readiness</SecondaryButton>
-            </div>
           </div>
 
-          {/* Right Column: Clean Big Profile Photo without glow or mid partition */}
-          <div className="hidden lg:flex items-center justify-center p-8">
-            <div
-              onClick={() => onNavigate("profile")}
-              className="relative group cursor-pointer"
-              title="Click to view & edit full profile"
-            >
-              <img
-                src={avatar}
-                alt={profile?.name || "Rahul Sharma"}
-                className="w-40 h-40 xl:w-48 xl:h-48 rounded-full object-cover border-4 border-white shadow-xl group-hover:scale-105 transition-transform duration-300"
-              />
-              <div
-                className="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-[#2D9F75] border-4 border-white flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300"
-                title="Verified Student Identity"
-              >
-                <BadgeCheck size={22} />
-              </div>
+          <p className="text-sm text-[#707584] mb-4 max-w-2xl leading-relaxed">
+            Your digital identity, achievements, projects, verified certificates, and career readiness score — all unified in one platform.
+          </p>
+
+          <p className="text-xs font-semibold text-[#101218] mb-5 px-3 py-2 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5] inline-block">
+            🎓 {profile?.degree || "B.Tech"} {profile?.department || "Computer Science"} · {profile?.year || "Semester 5"} · {profile?.college || "ABC University"}
+          </p>
+
+          <div className="mb-6 max-w-sm">
+            <div className="flex justify-between text-xs text-[#707584] mb-1.5 font-medium">
+              <span>Profile completion</span>
+              <span className="font-bold text-[#BA203B]">82%</span>
             </div>
+            <ProgressBar value={82} colorClass="bg-gradient-to-r from-[#BA203B] to-[#E23E5B]" />
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <PrimaryButton onClick={() => onNavigate("profile")}>View My Profile</PrimaryButton>
+            <SecondaryButton onClick={() => onNavigate("gap")}>Explore Career Readiness</SecondaryButton>
           </div>
         </div>
       </Card>
