@@ -2,6 +2,16 @@
 
 A modern Campus Digital Identity and Career Readiness platform for college students — featuring a live dashboard, profile manager, skills & badges showcase, assessments, career goal benchmarks, skill-gap analysis, interactive projects showcase with tech stack visualizations, certificates tracking, and progress metrics.
 
+
+---
+
+## 🌐 Live Demo
+
+🔗 **Live Deployment:** [SkillVerse Live Demo](https://skillverse.vercel.app)
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-SkillVerse-BA203B?style=for-the-badge&logo=vercel&logoColor=white)](https://skillverse.vercel.app)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-fauzia10%2FSkillverse-101218?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fauzia10/Skillverse)
+
 ---
 
 ## 🚀 Quick Start
