@@ -73,21 +73,20 @@ export function DashboardPage({
             </div>
           </div>
 
-          {/* Right Column: ONLY Big Profile Photo */}
-          <div className="hidden lg:flex items-center justify-center p-8 h-full bg-gradient-to-br from-[#FCEBEF]/70 via-[#FFFFFF] to-[#F8F6F8] border-l border-[#E9E2E5]">
+          {/* Right Column: Clean Big Profile Photo without glow or mid partition */}
+          <div className="hidden lg:flex items-center justify-center p-8">
             <div
               onClick={() => onNavigate("profile")}
               className="relative group cursor-pointer"
               title="Click to view & edit full profile"
             >
-              <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#BA203B] via-[#E23E5B] to-[#BA203B] opacity-60 blur-md group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" />
               <img
                 src={avatar}
                 alt={profile?.name || "Rahul Sharma"}
-                className="relative w-40 h-40 xl:w-48 xl:h-48 rounded-full object-cover border-4 border-white shadow-[0_12px_32px_rgba(186,32,59,0.22)] ring-4 ring-[#BA203B]/20 group-hover:scale-105 transition-transform duration-300"
+                className="w-40 h-40 xl:w-48 xl:h-48 rounded-full object-cover border-4 border-white shadow-xl group-hover:scale-105 transition-transform duration-300"
               />
               <div
-                className="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-[#2D9F75] border-4 border-white flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300"
+                className="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-[#2D9F75] border-4 border-white flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300"
                 title="Verified Student Identity"
               >
                 <BadgeCheck size={22} />
