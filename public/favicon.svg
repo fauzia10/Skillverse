@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="crimsonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E23E5B" />
+      <stop offset="45%" stop-color="#BA203B" />
+      <stop offset="100%" stop-color="#6F0C1D" />
+    </linearGradient>
+    <linearGradient id="whiteFoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="85%" stop-color="#EDF0F5" />
+      <stop offset="100%" stop-color="#CFD6E0" />
+    </linearGradient>
+    <linearGradient id="shadowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#BA203B" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded rect -->
+  <rect width="120" height="120" rx="28" fill="#101218" />
+
+  <g transform="translate(10, 8) scale(0.85)" filter="url(#glow)">
+    <!-- Pixel Matrix at top right -->
+    <rect x="74" y="16" width="7" height="7" rx="1.5" fill="#BA203B" />
+    <rect x="84" y="16" width="7" height="7" rx="1.5" fill="#BA203B" />
+    <rect x="74" y="26" width="7" height="7" rx="1.5" fill="#BA203B" />
+    <rect x="84" y="26" width="7" height="7" rx="1.5" fill="#BA203B" />
+    <rect x="64" y="26" width="7" height="7" rx="1.5" fill="#BA203B" />
+
+    <!-- Top Ribbon Loop -->
+    <path
+      d="M 66 18 
+         L 46 32 
+         C 34 40 32 54 42 64 
+         L 62 78 
+         C 68 82 72 87 68 94 
+         L 52 108
+         C 40 102 38 92 48 84
+         L 64 72
+         C 72 65 72 52 60 44
+         L 44 32
+         Z"
+      fill="url(#crimsonGrad)"
+    />
+
+    <!-- Upper Crimson Sweep -->
+    <path
+      d="M 68 18 
+         L 46 34
+         C 32 44 32 58 44 68
+         L 70 86
+         C 78 92 78 100 68 106
+         C 50 114 42 100 46 92
+         C 48 88 52 84 56 80
+         C 58 84 62 90 64 94
+         C 68 98 62 102 56 102
+         C 50 102 46 96 50 90
+         L 38 98
+         C 32 106 44 118 64 112
+         C 84 106 88 88 74 78
+         L 50 62
+         C 40 54 42 44 54 36
+         L 68 26
+         Z"
+      fill="url(#crimsonGrad)"
+    />
+
+    <!-- Inner White Ribbon Fold -->
+    <path
+      d="M 50 48
+         L 74 64
+         C 84 72 86 86 78 98
+         C 84 88 84 74 72 66
+         L 52 52
+         Z"
+      fill="url(#whiteFoldGrad)"
+    />
+    <path
+      d="M 50 48 
+         L 72 64 
+         C 82 72 84 84 76 96
+         C 80 88 80 76 70 68
+         L 52 54
+         Z"
+      fill="#FFFFFF"
+    />
+  </g>
+</svg>
