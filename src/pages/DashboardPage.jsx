@@ -32,115 +32,66 @@ export function DashboardPage({
 
   return (
     <div className="space-y-6">
-      {/* HERO SECTION WITH BIG SIZE PROFILE IDENTITY & LOGIN CARD */}
+      {/* HERO SECTION WITH BIG PROFILE PHOTO */}
       <Card className="overflow-hidden border-[#E9E2E5] shadow-[0_4px_24px_rgba(186,32,59,0.06)] bg-white">
-        <div className="grid lg:grid-cols-[1.25fr_1fr] items-stretch">
+        <div className="grid lg:grid-cols-[1.3fr_1fr] items-center">
           {/* Left Greeting & Readiness Column */}
-          <div className="p-7 sm:p-9 flex flex-col justify-between">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCEBEF] border border-[#F5CAD3] text-[11px] font-bold text-[#BA203B] tracking-wider uppercase mb-3">
-                <Sparkles size={13} />
-                <span>YOUR JOURNEY. VERIFIED. LIMITLESS.</span>
-              </div>
-              
-              <div className="mb-2">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#101218] font-display">
-                  Hi, {profile?.name ? profile.name.split(" ")[0] : "Rahul"}! 👋
-                </h2>
-                <p className="text-sm text-[#BA203B] font-semibold font-display mt-0.5">
-                  Build your future, one verified skill at a time.
-                </p>
-              </div>
-
-              <p className="text-sm text-[#707584] mb-4 max-w-md leading-relaxed">
-                Your digital identity, achievements, projects, verified certificates, and career readiness score — all unified in one platform.
+          <div className="p-7 sm:p-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCEBEF] border border-[#F5CAD3] text-[11px] font-bold text-[#BA203B] tracking-wider uppercase mb-3">
+              <Sparkles size={13} />
+              <span>YOUR JOURNEY. VERIFIED. LIMITLESS.</span>
+            </div>
+            
+            <div className="mb-2">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#101218] font-display">
+                Hi, {profile?.name ? profile.name.split(" ")[0] : "Rahul"}! 👋
+              </h2>
+              <p className="text-sm text-[#BA203B] font-semibold font-display mt-0.5">
+                Build your future, one verified skill at a time.
               </p>
             </div>
 
-            <div>
-              <div className="mb-5 max-w-xs">
-                <div className="flex justify-between text-xs text-[#707584] mb-1.5 font-medium">
-                  <span>Profile completion</span>
-                  <span className="font-bold text-[#BA203B]">82%</span>
-                </div>
-                <ProgressBar value={82} colorClass="bg-gradient-to-r from-[#BA203B] to-[#E23E5B]" />
-              </div>
+            <p className="text-sm text-[#707584] mb-4 max-w-md leading-relaxed">
+              Your digital identity, achievements, projects, verified certificates, and career readiness score — all unified in one platform.
+            </p>
 
-              <div className="flex flex-wrap gap-3">
-                <PrimaryButton onClick={() => onNavigate("profile")}>View My Profile</PrimaryButton>
-                <SecondaryButton onClick={() => onNavigate("gap")}>Career Readiness</SecondaryButton>
+            <p className="text-xs font-semibold text-[#101218] mb-5 px-3 py-2 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5] inline-block">
+              🎓 {profile?.degree || "B.Tech"} {profile?.department || "Computer Science"} · {profile?.year || "Semester 5"} · {profile?.college || "ABC University"}
+            </p>
+
+            <div className="mb-6 max-w-xs">
+              <div className="flex justify-between text-xs text-[#707584] mb-1.5 font-medium">
+                <span>Profile completion</span>
+                <span className="font-bold text-[#BA203B]">82%</span>
               </div>
+              <ProgressBar value={82} colorClass="bg-gradient-to-r from-[#BA203B] to-[#E23E5B]" />
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <PrimaryButton onClick={() => onNavigate("profile")}>View My Profile</PrimaryButton>
+              <SecondaryButton onClick={() => onNavigate("gap")}>Career Readiness</SecondaryButton>
             </div>
           </div>
 
-          {/* Right Column: Big Size Profile Login & Academic Identity Card */}
-          <div className="p-6 sm:p-8 bg-gradient-to-br from-[#FAF8F9] via-[#FFFFFF] to-[#FCEBEF]/60 border-t lg:border-t-0 lg:border-l border-[#E9E2E5] flex flex-col justify-between">
-            <div>
-              {/* Header Badge: Active Session */}
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#E8F7F1] border border-[#C6EFE0] text-[11px] font-bold text-[#1B7352]">
-                  <span className="w-2 h-2 rounded-full bg-[#2D9F75] animate-pulse" />
-                  Logged in · Verified Student
-                </span>
-                <span className="text-[11px] font-bold text-[#BA203B] bg-[#FCEBEF] px-2.5 py-1 rounded-md border border-[#F5CAD3]">
-                  ID: {profile?.studentId || "CS2023-8942"}
-                </span>
-              </div>
-
-              {/* Big Profile Avatar & Main Identity */}
-              <div className="flex items-center gap-4 mb-4">
-                <div className="relative shrink-0">
-                  <img
-                    src={avatar}
-                    alt={profile?.name || "Rahul Sharma"}
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-white shadow-[0_8px_20px_rgba(186,32,59,0.18)] ring-2 ring-[#BA203B]/20"
-                  />
-                  <div
-                    className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#2D9F75] border-2 border-white flex items-center justify-center text-white"
-                    title="Verified Student Identity"
-                  >
-                    <BadgeCheck size={14} />
-                  </div>
-                </div>
-
-                <div className="min-w-0">
-                  <h3 className="text-lg sm:text-xl font-extrabold text-[#101218] font-display truncate">
-                    {profile?.name || "Rahul Sharma"}
-                  </h3>
-                  <p className="text-xs font-semibold text-[#BA203B] truncate mt-0.5">
-                    {profile?.degree || "B.Tech"} · {profile?.department || "Computer Science"}
-                  </p>
-                  <p className="text-[11px] text-[#707584] truncate mt-0.5">
-                    🎓 {profile?.college || "ABC University"}
-                  </p>
-                </div>
-              </div>
-
-              {/* Quick Credentials Info Grid */}
-              <div className="grid grid-cols-2 gap-2 mb-4">
-                <div className="p-2.5 rounded-xl bg-white border border-[#E9E2E5]">
-                  <p className="text-[10px] text-[#707584] font-medium">Registered Email</p>
-                  <p className="text-xs font-bold text-[#101218] truncate mt-0.5" title={profile?.email}>
-                    {profile?.email || "rahul.sharma@example.edu"}
-                  </p>
-                </div>
-                <div className="p-2.5 rounded-xl bg-white border border-[#E9E2E5]">
-                  <p className="text-[10px] text-[#707584] font-medium">Career Goal</p>
-                  <p className="text-xs font-bold text-[#BA203B] truncate mt-0.5">
-                    {profile?.careerGoal || "Data Analyst"}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Actions */}
-            <div className="pt-3 border-t border-[#E9E2E5]">
-              <button
-                onClick={() => onNavigate("profile")}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#BA203B] to-[#E23E5B] hover:shadow-[0_4px_14px_rgba(186,32,59,0.25)] hover:opacity-95 transition-all flex items-center justify-center gap-1.5 active:scale-[0.99]"
+          {/* Right Column: ONLY Big Profile Photo */}
+          <div className="hidden lg:flex items-center justify-center p-8 h-full bg-gradient-to-br from-[#FCEBEF]/70 via-[#FFFFFF] to-[#F8F6F8] border-l border-[#E9E2E5]">
+            <div
+              onClick={() => onNavigate("profile")}
+              className="relative group cursor-pointer"
+              title="Click to view & edit full profile"
+            >
+              <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#BA203B] via-[#E23E5B] to-[#BA203B] opacity-60 blur-md group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" />
+              <img
+                src={avatar}
+                alt={profile?.name || "Rahul Sharma"}
+                className="relative w-40 h-40 xl:w-48 xl:h-48 rounded-full object-cover border-4 border-white shadow-[0_12px_32px_rgba(186,32,59,0.22)] ring-4 ring-[#BA203B]/20 group-hover:scale-105 transition-transform duration-300"
+              />
+              <div
+                className="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-[#2D9F75] border-4 border-white flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300"
+                title="Verified Student Identity"
               >
-                <UserCheck size={15} /> Manage Profile & Academic ID
-              </button>
+                <BadgeCheck size={22} />
+              </div>
             </div>
           </div>
         </div>
