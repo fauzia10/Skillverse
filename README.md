@@ -9,7 +9,7 @@ A modern Campus Digital Identity and Career Readiness platform for college stude
 
 🔗 **Live Website:** [https://fauzia10.github.io/Skillverse/](https://fauzia10.github.io/Skillverse/)
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-SkillVerse-BA203B?style=for-the-badge&logo=githubpages&logoColor=white)](https://fauzia10.github.io/Skillverse/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-SkillVerse-BA203B?style=for-the-badge&logo=githubpages&logoColor=white)](https://vercel.com/fauzia-s-projects/skillverse)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-fauzia10%2FSkillverse-101218?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fauzia10/Skillverse)
 
 ---
