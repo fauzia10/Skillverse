@@ -111,14 +111,6 @@ export function HeroIllustration() {
       <rect x="86" y="146" width="150" height="6" rx="3" fill="#FAF8F9" />
       <rect x="86" y="160" width="170" height="6" rx="3" fill="#FAF8F9" />
 
-      {/* Floating Badge 1: SQL Verified */}
-      <g>
-        <rect x="220" y="30" width="116" height="34" rx="17" fill="#101218" />
-        <rect x="222" y="32" width="112" height="30" rx="15" fill="none" stroke="#BA203B" strokeWidth="1" />
-        <text x="278" y="52" textAnchor="middle" fontSize="12" fill="#FFFFFF" fontFamily="Inter, sans-serif" fontWeight="700" letterSpacing="0.5">
-          SQL · VERIFIED
-        </text>
-      </g>
 
       {/* Floating Badge 2: Python L2 */}
       <g>

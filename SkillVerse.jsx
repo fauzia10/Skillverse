@@ -488,12 +488,6 @@ function HeroIllustration() {
       <rect x="86" y="160" width="170" height="6" rx="3" fill="#F1EEE9" />
 
       <g>
-        <rect x="220" y="30" width="110" height="34" rx="17" fill="#9DCEBE" opacity="0.9" />
-        <text x="275" y="52" textAnchor="middle" fontSize="13" fill="#1F4045" fontFamily="Inter, sans-serif" fontWeight="600">
-          SQL · Verified
-        </text>
-      </g>
-      <g>
         <rect x="30" y="200" width="120" height="34" rx="17" fill="#E9A6A6" opacity="0.95" />
         <text x="90" y="222" textAnchor="middle" fontSize="13" fill="#FFFFFF" fontFamily="Inter, sans-serif" fontWeight="600">
           Python · L2
