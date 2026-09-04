@@ -6,7 +6,6 @@ import { SectionHeading } from "../components/common/SectionHeading";
 import { LevelBadge, PriorityBadge } from "../components/common/Badges";
 import { ProgressBar, CircularProgress } from "../components/common/Progress";
 import { PrimaryButton, SecondaryButton } from "../components/common/FormControls";
-import { HeroIllustration } from "../components/common/Visuals";
 import { AddSkillModal } from "../components/modals/AddSkillModal";
 import { ProjectsShowcase } from "../components/projects/ProjectsShowcase";
 import { GAP_DATA, gapPriority, PROGRESS_DATA, getSkillIcon } from "../data/mockData";
@@ -35,52 +34,47 @@ export function DashboardPage({
   return (
     <div className="space-y-6">
       {/* HERO */}
-      <Card className="overflow-hidden border-[#E9E2E5] shadow-[0_4px_24px_rgba(186,32,59,0.06)]">
-        <div className="grid lg:grid-cols-[1.3fr_1fr] items-center">
-          <div className="p-7 sm:p-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCEBEF] border border-[#F5CAD3] text-[11px] font-bold text-[#BA203B] tracking-wider uppercase mb-3">
-              <Sparkles size={13} />
-              <span>YOUR JOURNEY. VERIFIED. LIMITLESS.</span>
-            </div>
-            
-            <div className="flex items-center gap-4 mb-2">
-              <img
-                src={avatar}
-                alt={profile?.name || "Rahul Sharma"}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-white shadow-[0_4px_16px_rgba(186,32,59,0.15)] ring-2 ring-[#BA203B]/20 shrink-0"
-              />
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#101218] font-display">
-                  Hi, {profile?.name ? profile.name.split(" ")[0] : "Rahul"}! 👋
-                </h2>
-                <p className="text-sm text-[#BA203B] font-semibold font-display">
-                  Build your future, one verified skill at a time.
-                </p>
-              </div>
-            </div>
-
-            <p className="text-sm text-[#707584] mb-4 max-w-md leading-relaxed">
-              Your digital identity, achievements, projects, verified certificates, and career readiness score — all unified in one platform.
-            </p>
-            <p className="text-xs font-semibold text-[#101218] mb-5 px-3 py-2 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5] inline-block">
-              🎓 {profile?.degree || "B.Tech"} {profile?.department || "Computer Science"} · {profile?.year || "Semester 5"} · {profile?.college || "ABC University"}
-            </p>
-
-            <div className="mb-6 max-w-xs">
-              <div className="flex justify-between text-xs text-[#707584] mb-1.5 font-medium">
-                <span>Profile completion</span>
-                <span className="font-bold text-[#BA203B]">82%</span>
-              </div>
-              <ProgressBar value={82} colorClass="bg-gradient-to-r from-[#BA203B] to-[#E23E5B]" />
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <PrimaryButton onClick={() => onNavigate("profile")}>View My Profile</PrimaryButton>
-              <SecondaryButton onClick={() => onNavigate("gap")}>Explore Career Readiness</SecondaryButton>
+      <Card className="overflow-hidden border-[#E9E2E5] shadow-[0_4px_24px_rgba(186,32,59,0.06)] bg-gradient-to-r from-white via-white to-[#FCEBEF]/40">
+        <div className="p-7 sm:p-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCEBEF] border border-[#F5CAD3] text-[11px] font-bold text-[#BA203B] tracking-wider uppercase mb-3">
+            <Sparkles size={13} />
+            <span>YOUR JOURNEY. VERIFIED. LIMITLESS.</span>
+          </div>
+          
+          <div className="flex items-center gap-4 mb-2">
+            <img
+              src={avatar}
+              alt={profile?.name || "Rahul Sharma"}
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-white shadow-[0_4px_16px_rgba(186,32,59,0.15)] ring-2 ring-[#BA203B]/20 shrink-0"
+            />
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#101218] font-display">
+                Hi, {profile?.name ? profile.name.split(" ")[0] : "Rahul"}! 👋
+              </h2>
+              <p className="text-sm text-[#BA203B] font-semibold font-display">
+                Build your future, one verified skill at a time.
+              </p>
             </div>
           </div>
-          <div className="hidden lg:flex items-center justify-center p-6 h-full bg-gradient-to-br from-[#FCEBEF]/70 via-[#FFFFFF] to-[#F8F6F8]">
-            <HeroIllustration />
+
+          <p className="text-sm text-[#707584] mb-4 max-w-xl leading-relaxed">
+            Your digital identity, achievements, projects, verified certificates, and career readiness score — all unified in one platform.
+          </p>
+          <p className="text-xs font-semibold text-[#101218] mb-5 px-3 py-2 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5] inline-block">
+            🎓 {profile?.degree || "B.Tech"} {profile?.department || "Computer Science"} · {profile?.year || "Semester 5"} · {profile?.college || "ABC University"}
+          </p>
+
+          <div className="mb-6 max-w-sm">
+            <div className="flex justify-between text-xs text-[#707584] mb-1.5 font-medium">
+              <span>Profile completion</span>
+              <span className="font-bold text-[#BA203B]">82%</span>
+            </div>
+            <ProgressBar value={82} colorClass="bg-gradient-to-r from-[#BA203B] to-[#E23E5B]" />
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <PrimaryButton onClick={() => onNavigate("profile")}>View My Profile</PrimaryButton>
+            <SecondaryButton onClick={() => onNavigate("gap")}>Explore Career Readiness</SecondaryButton>
           </div>
         </div>
       </Card>
