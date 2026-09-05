@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Camera, Trash2 } from "lucide-react";
+import { Camera, Trash2, CheckCircle2 } from "lucide-react";
 import { Card } from "../components/common/Card";
 import { SectionHeading } from "../components/common/SectionHeading";
 import { TextField, TextArea, SelectField, PrimaryButton, SecondaryButton } from "../components/common/FormControls";
@@ -22,14 +22,14 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
   };
 
   return (
-    <div className="space-y-6 max-w-3xl">
+    <div className="space-y-6 max-w-4xl">
       <Card className="p-6 sm:p-8">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
           <div className="text-center">
             <img
               src={avatar}
               alt="Profile"
-              className="w-24 h-24 rounded-full object-cover border-2 border-[#E9E2E5] shadow-sm mb-3 ring-2 ring-[#BA203B]/20"
+              className="w-24 h-24 rounded-3xl object-cover border-2 border-white shadow-md mb-3 ring-2 ring-[#111827]/10"
             />
             <div className="flex gap-2 justify-center flex-wrap">
               <SecondaryButton onClick={() => fileRef.current?.click()} className="!px-3 !py-1.5 text-xs">
@@ -38,14 +38,14 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
               {avatar.includes("blob:") && (
                 <button
                   onClick={() => setAvatar(DEFAULT_AVATAR)}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs text-[#BA203B] hover:bg-[#FCEBEF] transition-colors"
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-2xl text-xs text-[#EF4444] hover:bg-[#FEE2E2] transition-colors"
                 >
                   <Trash2 size={13} /> Remove
                 </button>
               )}
             </div>
             <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handlePhoto} />
-            <p className="text-[11px] text-[#707584] mt-2 max-w-[160px]">Upload a JPG, PNG, or WebP image.</p>
+            <p className="text-[11px] text-[#64748B] mt-2 max-w-[160px]">Upload a JPG, PNG, or WebP image.</p>
           </div>
 
           <div className="flex-1 w-full grid sm:grid-cols-2 gap-x-4">
@@ -62,15 +62,15 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
       </Card>
 
       <Card className="p-6 sm:p-8">
-        <SectionHeading title="Academic details" />
+        <SectionHeading title="Academic Details & Coursework" />
         <div className="grid sm:grid-cols-2 gap-x-4">
-          <TextField label="CGPA" value={form.cgpa} onChange={set("cgpa")} />
+          <TextField label="CGPA / Grade" value={form.cgpa} onChange={set("cgpa")} />
         </div>
         <div className="mb-4">
-          <span className="block text-sm font-semibold text-[#101218] mb-1.5">Relevant coursework</span>
+          <span className="block text-xs font-bold text-[#111827] uppercase tracking-wider mb-2">Relevant coursework</span>
           <div className="flex flex-wrap gap-2">
             {COURSEWORK.map((c) => (
-              <span key={c} className="px-3 py-1.5 rounded-full text-xs bg-[#FCEBEF] text-[#BA203B] font-semibold border border-[#F5CAD3]">
+              <span key={c} className="px-3.5 py-1.5 rounded-full text-xs bg-[#DDF5F2] text-[#0C453E] font-bold border border-[#A5E3DC]">
                 {c}
               </span>
             ))}
@@ -81,15 +81,16 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
 
       <Card className="p-6 sm:p-8">
         <SectionHeading title="Developer & Coding Profiles" />
-        <p className="text-xs text-[#707584] mb-4">
-          Connect your GitHub, LeetCode, and Codeforces profiles so recruiters and companies can view your verified coding stats.
+        <p className="text-xs text-[#64748B] -mt-2 mb-5">
+          Connect your GitHub, LeetCode, and Codeforces profiles so recruiters and companies can view your verified coding metrics.
         </p>
 
         <div className="space-y-4">
           {/* GitHub */}
-          <div className="p-4 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5]">
-            <p className="text-xs font-bold text-[#101218] mb-3 flex items-center gap-1.5">
-              <span>🐙 GitHub Profile</span>
+          <div className="p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0]">
+            <p className="text-xs font-bold text-[#111827] mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#111827]" />
+              <span>GitHub Developer Profile</span>
             </p>
             <div className="grid sm:grid-cols-2 gap-x-4">
               <TextField label="GitHub Username / Handle" value={form.githubUsername || ""} onChange={set("githubUsername")} placeholder="e.g. rahul-sharma" />
@@ -100,9 +101,10 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
           </div>
 
           {/* LeetCode */}
-          <div className="p-4 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5]">
-            <p className="text-xs font-bold text-[#101218] mb-3 flex items-center gap-1.5">
-              <span>🟡 LeetCode Profile</span>
+          <div className="p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0]">
+            <p className="text-xs font-bold text-[#111827] mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
+              <span>LeetCode Competitive Programming</span>
             </p>
             <div className="grid sm:grid-cols-2 gap-x-4">
               <TextField label="LeetCode Username" value={form.leetcodeUsername || ""} onChange={set("leetcodeUsername")} placeholder="e.g. rahul_codes" />
@@ -118,9 +120,10 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
           </div>
 
           {/* Codeforces & LinkedIn */}
-          <div className="p-4 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5]">
-            <p className="text-xs font-bold text-[#101218] mb-3 flex items-center gap-1.5">
-              <span>🔵 Codeforces & Professional Links</span>
+          <div className="p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0]">
+            <p className="text-xs font-bold text-[#111827] mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
+              <span>Codeforces & Professional Links</span>
             </p>
             <div className="grid sm:grid-cols-2 gap-x-4">
               <TextField label="Codeforces Handle" value={form.codeforcesHandle || ""} onChange={set("codeforcesHandle")} placeholder="e.g. rahul_sharma" />

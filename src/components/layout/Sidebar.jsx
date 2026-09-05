@@ -1,136 +1,231 @@
 import React, { useState } from "react";
-import { User, Menu, X } from "lucide-react";
-import { NAV_ITEMS } from "../../constants/navigation";
+import {
+  LayoutDashboard,
+  Award,
+  ClipboardCheck,
+  Target,
+  TrendingUp,
+  FolderKanban,
+  FileBadge,
+  LineChart as LineChartIcon,
+  Settings,
+  User,
+  ChevronDown,
+  Headphones,
+  Mic,
+  Bell,
+  Sliders,
+  MoreVertical,
+  Menu,
+  X,
+  Sparkles,
+} from "lucide-react";
 import { SkillVerseIcon } from "../common/Logo";
 
 export function Sidebar({ activePage, onNavigate, mobileOpen, setMobileOpen }) {
-  const [expanded, setExpanded] = useState(false);
+  const [openSections, setOpenSections] = useState({
+    menu: true,
+    skills: true,
+    showcase: true,
+  });
 
-  return (
-    <>
-      {/* Desktop sidebar — expands on hover */}
-      <aside
-        onMouseEnter={() => setExpanded(true)}
-        onMouseLeave={() => setExpanded(false)}
-        className={`hidden md:flex md:flex-col shrink-0 h-screen sticky top-0 bg-white border-r border-[#E9E2E5] py-5 transition-[width] duration-200 ease-out overflow-hidden z-40 ${
-          expanded ? "w-24 shadow-[4px_0_24px_rgba(186,32,59,0.06)]" : "w-12"
-        }`}
+  const toggleSection = (section) => {
+    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  const menuItems = [
+    { id: "dashboard", label: "My Activity", icon: LayoutDashboard },
+    { id: "progress", label: "My Stats", icon: LineChartIcon },
+    { id: "profile", label: "Overview", icon: User },
+  ];
+
+  const skillItems = [
+    { id: "skills", label: "Skills List", icon: Award },
+    { id: "assessments", label: "Proof Ledger", icon: ClipboardCheck },
+    { id: "gap", label: "Gap Analysis", icon: TrendingUp },
+  ];
+
+  const showcaseItems = [
+    { id: "projects", label: "Projects", icon: FolderKanban },
+    { id: "certificates", label: "Certificates", icon: FileBadge },
+    { id: "goal", label: "Career Goal", icon: Target },
+    { id: "settings", label: "Settings", icon: Settings },
+  ];
+
+  const renderNavGroup = (title, items, sectionKey) => (
+    <div className="mb-4">
+      <div
+        onClick={() => toggleSection(sectionKey)}
+        className="flex items-center justify-between px-3 py-1 text-xs font-bold text-[#64748B] uppercase tracking-wider cursor-pointer hover:text-[#111827] select-none"
       >
-        <div className="flex flex-col items-center gap-1.5 mb-5 px-1">
-          <div className="w-9 h-9 shrink-0 rounded-xl bg-[#101218] border border-[#2B2D38] flex items-center justify-center shadow-sm">
-            <SkillVerseIcon size={26} />
-          </div>
-          {expanded && (
-            <div className="text-center">
-              <p className="text-[10px] font-extrabold tracking-[0.15em] text-[#101218] font-display leading-none">
-                SKILL<span className="text-[#BA203B]">VERSE</span>
-              </p>
-            </div>
-          )}
-        </div>
+        <span>{title}</span>
+        <ChevronDown
+          size={14}
+          className={`transition-transform duration-200 ${
+            openSections[sectionKey] ? "rotate-0" : "-rotate-90 text-[#94A3B8]"
+          }`}
+        />
+      </div>
 
-        <nav className="flex-1 px-1.5 space-y-1 overflow-y-auto overflow-x-hidden">
-          {NAV_ITEMS.map((item) => {
+      {openSections[sectionKey] && (
+        <div className="space-y-1 mt-1">
+          {items.map((item) => {
             const Icon = item.icon;
             const active = activePage === item.id;
             return (
               <button
                 key={item.id}
-                onClick={() => onNavigate(item.id)}
-                aria-label={item.label}
-                className={`w-full flex flex-col items-center gap-1 py-2 px-0.5 rounded-xl text-center transition-all ${
+                onClick={() => {
+                  onNavigate(item.id);
+                  setMobileOpen?.(false);
+                }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all select-none ${
                   active
-                    ? "bg-[#FCEBEF] text-[#BA203B] font-semibold shadow-sm"
-                    : "text-[#707584] hover:bg-[#F8F6F8] hover:text-[#101218]"
+                    ? "bg-[#111827] text-white shadow-sm"
+                    : "text-[#64748B] hover:bg-white hover:text-[#111827]"
                 }`}
               >
-                <Icon size={17} className={`shrink-0 ${active ? "text-[#BA203B]" : "text-[#707584]"}`} />
-                {expanded && (
-                  <span className="text-[9px] leading-[1.15] break-words">{item.label}</span>
-                )}
+                <Icon
+                  size={16}
+                  className={`shrink-0 ${active ? "text-white" : "text-[#64748B]"}`}
+                />
+                <span className="truncate">{item.label}</span>
               </button>
             );
           })}
-        </nav>
+        </div>
+      )}
+    </div>
+  );
 
-        <div className="px-1.5 pt-3 mt-3 border-t border-[#E9E2E5]">
-          <button
-            onClick={() => onNavigate("profile")}
-            className="w-full flex flex-col items-center gap-1 py-2 rounded-xl hover:bg-[#F8F6F8] transition-colors"
-          >
-            <div className="w-7 h-7 shrink-0 rounded-full bg-[#FCEBEF] border border-[#E9E2E5] flex items-center justify-center">
-              <User size={13} className="text-[#BA203B]" />
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex md:flex-col shrink-0 w-60 h-screen sticky top-0 bg-[#EBF2F6] border-r border-[#E2EBF0] p-4 justify-between z-40 overflow-y-auto">
+        {/* Top Logo */}
+        <div>
+          <div className="flex items-center gap-2.5 px-3 py-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-[#111827] flex items-center justify-center shadow-sm shrink-0">
+              <SkillVerseIcon size={20} />
             </div>
-            {expanded && <span className="text-[9px] text-[#101218] font-medium leading-tight">Rahul</span>}
-          </button>
+            <div>
+              <span className="text-base font-extrabold tracking-tight text-[#111827] font-display">
+                SkillVerse
+              </span>
+            </div>
+          </div>
+
+          {/* Navigation Groups */}
+          <nav className="space-y-1">
+            {renderNavGroup("Menu", menuItems, "menu")}
+            {renderNavGroup("Skills & Growth", skillItems, "skills")}
+            {renderNavGroup("Showcase", showcaseItems, "showcase")}
+          </nav>
+        </div>
+
+        {/* Bottom Floating Micro-Dock & Profile Widget */}
+        <div className="mt-4 pt-2">
+          {/* Micro-Control Dock */}
+          <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-[#E2EBF0] p-2 shadow-sm mb-2.5">
+            <div className="flex items-center justify-between text-[#64748B] px-1">
+              <button className="p-1.5 rounded-xl hover:bg-[#F1F5F9] hover:text-[#111827] transition-colors" title="Audio / Support">
+                <Headphones size={15} />
+              </button>
+              <button className="p-1.5 rounded-xl hover:bg-[#F1F5F9] hover:text-[#111827] transition-colors" title="Voice Input">
+                <Mic size={15} />
+              </button>
+              <button className="p-1.5 rounded-xl hover:bg-[#F1F5F9] hover:text-[#111827] relative transition-colors" title="Notifications">
+                <Bell size={15} />
+                <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-[#2D9F75] text-white text-[8px] font-bold rounded-full flex items-center justify-center">
+                  2
+                </span>
+              </button>
+              <button
+                onClick={() => onNavigate("settings")}
+                className="p-1.5 rounded-xl hover:bg-[#F1F5F9] hover:text-[#111827] transition-colors"
+                title="Settings"
+              >
+                <Sliders size={15} />
+              </button>
+            </div>
+          </div>
+
+          {/* User Mini Card */}
+          <div
+            onClick={() => onNavigate("profile")}
+            className="flex items-center justify-between p-2 rounded-2xl bg-white border border-[#E2EBF0] shadow-sm hover:border-[#CBD5E1] cursor-pointer transition-all"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <img
+                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120&auto=format&fit=crop&q=80"
+                alt="Rahul Sharma"
+                className="w-8 h-8 rounded-xl object-cover border border-white shrink-0"
+              />
+              <div className="min-w-0">
+                <h4 className="text-xs font-bold text-[#111827] truncate font-display">Rahul Sharma</h4>
+                <p className="text-[10px] text-[#64748B] truncate">rahul@university.edu</p>
+              </div>
+            </div>
+            <button className="p-1 text-[#94A3B8] hover:text-[#111827] transition-colors">
+              <MoreVertical size={14} />
+            </button>
+          </div>
         </div>
       </aside>
 
-      {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E9E2E5] flex items-center justify-around px-1 py-1.5">
-        {NAV_ITEMS.slice(0, 4).map((item) => {
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E2EBF0] flex items-center justify-around px-2 py-2">
+        {menuItems.map((item) => {
           const Icon = item.icon;
           const active = activePage === item.id;
           return (
             <button
               key={item.id}
               onClick={() => onNavigate(item.id)}
-              className={`flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-lg min-w-[56px] transition-colors ${
-                active ? "text-[#BA203B] font-semibold" : "text-[#707584]"
+              className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
+                active ? "text-[#111827] font-bold" : "text-[#64748B]"
               }`}
-              aria-label={item.label}
             >
-              <Icon size={19} />
-              <span className="text-[10px]">{item.label.split(" ")[0]}</span>
+              <Icon size={18} />
+              <span>{item.label.split(" ")[0]}</span>
             </button>
           );
         })}
         <button
           onClick={() => setMobileOpen(true)}
-          className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-lg text-[#707584]"
-          aria-label="More navigation"
+          className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold text-[#64748B]"
         >
-          <Menu size={19} />
-          <span className="text-[10px]">More</span>
+          <Menu size={18} />
+          <span>More</span>
         </button>
       </nav>
 
-      {/* Mobile full menu sheet */}
+      {/* Mobile Slide-Up Menu */}
       {mobileOpen && (
         <div
-          className="md:hidden fixed inset-0 z-50 bg-[#101218]/50 backdrop-blur-sm"
+          className="md:hidden fixed inset-0 z-50 bg-[#111827]/50 backdrop-blur-sm"
           onMouseDown={(e) => e.target === e.currentTarget && setMobileOpen(false)}
         >
-          <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[24px] p-4 max-h-[75vh] overflow-y-auto shadow-2xl">
-            <div className="flex items-center justify-between mb-3 px-2">
+          <div className="absolute bottom-0 left-0 right-0 bg-[#EBF2F6] rounded-t-[32px] p-5 max-h-[80vh] overflow-y-auto shadow-2xl">
+            <div className="flex items-center justify-between mb-4 px-1">
               <div className="flex items-center gap-2">
-                <SkillVerseIcon size={22} />
-                <span className="font-bold text-sm text-[#101218] tracking-wider">SKILL<span className="text-[#BA203B]">VERSE</span></span>
+                <div className="w-8 h-8 rounded-xl bg-[#111827] flex items-center justify-center text-white">
+                  <SkillVerseIcon size={20} />
+                </div>
+                <span className="font-extrabold text-base text-[#111827] tracking-tight">SkillVerse</span>
               </div>
-              <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="p-1.5 text-[#707584] hover:text-[#101218]">
-                <X size={20} />
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#64748B]"
+              >
+                <X size={16} />
               </button>
             </div>
-            <div className="grid grid-cols-3 gap-2">
-              {NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const active = activePage === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      onNavigate(item.id);
-                      setMobileOpen(false);
-                    }}
-                    className={`flex flex-col items-center gap-1.5 p-3 rounded-xl text-xs transition-colors ${
-                      active ? "bg-[#FCEBEF] text-[#BA203B] font-semibold" : "text-[#707584] hover:bg-[#F8F6F8] hover:text-[#101218]"
-                    }`}
-                  >
-                    <Icon size={18} />
-                    {item.label}
-                  </button>
-                );
-              })}
+
+            <div className="space-y-3">
+              {renderNavGroup("Menu", menuItems, "menu")}
+              {renderNavGroup("Skills & Growth", skillItems, "skills")}
+              {renderNavGroup("Showcase", showcaseItems, "showcase")}
             </div>
           </div>
         </div>

@@ -238,7 +238,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen bg-[#F8F6F8] text-[#101218] font-[Inter,sans-serif] flex"
+      className="min-h-screen bg-[#EBF2F6] text-[#111827] font-[Inter,sans-serif] flex"
       style={{ fontFamily: "Inter, system-ui, sans-serif" }}
     >
       <Sidebar
@@ -253,7 +253,7 @@ export default function App() {
           onNavigate={setActivePage}
           title={activePage === "dashboard" ? null : PAGE_TITLES[activePage]}
         />
-        <main className="p-4 sm:px-8 sm:pb-8 pt-4 sm:pt-6">{page}</main>
+        <main className="p-4 sm:px-8 sm:pb-8 pt-2 sm:pt-4">{page}</main>
       </div>
 
       <Toast show={toast.show} message={toast.message} />

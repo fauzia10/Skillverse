@@ -23,49 +23,49 @@ export function AssessmentsPage({
 
   return (
     <div className="space-y-6">
-      {/* Top Banner Stats */}
+      {/* Top Banner Bento Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-5 flex items-center gap-4 bg-gradient-to-br from-white to-[#FAF8F9]">
-          <div className="w-12 h-12 rounded-2xl bg-[#E8F7F1] border border-[#C6EFE0] flex items-center justify-center text-[#1B7352]">
+        <div className="bg-[#EDF9D4] rounded-3xl p-5 border border-[#D5F29B] flex items-center gap-4 shadow-sm">
+          <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-[#2E4D0C] shadow-sm shrink-0">
             <BadgeCheck size={26} />
           </div>
           <div>
-            <p className="text-2xl font-bold text-[#101218] font-display">{verifiedSkills.length} / {skills.length}</p>
-            <p className="text-xs text-[#707584]">Verified Skills ({verificationRate}%)</p>
+            <p className="text-2xl font-black text-[#2E4D0C] font-display">{verifiedSkills.length} / {skills.length}</p>
+            <p className="text-xs text-[#2E4D0C]/80 font-bold">Verified Skills ({verificationRate}%)</p>
           </div>
-        </Card>
+        </div>
 
-        <Card className="p-5 flex items-center gap-4 bg-gradient-to-br from-white to-[#FAF8F9]">
-          <div className="w-12 h-12 rounded-2xl bg-[#FCEBEF] border border-[#F5CAD3] flex items-center justify-center text-[#BA203B]">
+        <div className="bg-[#DDF5F2] rounded-3xl p-5 border border-[#A5E3DC] flex items-center gap-4 shadow-sm">
+          <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-[#0C453E] shadow-sm shrink-0">
             <FolderKanban size={26} />
           </div>
           <div>
-            <p className="text-2xl font-bold text-[#101218] font-display">{projectBacked.length}</p>
-            <p className="text-xs text-[#707584]">Project-Backed Proofs</p>
+            <p className="text-2xl font-black text-[#0C453E] font-display">{projectBacked.length}</p>
+            <p className="text-xs text-[#0C453E]/80 font-bold">Project-Backed Proofs</p>
           </div>
-        </Card>
+        </div>
 
-        <Card className="p-5 flex items-center gap-4 bg-gradient-to-br from-white to-[#FAF8F9]">
-          <div className="w-12 h-12 rounded-2xl bg-[#FFF8EB] border border-[#FFE8BF] flex items-center justify-center text-[#B57C1E]">
+        <div className="bg-[#FDE5E5] rounded-3xl p-5 border border-[#F8B6B6] flex items-center gap-4 shadow-sm">
+          <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-[#5C1B1B] shadow-sm shrink-0">
             <FileBadge size={26} />
           </div>
           <div>
-            <p className="text-2xl font-bold text-[#101218] font-display">{certificateBacked.length}</p>
-            <p className="text-xs text-[#707584]">Certified Credentials</p>
+            <p className="text-2xl font-black text-[#5C1B1B] font-display">{certificateBacked.length}</p>
+            <p className="text-xs text-[#5C1B1B]/80 font-bold">Certified Credentials</p>
           </div>
-        </Card>
+        </div>
       </div>
 
       <Card className="p-6 sm:p-8">
         <SectionHeading
           title="Proof of Work Verification Ledger"
           action={
-            <div className="text-xs text-[#707584] hidden sm:block">
-              Recruiter-trusted evidence: Verified through GitHub code & certificates
+            <div className="text-xs text-[#64748B] hidden sm:block font-semibold">
+              🔒 Recruiter-trusted evidence verified through GitHub & accredited certificates
             </div>
           }
         />
-        <p className="text-sm text-[#707584] mb-6">
+        <p className="text-xs sm:text-sm text-[#64748B] mb-6">
           Skills are validated through real-world portfolio projects and accredited course certificates. Tap any skill to inspect linked evidence or run an optional conceptual self-check.
         </p>
 
@@ -78,29 +78,29 @@ export function AssessmentsPage({
             return (
               <div
                 key={s.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl border border-[#E9E2E5] bg-[#FAF8F9] hover:bg-white hover:border-[#BA203B]/50 hover:shadow-xs transition-all gap-4"
+                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 rounded-3xl border border-[#E2EBF0] bg-[#F4F8FA]/60 hover:bg-white hover:border-[#CBD5E1] hover:shadow-sm transition-all gap-4"
               >
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-11 h-11 rounded-xl bg-white border border-[#E9E2E5] flex items-center justify-center shrink-0 shadow-xs">
-                    <Icon size={19} className="text-[#BA203B]" />
+                  <div className="w-11 h-11 rounded-2xl bg-white border border-[#E2EBF0] flex items-center justify-center shrink-0 shadow-sm">
+                    <Icon size={19} className="text-[#111827]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <p className="text-sm font-bold text-[#101218]">{s.name}</p>
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <p className="text-sm font-bold text-[#111827] font-display">{s.name}</p>
                       <LevelBadge level={s.level} />
                       {isVerified && (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#1B7352] bg-[#E8F7F1] px-2 py-0.5 rounded-full border border-[#C6EFE0]">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2E4D0C] bg-[#EDF9D4] px-2.5 py-0.5 rounded-full border border-[#D5F29B]">
                           <BadgeCheck size={12} /> Verified
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-[#707584] mt-1 truncate">
+                    <p className="text-xs text-[#64748B] truncate">
                       {proof.projects.length > 0 ? (
-                        <span>📁 Project proof: <strong>{proof.projects[0].title}</strong></span>
+                        <span>📁 Project proof: <strong className="text-[#111827]">{proof.projects[0].title}</strong></span>
                       ) : proof.certificates.length > 0 ? (
-                        <span>📜 Accredited by: <strong>{proof.certificates[0].org}</strong></span>
+                        <span>📜 Accredited by: <strong className="text-[#111827]">{proof.certificates[0].org}</strong></span>
                       ) : (
-                        <span>⚠️ No proof linked yet · Tag in a project or add certificate</span>
+                        <span className="text-[#64748B]">⚠️ No proof linked yet · Tag in a project or add certificate</span>
                       )}
                     </p>
                   </div>
@@ -109,7 +109,7 @@ export function AssessmentsPage({
                 <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
                   <SecondaryButton
                     onClick={() => setSelectedSkill(s)}
-                    className="!px-3.5 !py-1.5 text-xs text-[#BA203B] hover:bg-[#FCEBEF]"
+                    className="!px-3.5 !py-2 text-xs font-bold text-[#111827]"
                   >
                     <Eye size={13} /> View Evidence
                   </SecondaryButton>

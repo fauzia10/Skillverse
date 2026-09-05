@@ -6,13 +6,11 @@ export function CodingProfilesWidget({ profile = {} }) {
   const leetcodeUrl = profile.leetcode || (profile.leetcodeUsername ? `https://leetcode.com/u/${profile.leetcodeUsername}` : "https://leetcode.com/");
   const githubUrl = profile.github || (profile.githubUsername ? `https://github.com/${profile.githubUsername}` : "https://github.com/");
   const codeforcesUrl = profile.codeforces || (profile.codeforcesHandle ? `https://codeforces.com/profile/${profile.codeforcesHandle}` : "https://codeforces.com/");
-  const linkedinUrl = profile.linkedin || "https://linkedin.com/";
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {/* LeetCode Card */}
       <div className="group relative p-5 rounded-2xl border border-[#E9E2E5] bg-gradient-to-br from-white via-[#FFFDF9] to-[#FFF8EB]/40 hover:border-[#FFA116] hover:shadow-[0_16px_32px_-8px_rgba(255,161,22,0.25)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-        {/* Top Accent Line on hover */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FFA116] to-[#FFC069] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
         <div>
@@ -50,13 +48,13 @@ export function CodingProfilesWidget({ profile = {} }) {
           </div>
 
           <div className="flex items-center gap-1.5 text-[10px] font-semibold">
-            <span className="px-2 py-0.5 rounded-md bg-[#E8F7F1] text-[#1B7352] border border-[#C6EFE0] hover:scale-105 transition-transform cursor-default">
+            <span className="px-2 py-0.5 rounded-md bg-[#E8F7F1] text-[#1B7352] border border-[#C6EFE0]">
               Easy: {profile.leetcodeEasy || 160}
             </span>
-            <span className="px-2 py-0.5 rounded-md bg-[#FFF8EB] text-[#B57C1E] border border-[#FFE8BF] hover:scale-105 transition-transform cursor-default">
+            <span className="px-2 py-0.5 rounded-md bg-[#FFF8EB] text-[#B57C1E] border border-[#FFE8BF]">
               Med: {profile.leetcodeMedium || 215}
             </span>
-            <span className="px-2 py-0.5 rounded-md bg-[#FCEBEF] text-[#BA203B] border border-[#F5CAD3] hover:scale-105 transition-transform cursor-default">
+            <span className="px-2 py-0.5 rounded-md bg-[#FCEBEF] text-[#BA203B] border border-[#F5CAD3]">
               Hard: {profile.leetcodeHard || 53}
             </span>
           </div>
@@ -75,7 +73,6 @@ export function CodingProfilesWidget({ profile = {} }) {
 
       {/* GitHub Card */}
       <div className="group relative p-5 rounded-2xl border border-[#E9E2E5] bg-gradient-to-br from-white via-[#FAF8F9] to-[#F0EEF0]/50 hover:border-[#101218] hover:shadow-[0_16px_32px_-8px_rgba(16,18,24,0.22)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-        {/* Top Accent Line on hover */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#101218] to-[#555A68] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         <div>
@@ -113,10 +110,10 @@ export function CodingProfilesWidget({ profile = {} }) {
           </div>
 
           <div className="flex flex-wrap gap-1.5 text-[10px] font-semibold text-[#707584]">
-            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5] hover:scale-105 hover:border-[#101218] hover:text-[#101218] transition-all cursor-default">Python</span>
-            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5] hover:scale-105 hover:border-[#101218] hover:text-[#101218] transition-all cursor-default">JavaScript</span>
-            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5] hover:scale-105 hover:border-[#101218] hover:text-[#101218] transition-all cursor-default">SQL</span>
-            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5] hover:scale-105 hover:border-[#101218] hover:text-[#101218] transition-all cursor-default">React</span>
+            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5]">Python</span>
+            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5]">JavaScript</span>
+            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5]">SQL</span>
+            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5]">React</span>
           </div>
         </div>
 
@@ -133,7 +130,6 @@ export function CodingProfilesWidget({ profile = {} }) {
 
       {/* Codeforces Card */}
       <div className="group relative p-5 rounded-2xl border border-[#E9E2E5] bg-gradient-to-br from-white via-[#F6FAFD] to-[#EAF4FB]/50 hover:border-[#1F8ACB] hover:shadow-[0_16px_32px_-8px_rgba(31,138,203,0.25)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-        {/* Top Accent Line on hover */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#1F8ACB] to-[#6BC0F0] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         <div>
@@ -171,10 +167,10 @@ export function CodingProfilesWidget({ profile = {} }) {
           </div>
 
           <div className="flex items-center gap-1.5 text-[10px] font-medium text-[#707584]">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#EAF4FB] text-[#1F8ACB] font-semibold border border-[#CDE5F7] hover:scale-105 transition-transform cursor-default">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#EAF4FB] text-[#1F8ACB] font-semibold border border-[#CDE5F7]">
               <Trophy size={11} /> Active Competitor
             </span>
-            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5] hover:scale-105 transition-transform cursor-default">32 Contests</span>
+            <span className="px-2 py-0.5 rounded-md bg-white border border-[#E9E2E5]">32 Contests</span>
           </div>
         </div>
 

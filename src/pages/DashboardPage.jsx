@@ -1,12 +1,36 @@
 import React, { useState } from "react";
-import { Plus, BadgeCheck, FileBadge, Sparkles, UserCheck } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  Plus,
+  BadgeCheck,
+  FileBadge,
+  Sparkles,
+  Phone,
+  Mail,
+  MapPin,
+  Building2,
+  Lock,
+  Edit3,
+  ArrowUpRight,
+  TrendingUp,
+  Award,
+  FolderKanban,
+  CheckCircle2,
+  ExternalLink,
+} from "lucide-react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { Card } from "../components/common/Card";
 import { SectionHeading } from "../components/common/SectionHeading";
 import { LevelBadge, PriorityBadge } from "../components/common/Badges";
 import { ProgressBar, CircularProgress } from "../components/common/Progress";
 import { PrimaryButton, SecondaryButton } from "../components/common/FormControls";
-import { ProfileIdentityCard } from "../components/common/Visuals";
 import { AddSkillModal } from "../components/modals/AddSkillModal";
 import { ProjectsShowcase } from "../components/projects/ProjectsShowcase";
 import { GAP_DATA, gapPriority, PROGRESS_DATA, getSkillIcon } from "../data/mockData";
@@ -29,77 +53,240 @@ export function DashboardPage({
   const skillBonus = Math.min(25, verifiedCount * 5);
   const projectBonus = Math.min(15, (projects?.length || 0) * 3);
   const certBonus = Math.min(10, (certificates?.length || 0) * 2.5);
-  const readinessScore = Math.min(98, Math.round(baseScore + skillBonus + projectBonus + certBonus));
+  const readinessScore = Math.min(
+    98,
+    Math.round(baseScore + skillBonus + projectBonus + certBonus)
+  );
 
   return (
-    <div className="space-y-6">
-      {/* HERO SECTION WITH PROFILE IDENTITY & SUMMARY CARD */}
-      <Card className="overflow-hidden border-[#E9E2E5] shadow-[0_4px_24px_rgba(186,32,59,0.06)] bg-gradient-to-r from-white via-white to-[#FCEBEF]/30">
-        <div className="grid lg:grid-cols-[1.25fr_1fr] items-center gap-6 p-6 sm:p-8">
-          {/* Left Greeting & Readiness Column */}
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCEBEF] border border-[#F5CAD3] text-[11px] font-bold text-[#BA203B] tracking-wider uppercase mb-3">
-              <Sparkles size={13} />
-              <span>YOUR JOURNEY. VERIFIED. LIMITLESS.</span>
-            </div>
-            
-            <div className="mb-2">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#101218] font-display">
-                Hi, {profile?.name ? profile.name.split(" ")[0] : "Rahul"}! 👋
-              </h2>
-              <p className="text-sm text-[#BA203B] font-semibold font-display mt-0.5">
-                Build your future, one verified skill at a time.
-              </p>
-            </div>
+    <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Page Title */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-black text-[#111827] font-display tracking-tight">
+            My Activity
+          </h2>
+          <p className="text-xs sm:text-sm text-[#64748B] mt-0.5">
+            Verified proof-of-work, learning ledger & career readiness.
+          </p>
+        </div>
+      </div>
 
-            <p className="text-sm text-[#707584] mb-4 max-w-md leading-relaxed">
-              Your digital identity, achievements, projects, verified certificates, and career readiness score — all unified in one platform.
-            </p>
-
-            <p className="text-xs font-semibold text-[#101218] mb-5 px-3 py-2 rounded-xl bg-[#FAF8F9] border border-[#E9E2E5] inline-block">
-              🎓 {profile?.degree || "B.Tech"} {profile?.department || "Computer Science"} · {profile?.year || "Semester 5"} · {profile?.college || "ABC University"}
-            </p>
-
-            <div className="mb-6 max-w-xs">
-              <div className="flex justify-between text-xs text-[#707584] mb-1.5 font-medium">
-                <span>Profile completion</span>
-                <span className="font-bold text-[#BA203B]">82%</span>
+      {/* HERO STUDENT BANNER CARD */}
+      <div className="bg-white rounded-[28px] border border-[#E2EBF0] p-6 sm:p-8 shadow-[0_4px_24px_rgba(20,40,60,0.03)] relative overflow-hidden">
+        {/* Top Row: Avatar + Student Meta + Top-Right Action Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-start gap-5 justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+            <div className="relative shrink-0">
+              <img
+                src={avatar || "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=240&auto=format&fit=crop&q=80"}
+                alt={profile?.name || "Student Profile"}
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl object-cover border-2 border-white shadow-md ring-2 ring-[#111827]/10"
+              />
+              <div
+                className="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#2D9F75] border-2 border-white flex items-center justify-center text-white shadow-sm"
+                title="Identity Verified"
+              >
+                <BadgeCheck size={14} />
               </div>
-              <ProgressBar value={82} colorClass="bg-gradient-to-r from-[#BA203B] to-[#E23E5B]" />
             </div>
 
-            <div className="flex flex-wrap gap-3">
-              <PrimaryButton onClick={() => onNavigate("profile")}>View Full Profile</PrimaryButton>
-              <SecondaryButton onClick={() => onNavigate("gap")}>Career Readiness</SecondaryButton>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-xl sm:text-2xl font-black text-[#111827] font-display">
+                  {profile?.name || "Rahul Sharma"}
+                </h3>
+              </div>
+              <p className="text-xs text-[#64748B] mt-0.5 font-medium">
+                <span className="text-[#111827] font-bold">Student Developer</span> · 286 days on the platform
+              </p>
+
+              {/* 4-Item Contact Grid with Micro-Icons */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5 mt-3 text-xs text-[#64748B]">
+                <div className="flex items-center gap-2">
+                  <Phone size={13} className="text-[#94A3B8] shrink-0" />
+                  <span className="truncate">{profile?.phone || "+91 98765-43210"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail size={13} className="text-[#94A3B8] shrink-0" />
+                  <span className="truncate">{profile?.email || "rahul.sharma@university.edu"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin size={13} className="text-[#94A3B8] shrink-0" />
+                  <span className="truncate">{profile?.location || "Bangalore, India"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Building2 size={13} className="text-[#94A3B8] shrink-0" />
+                  <span className="truncate">{profile?.college || "National Institute of Tech"}</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Sleek Student Identity & Highlights Card */}
-          <div className="flex items-center justify-center lg:justify-end">
-            <ProfileIdentityCard
-              avatar={avatar}
-              profile={profile}
-              skills={skills}
-              projects={projects}
-              readinessScore={readinessScore}
-              onNavigate={onNavigate}
-            />
+          {/* Action Buttons Top-Right */}
+          <div className="flex items-center gap-2 self-end sm:self-start">
+            <button
+              onClick={() => onNavigate("profile")}
+              className="w-9 h-9 rounded-full bg-[#F4F8FA] hover:bg-[#111827] hover:text-white text-[#64748B] flex items-center justify-center transition-all shadow-sm"
+              title="Verified Student Identity"
+            >
+              <Lock size={15} />
+            </button>
+            <button
+              onClick={() => onNavigate("profile")}
+              className="w-9 h-9 rounded-full bg-[#F4F8FA] hover:bg-[#111827] hover:text-white text-[#64748B] flex items-center justify-center transition-all shadow-sm"
+              title="Edit Profile"
+            >
+              <Edit3 size={15} />
+            </button>
           </div>
         </div>
-      </Card>
 
-      {/* Developer & Coding Profiles */}
-      <Card className="p-6">
+        {/* Bottom Stats Row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-5 border-t border-[#F1F5F9]">
+          <div>
+            <p className="text-xs text-[#94A3B8] font-medium">Total Skills</p>
+            <p className="text-xl sm:text-2xl font-black text-[#111827] font-display mt-0.5">
+              {skills.length}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs text-[#94A3B8] font-medium">Verified Skills</p>
+            <p className="text-xl sm:text-2xl font-black text-[#2E4D0C] font-display mt-0.5">
+              {verifiedCount}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs text-[#94A3B8] font-medium">Projects Built</p>
+            <p className="text-xl sm:text-2xl font-black text-[#0C453E] font-display mt-0.5">
+              {projects?.length || 0}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs text-[#94A3B8] font-medium">Readiness Score</p>
+            <p className="text-xl sm:text-2xl font-black text-[#5C1B1B] font-display mt-0.5">
+              {readinessScore}%
+            </p>
+          </div>
+        </div>
+
+        {/* Multi-Segment Pastel Bottom Accent Line */}
+        <div className="flex h-1.5 w-full rounded-full overflow-hidden mt-5 bg-[#F1F5F9]">
+          <div className="w-1/4 bg-[#F8B6B6]" />
+          <div className="w-1/4 bg-[#A5E3DC]" />
+          <div className="w-1/4 bg-[#D5F29B]" />
+          <div className="w-1/4 bg-[#FDE047]" />
+        </div>
+      </div>
+
+      {/* "MY SUMMARY" 3 PASTEL BENTO CARDS ROW */}
+      <div>
+        <div className="flex items-center justify-between mb-3 px-1">
+          <h3 className="text-lg font-extrabold text-[#111827] font-display">
+            My Summary
+          </h3>
+          <span className="text-xs text-[#64748B] font-semibold">This Month</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Card 1: Lime Pastel (Verified Skills) */}
+          <div
+            onClick={() => onNavigate("skills")}
+            className="bg-[#D5F29B] rounded-3xl p-5 shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 group flex flex-col justify-between h-36"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <h4 className="text-sm font-bold text-[#2E4D0C] font-display leading-tight">
+                  Verified
+                  <br />
+                  Skills
+                </h4>
+                <p className="text-[10px] text-[#2E4D0C]/70 mt-1">
+                  Updated today
+                </p>
+              </div>
+              <div className="w-7 h-7 rounded-full bg-white/60 group-hover:bg-white flex items-center justify-center text-[#2E4D0C] transition-colors">
+                <ArrowUpRight size={15} />
+              </div>
+            </div>
+
+            <div className="flex items-end justify-end">
+              <span className="text-3xl font-black text-[#2E4D0C] font-display">
+                {verifiedCount}
+              </span>
+            </div>
+          </div>
+
+          {/* Card 2: Aqua Pastel (Active Projects & Showcase) */}
+          <div
+            onClick={() => onNavigate("projects")}
+            className="bg-[#A5E3DC] rounded-3xl p-5 shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 group flex flex-col justify-between h-36"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <h4 className="text-sm font-bold text-[#0C453E] font-display leading-tight">
+                  Active
+                  <br />
+                  Projects
+                </h4>
+                <p className="text-[10px] text-[#0C453E]/70 mt-1">
+                  Live on GitHub
+                </p>
+              </div>
+              <div className="w-7 h-7 rounded-full bg-white/60 group-hover:bg-white flex items-center justify-center text-[#0C453E] transition-colors">
+                <ArrowUpRight size={15} />
+              </div>
+            </div>
+
+            <div className="flex items-end justify-end">
+              <span className="text-3xl font-black text-[#0C453E] font-display">
+                {projects?.length || 0}
+              </span>
+            </div>
+          </div>
+
+          {/* Card 3: Coral Pastel (Skill Gap & Career Readiness) */}
+          <div
+            onClick={() => onNavigate("gap")}
+            className="bg-[#F8B6B6] rounded-3xl p-5 shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 group flex flex-col justify-between h-36"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <h4 className="text-sm font-bold text-[#5C1B1B] font-display leading-tight">
+                  Readiness
+                  <br />
+                  Score
+                </h4>
+                <p className="text-[10px] text-[#5C1B1B]/70 mt-1">
+                  Target: {profile?.careerGoal?.split(" ")[0] || "AI Dev"}
+                </p>
+              </div>
+              <div className="w-7 h-7 rounded-full bg-white/60 group-hover:bg-white flex items-center justify-center text-[#5C1B1B] transition-colors">
+                <ArrowUpRight size={15} />
+              </div>
+            </div>
+
+            <div className="flex items-end justify-end">
+              <span className="text-3xl font-black text-[#5C1B1B] font-display">
+                {readinessScore}%
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Developer & Competitive Coding Profiles */}
+      <Card className="p-6 sm:p-7">
         <div className="flex items-center justify-between mb-4">
           <div>
             <SectionHeading title="Developer & Competitive Coding Profiles" />
-            <p className="text-xs text-[#707584] -mt-2">
+            <p className="text-xs text-[#64748B] -mt-2">
               Verified problem-solving metrics and GitHub repositories aggregated for recruiters.
             </p>
           </div>
           <button
             onClick={() => onNavigate("profile")}
-            className="text-xs text-[#BA203B] font-semibold hover:underline"
+            className="text-xs font-bold text-[#111827] hover:underline"
           >
             Edit Profiles →
           </button>
@@ -107,149 +294,51 @@ export function DashboardPage({
         <CodingProfilesWidget profile={profile} />
       </Card>
 
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Career Readiness */}
-        <Card className="p-6 lg:col-span-1">
-          <SectionHeading title="Career Readiness" />
-          <div className="flex items-center gap-4 mb-4">
-            <CircularProgress value={readinessScore} label="Ready" />
-            <div>
-              <p className="text-xs text-[#707584]">Target career</p>
-              <p className="text-base font-bold text-[#101218]">{profile?.careerGoal || "Data Analyst"}</p>
-            </div>
-          </div>
-          <p className="text-sm text-[#1B7352] font-semibold mb-4">
-            {readinessScore >= 75
-              ? "You are making strong progress toward your career goal."
-              : "Complete pending assessments to improve your readiness score."}
-          </p>
+      {/* Projects showcase */}
+      <ProjectsShowcase projects={projects} onAddProject={onAddProject} />
 
-          <div className="space-y-3 mb-4">
-            {[
-              { label: "Academic", value: 78 },
-              { label: "Technical Skills", value: Math.min(95, 55 + verifiedCount * 6) },
-              { label: "Soft Skills", value: 74 },
-              { label: "Practical Experience", value: Math.min(90, 45 + (projects?.length || 0) * 10) },
-            ].map((m) => (
-              <div key={m.label}>
-                <div className="flex justify-between text-xs text-[#101218] mb-1">
-                  <span>{m.label}</span>
-                  <span className="font-semibold">{m.value}%</span>
-                </div>
-                <ProgressBar value={m.value} colorClass="bg-[#BA203B]" />
-              </div>
-            ))}
+      {/* Growth progress & Skill Gaps */}
+      <div className="grid sm:grid-cols-2 gap-6">
+        {/* Growth chart */}
+        <Card className="p-6 sm:p-7">
+          <SectionHeading title="Growth Progress" />
+          <div className="h-44" role="img" aria-label="Line chart showing career readiness score rising">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={PROGRESS_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                <CartesianGrid stroke="#EEF4F7" vertical={false} />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#64748B" }} axisLine={{ stroke: "#E2EBF0" }} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: "#64748B" }} axisLine={false} tickLine={false} domain={[40, 100]} />
+                <Tooltip contentStyle={{ borderRadius: 16, border: "1px solid #E2EBF0", boxShadow: "0 8px 24px rgba(20,40,60,0.06)" }} />
+                <Line type="monotone" dataKey="score" stroke="#111827" strokeWidth={3} dot={{ fill: "#111827", r: 4, stroke: "#FFFFFF", strokeWidth: 2 }} />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
-          <button onClick={() => onNavigate("gap")} className="text-sm text-[#BA203B] font-semibold hover:underline">
-            View Full Analysis →
-          </button>
-          <p className="text-xs text-[#707584] mt-3 leading-relaxed border-t border-[#E9E2E5] pt-3">
-            Your score is calculated using your verified skills, projects, and benchmarks.
+          <p className="text-xs text-[#2E4D0C] font-bold mt-2">
+            📈 Readiness score has improved by +21% over the last 6 months.
           </p>
         </Card>
 
-        {/* Skills & Badges */}
-        <Card className="p-6 lg:col-span-1">
-          <SectionHeading
-            title="Top Skills & Proof"
-            action={
-              <SecondaryButton onClick={() => setSkillModal(true)} className="!px-3 !py-1.5 text-xs">
-                <Plus size={14} /> Add
-              </SecondaryButton>
-            }
-          />
-          <div className="flex flex-wrap gap-2 mb-4">
-            {skills.slice(0, 7).map((s) => {
-              const Icon = s.icon || getSkillIcon(s.name);
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => onNavigate("skills")}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#E9E2E5] bg-[#FAF8F9] text-xs transition-all hover:border-[#BA203B] hover:bg-white active:scale-95 cursor-pointer text-left"
-                >
-                  {Icon && <Icon size={13} className="text-[#BA203B]" />}
-                  <span className="text-[#101218] font-semibold">{s.name}</span>
-                  <LevelBadge level={s.level} />
-                  {s.verified && <BadgeCheck size={14} className="text-[#1B7352]" />}
-                </button>
-              );
-            })}
-          </div>
-          <p className="text-xs text-[#707584] mb-3">{verifiedCount} of {skills.length} skills verified</p>
-          <button onClick={() => onNavigate("skills")} className="text-sm text-[#BA203B] font-semibold hover:underline">
-            View All Skills →
-          </button>
-        </Card>
-
-        {/* Skill Gap */}
-        <Card className="p-6 lg:col-span-1">
+        {/* Skill Gaps */}
+        <Card className="p-6 sm:p-7">
           <SectionHeading title="Priority Skill Gaps" />
-          <div className="space-y-2.5 mb-4">
-            {GAP_DATA.slice(0, 4).map((g) => (
+          <div className="space-y-2.5 mb-3">
+            {GAP_DATA.slice(0, 3).map((g) => (
               <button
                 key={g.skill}
                 onClick={() => onNavigate("gap")}
-                className="w-full flex items-center justify-between gap-2 text-sm p-1.5 -mx-1.5 rounded-xl hover:bg-[#FAF8F9] active:scale-[0.99] transition-all text-left"
+                className="w-full flex items-center justify-between gap-2 text-xs p-2.5 rounded-2xl hover:bg-[#F4F8FA] transition-all text-left border border-transparent hover:border-[#E2EBF0]"
               >
-                <span className="text-[#101218] font-medium truncate">{g.skill}</span>
+                <span className="text-[#111827] font-semibold truncate">{g.skill}</span>
                 <PriorityBadge priority={gapPriority(g.curVal, g.reqVal)} />
               </button>
             ))}
           </div>
-          <p className="text-xs text-[#707584] mb-3">Focus on high-priority gaps first to improve your {profile?.careerGoal || "Data Analyst"} readiness.</p>
-          <button onClick={() => onNavigate("gap")} className="text-sm text-[#BA203B] font-semibold hover:underline">
+          <button
+            onClick={() => onNavigate("gap")}
+            className="text-xs font-bold text-[#111827] hover:underline block pt-2 border-t border-[#F1F5F9]"
+          >
             View Full Skill Gap Analysis →
           </button>
-        </Card>
-      </div>
-
-      {/* Projects showcase */}
-      <ProjectsShowcase projects={projects} onAddProject={onAddProject} />
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Certificates */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <SectionHeading title="Recent Certificates" />
-            <button onClick={() => onNavigate("certificates")} className="text-xs text-[#BA203B] font-semibold hover:underline">
-              View All ({certificates?.length || 0}) →
-            </button>
-          </div>
-          <div className="space-y-3">
-            {(certificates || []).slice(0, 3).map((c) => (
-              <button
-                key={c.id}
-                onClick={() => onNavigate("certificates")}
-                className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-[#FAF8F9] active:scale-[0.99] transition-colors text-left"
-              >
-                <div className="w-10 h-10 rounded-xl bg-[#FCEBEF] border border-[#F5CAD3] flex items-center justify-center shrink-0">
-                  <FileBadge size={18} className="text-[#BA203B]" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-[#101218] truncate">{c.title}</p>
-                  <p className="text-xs text-[#707584]">{c.org} · {c.date}</p>
-                </div>
-                {c.verified && <BadgeCheck size={16} className="text-[#1B7352] shrink-0" />}
-              </button>
-            ))}
-          </div>
-        </Card>
-
-        {/* Growth chart */}
-        <Card className="p-6">
-          <SectionHeading title="Growth Progress" />
-          <div className="h-44" role="img" aria-label="Line chart showing career readiness score rising from 61% in September to 82% in March">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={PROGRESS_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid stroke="#F2ECEE" vertical={false} />
-                <XAxis dataKey="month" tick={{ fontSize: 12, fill: "#707584" }} axisLine={{ stroke: "#E9E2E5" }} tickLine={false} />
-                <YAxis tick={{ fontSize: 12, fill: "#707584" }} axisLine={false} tickLine={false} domain={[40, 100]} />
-                <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E9E2E5", boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }} />
-                <Line type="monotone" dataKey="score" stroke="#BA203B" strokeWidth={3} dot={{ fill: "#BA203B", r: 4, stroke: "#FFFFFF", strokeWidth: 2 }} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-          <p className="text-sm text-[#1B7352] font-semibold mt-2">Your readiness score has improved over the last 6 months.</p>
         </Card>
       </div>
 
