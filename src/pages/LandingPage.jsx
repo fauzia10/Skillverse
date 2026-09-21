@@ -239,6 +239,7 @@ export function LandingPage({ onLogin }) {
         {/* Hero CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mt-9">
           <button
+            type="button"
             onClick={() => scrollToAuth("signup")}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-sm font-semibold bg-[#00C0F3] hover:bg-[#38BDF8] text-[#0A0D14] shadow-[0_8px_20px_rgba(0,192,243,0.25)] hover:shadow-[0_12px_28px_rgba(0,192,243,0.35)] transition-all active:scale-[0.98] cursor-pointer"
           >
@@ -247,15 +248,25 @@ export function LandingPage({ onLogin }) {
           </button>
 
           <button
+            type="button"
+            onClick={() => setGoogleModalOpen(true)}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl text-sm font-semibold bg-[#131824] hover:bg-[#182030] text-[#F1F5F9] border border-[#1F293D] hover:border-[#4285F4]/60 transition-all cursor-pointer shadow-sm active:scale-[0.98]"
+          >
+            <GoogleIcon size={18} />
+            <span>Continue with Google</span>
+          </button>
+
+          <button
+            type="button"
             onClick={() => scrollToAuth("login")}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl text-sm font-medium bg-[#131824] hover:bg-[#182030] text-[#F1F5F9] border border-[#1F293D] hover:border-[#2A3754] transition-all cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-medium bg-[#131824]/60 hover:bg-[#182030] text-[#94A3B8] hover:text-white border border-[#1F293D] transition-all cursor-pointer"
           >
             <span>Sign In</span>
           </button>
         </div>
 
         <p className="text-[11px] text-[#64748B] mt-4">
-          Free for students & universities · Scroll down to sign in
+          Free for students & universities · Instant Google Sign-In or Gmail Verification
         </p>
 
         {/* Platform Quick Badges */}
@@ -559,9 +570,13 @@ export function LandingPage({ onLogin }) {
                 <div className="grid grid-cols-2 gap-3 mb-5">
                   <button
                     type="button"
-                    onClick={() => handleOAuthLogin("google")}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setGoogleModalOpen(true);
+                    }}
                     disabled={loading}
-                    className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-[#0A0D14] hover:bg-[#182030] border border-[#1F293D] hover:border-[#2A3754] text-xs font-medium text-white transition-all cursor-pointer group"
+                    className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-[#0A0D14] hover:bg-[#182030] border border-[#1F293D] hover:border-[#4285F4]/60 text-xs font-medium text-white transition-all cursor-pointer group active:scale-98 shadow-sm"
                   >
                     <GoogleIcon size={16} />
                     <span>Continue with Google</span>

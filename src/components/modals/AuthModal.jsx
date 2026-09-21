@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { GoogleIcon, GithubIcon } from "../common/PlatformIcons";
 import { SkillVerseLogo } from "../common/Logo";
+import { GoogleAuthModal } from "../auth/GoogleAuthModal";
 
 export function AuthModal({
   isOpen,
@@ -23,6 +24,7 @@ export function AuthModal({
   const [mode, setMode] = useState(initialMode);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+  const [googleModalOpen, setGoogleModalOpen] = useState(false);
 
   // Form State
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
@@ -84,20 +86,15 @@ export function AuthModal({
   };
 
   const handleOAuthLogin = (provider) => {
+    if (provider === "google") {
+      setGoogleModalOpen(true);
+      return;
+    }
+
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      if (provider === "google") {
-        onLogin({
-          type: "google",
-          name: "Google Student",
-          email: "student@gmail.com",
-          username: "google_student",
-          provider: "Google",
-          college: "",
-          degree: "",
-        });
-      } else if (provider === "github") {
+      if (provider === "github") {
         onLogin({
           type: "github",
           name: "GitHub Developer",
@@ -349,6 +346,25 @@ export function AuthModal({
           </button>
         </form>
       </div>
+
+      {/* Google Sign-In Modal */}
+      <GoogleAuthModal
+        isOpen={googleModalOpen}
+        onClose={() => setGoogleModalOpen(false)}
+        onSelectAccount={(googleUser) => {
+          onLogin({
+            type: "google",
+            name: googleUser.name,
+            email: googleUser.email,
+            username: googleUser.username,
+            provider: "Google Identity Services",
+            college: "",
+            degree: "",
+          });
+          setGoogleModalOpen(false);
+          onClose();
+        }}
+      />
     </div>
   );
 }

@@ -106,30 +106,46 @@ export default function App() {
   }, []);
 
   const handleLogin = (userData) => {
-    const isSignup = userData.type === "credentials_signup";
+    const isGoogle = userData.type === "google";
+    const isOtp = userData.type === "email_otp";
+    const isSignup = userData.type === "credentials_signup" || isGoogle || isOtp;
+
     const user = {
       isAuthenticated: true,
-      username: userData.username || "student",
+      username: userData.username || (userData.email ? userData.email.split("@")[0] : "student"),
       name: userData.name || "Student Developer",
       email: userData.email || "student@university.edu",
-      provider: userData.provider || "SkillVerse Credentials",
+      provider: userData.provider || (isGoogle ? "Google Identity Services" : "SkillVerse Credentials"),
     };
     setAuthUser(user);
+
+    if (isGoogle) {
+      const initial = (userData.name || "G").charAt(0).toUpperCase();
+      const googleAvatar =
+        "data:image/svg+xml;utf8," +
+        encodeURIComponent(`
+        <svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'>
+          <rect width='96' height='96' rx='48' fill='#4285F4'/>
+          <text x='50%' y='56%' dominant-baseline='middle' text-anchor='middle' fill='#FFFFFF' font-size='42' font-family='Inter, sans-serif' font-weight='700'>${initial}</text>
+        </svg>`);
+      setAvatar(googleAvatar);
+    } else {
+      setAvatar(DEFAULT_AVATAR);
+    }
 
     if (isSignup) {
       // 100% clean slate for newly registered student
       setSkills([]);
       setProjects([]);
       setCertificates([]);
-      setAvatar(DEFAULT_AVATAR);
       setProfile({
         ...INITIAL_PROFILE,
         name: userData.name || "Student Developer",
-        email: userData.email || "student@university.edu",
+        email: userData.email || (isGoogle ? "student@gmail.com" : "student@university.edu"),
         college: userData.college || "",
         degree: userData.degree || "",
       });
-      showToast(`Welcome to SkillVerse, ${userData.name || "Student"}! Your fresh student journey begins. 🚀`);
+      showToast(`Welcome to SkillVerse, ${userData.name || "Student"}! Fresh student portfolio ready. 🚀`);
     } else {
       if (userData.name) {
         setProfile((prev) => ({
