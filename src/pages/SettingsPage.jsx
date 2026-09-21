@@ -252,10 +252,10 @@ export function SettingsPage({
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
-            <TextField label="Student Registration ID" value={profile.studentId || "CS2023-8942"} disabled className="opacity-80" />
-            <TextField label="Registered Academic Email" value={profile.email || "rahul.sharma@example.edu"} disabled className="opacity-80" />
-            <TextField label="University / Institute" value={profile.college || "ABC University"} disabled className="opacity-80" />
-            <TextField label="Department & Major" value={`${profile.department || "Computer Science"}`} disabled className="opacity-80" />
+            <TextField label="Student Registration ID" value={profile.studentId || "SV-STU-001"} disabled className="opacity-80" />
+            <TextField label="Registered Academic Email" value={profile.email || "student@university.edu"} disabled className="opacity-80" />
+            <TextField label="University / Institute" value={profile.college || "University / College"} disabled className="opacity-80" />
+            <TextField label="Department & Major" value={profile.department || profile.degree || "Computer Science"} disabled className="opacity-80" />
           </div>
 
           <div className="p-4 rounded-3xl bg-[#182030] border border-[#1F293D] space-y-1.5">

@@ -39,30 +39,39 @@ export function GapAnalysisPage({ careerGoal }) {
         <p className="text-xs sm:text-sm text-[#94A3B8] mb-5">
           Levels are evaluated Beginner = 1, Intermediate = 2, Advanced = 3. Target high-priority gaps to increase candidate match percentage.
         </p>
-        <div className="overflow-x-auto -mx-2">
-          <table className="w-full text-sm min-w-[520px]">
-            <thead>
-              <tr className="text-left text-xs text-[#94A3B8] uppercase tracking-wider border-b border-[#1F293D]">
-                <th className="py-3 px-3.5 font-bold">Skill</th>
-                <th className="py-3 px-3.5 font-bold">Current Level</th>
-                <th className="py-3 px-3.5 font-bold">Required Level</th>
-                <th className="py-3 px-3.5 font-bold">Priority Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {GAP_DATA.map((g) => (
-                <tr key={g.skill} className="border-b border-[#1F293D] last:border-0 hover:bg-[#182030] transition-colors">
-                  <td className="py-3.5 px-3.5 text-[#F1F5F9] font-bold font-display">{g.skill}</td>
-                  <td className="py-3.5 px-3.5 text-[#94A3B8] font-medium">{g.current}</td>
-                  <td className="py-3.5 px-3.5 text-[#94A3B8] font-medium">{g.required}</td>
-                  <td className="py-3.5 px-3.5">
-                    <PriorityBadge priority={gapPriority(g.curVal, g.reqVal)} />
-                  </td>
+        {GAP_DATA.length === 0 ? (
+          <div className="text-center py-10 border border-dashed border-[#1F293D] rounded-2xl bg-[#182030]/40">
+            <p className="text-sm font-bold text-[#F1F5F9]">Ready to benchmark your skillset</p>
+            <p className="text-xs text-[#94A3B8] max-w-sm mx-auto mt-1">
+              Add your current skills and certifications. SkillVerse will automatically compare them with industry benchmarks for {careerGoal || "your selected career path"}.
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto -mx-2">
+            <table className="w-full text-sm min-w-[520px]">
+              <thead>
+                <tr className="text-left text-xs text-[#94A3B8] uppercase tracking-wider border-b border-[#1F293D]">
+                  <th className="py-3 px-3.5 font-bold">Skill</th>
+                  <th className="py-3 px-3.5 font-bold">Current Level</th>
+                  <th className="py-3 px-3.5 font-bold">Required Level</th>
+                  <th className="py-3 px-3.5 font-bold">Priority Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {GAP_DATA.map((g) => (
+                  <tr key={g.skill} className="border-b border-[#1F293D] last:border-0 hover:bg-[#182030] transition-colors">
+                    <td className="py-3.5 px-3.5 text-[#F1F5F9] font-bold font-display">{g.skill}</td>
+                    <td className="py-3.5 px-3.5 text-[#94A3B8] font-medium">{g.current}</td>
+                    <td className="py-3.5 px-3.5 text-[#94A3B8] font-medium">{g.required}</td>
+                    <td className="py-3.5 px-3.5">
+                      <PriorityBadge priority={gapPriority(g.curVal, g.reqVal)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </Card>
     </div>
   );

@@ -13,6 +13,8 @@ import { ProjectsPage } from "./pages/ProjectsPage";
 import { CertificatesPage } from "./pages/CertificatesPage";
 import { ProgressPage } from "./pages/ProgressPage";
 import { SettingsPage } from "./pages/SettingsPage";
+import { LoginPage } from "./pages/LoginPage";
+import { LandingPage } from "./pages/LandingPage";
 
 import { PAGE_TITLES } from "./constants/navigation";
 import {
@@ -33,6 +35,18 @@ import {
 export default function App() {
   const [activePage, setActivePage] = useState("dashboard");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [publicView, setPublicView] = useState("landing"); // "landing" | "login"
+  const [authMode, setAuthMode] = useState("login"); // "login" | "signup"
+
+  // Authentication State
+  const [authUser, setAuthUser] = useState(() =>
+    loadState("skillverse_auth_user", {
+      isAuthenticated: false,
+      username: "",
+      name: "",
+      email: "",
+    })
+  );
 
   // Persistent States with localStorage
   const [avatar, setAvatar] = useState(() =>
@@ -55,6 +69,11 @@ export default function App() {
   );
 
   const [toast, setToast] = useState({ show: false, message: "" });
+
+  // Sync to LocalStorage
+  useEffect(() => {
+    saveState("skillverse_auth_user", authUser);
+  }, [authUser]);
 
   // Sync to LocalStorage
   useEffect(() => {
@@ -85,6 +104,57 @@ export default function App() {
     setToast({ show: true, message });
     setTimeout(() => setToast({ show: false, message: "" }), 2800);
   }, []);
+
+  const handleLogin = (userData) => {
+    const isSignup = userData.type === "credentials_signup";
+    const user = {
+      isAuthenticated: true,
+      username: userData.username || "student",
+      name: userData.name || "Student Developer",
+      email: userData.email || "student@university.edu",
+      provider: userData.provider || "SkillVerse Credentials",
+    };
+    setAuthUser(user);
+
+    if (isSignup) {
+      // 100% clean slate for newly registered student
+      setSkills([]);
+      setProjects([]);
+      setCertificates([]);
+      setAvatar(DEFAULT_AVATAR);
+      setProfile({
+        ...INITIAL_PROFILE,
+        name: userData.name || "Student Developer",
+        email: userData.email || "student@university.edu",
+        college: userData.college || "",
+        degree: userData.degree || "",
+      });
+      showToast(`Welcome to SkillVerse, ${userData.name || "Student"}! Your fresh student journey begins. 🚀`);
+    } else {
+      if (userData.name) {
+        setProfile((prev) => ({
+          ...prev,
+          name: userData.name || prev.name || "Student Developer",
+          email: userData.email || prev.email || "student@university.edu",
+          college: userData.college || prev.college || "",
+          degree: userData.degree || prev.degree || "",
+          githubUsername: userData.githubUsername || prev.githubUsername,
+        }));
+      }
+      showToast(`Welcome back, ${userData.name || "Student"}! Signed in successfully. 🎉`);
+    }
+  };
+
+  const handleLogout = () => {
+    setAuthUser({ isAuthenticated: false });
+    setPublicView("landing");
+    showToast("Signed out. You can sign back in anytime.");
+  };
+
+  const handleOpenAuth = (mode = "login") => {
+    setAuthMode(mode);
+    setPublicView("login");
+  };
 
   const handleAddSkill = (skill) => {
     setSkills((prev) => [skill, ...prev]);
@@ -131,12 +201,25 @@ export default function App() {
     setProjects(INITIAL_PROJECTS);
     setCertificates(INITIAL_CERTIFICATES);
     setSettings(DEFAULT_SETTINGS);
-    showToast("All data reset to initial demo state.");
+    showToast("All data reset to initial state.");
   };
 
   useEffect(() => {
     document.title = "SkillVerse · Verified Student Identity & Growth Platform";
   }, []);
+
+  // If user is not authenticated, show Landing Page or Login Page
+  if (!authUser?.isAuthenticated) {
+    return (
+      <div
+        className="min-h-screen bg-[#0A0D14] text-[#F1F5F9] font-[Inter,sans-serif]"
+        style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+      >
+        <LandingPage onLogin={handleLogin} />
+        <Toast show={toast.show} message={toast.message} />
+      </div>
+    );
+  }
 
   let page;
   switch (activePage) {
@@ -244,6 +327,7 @@ export default function App() {
       <Sidebar
         activePage={activePage}
         onNavigate={setActivePage}
+        onLogout={handleLogout}
         mobileOpen={mobileOpen}
         setMobileOpen={setMobileOpen}
         profile={profile}
@@ -253,6 +337,9 @@ export default function App() {
       <div className="min-w-0 md:pl-[72px] pb-20 md:pb-8 transition-all duration-300">
         <Header
           onNavigate={setActivePage}
+          onLogout={handleLogout}
+          profile={profile}
+          avatar={avatar}
           title={activePage === "dashboard" ? null : PAGE_TITLES[activePage]}
         />
         <main className="p-4 sm:px-8 sm:pb-8 pt-2 sm:pt-4">{page}</main>

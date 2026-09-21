@@ -3,7 +3,7 @@ import { BadgeCheck, ExternalLink, Printer, Copy, Check, Award, ShieldCheck, Spa
 import { Modal } from "../common/Modal";
 import { PrimaryButton, SecondaryButton } from "../common/FormControls";
 
-export function CertificatePreviewModal({ open, onClose, cert, studentName = "Rahul Sharma" }) {
+export function CertificatePreviewModal({ open, onClose, cert, studentName = "Student Developer" }) {
   const [copied, setCopied] = useState(false);
 
   if (!cert) return null;

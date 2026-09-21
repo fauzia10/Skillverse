@@ -49,14 +49,14 @@ export function DashboardPage({
   const [skillModal, setSkillModal] = useState(false);
 
   const verifiedCount = skills.filter((s) => s.verified).length;
-  const baseScore = 50;
-  const skillBonus = Math.min(25, verifiedCount * 5);
-  const projectBonus = Math.min(15, (projects?.length || 0) * 3);
-  const certBonus = Math.min(10, (certificates?.length || 0) * 2.5);
-  const readinessScore = Math.min(
-    98,
-    Math.round(baseScore + skillBonus + projectBonus + certBonus)
-  );
+  const hasAnyData = skills.length > 0 || (projects?.length || 0) > 0 || (certificates?.length || 0) > 0;
+  const baseScore = hasAnyData ? 30 : 0;
+  const skillBonus = Math.min(30, verifiedCount * 6 + skills.length * 2);
+  const projectBonus = Math.min(25, (projects?.length || 0) * 8);
+  const certBonus = Math.min(15, (certificates?.length || 0) * 5);
+  const readinessScore = hasAnyData
+    ? Math.min(98, Math.round(baseScore + skillBonus + projectBonus + certBonus))
+    : 0;
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
@@ -79,7 +79,7 @@ export function DashboardPage({
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
             <div className="relative shrink-0">
               <img
-                src={avatar || "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=240&auto=format&fit=crop&q=80"}
+                src={avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=240&auto=format&fit=crop&q=80"}
                 alt={profile?.name || "Student Profile"}
                 className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl object-cover border-2 border-[#2A3754] shadow-md ring-2 ring-[#00C0F3]/20"
               />
@@ -94,30 +94,30 @@ export function DashboardPage({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-xl sm:text-2xl font-black text-[#F1F5F9] font-display">
-                  {profile?.name || "Rahul Sharma"}
+                  {profile?.name || "Student Developer"}
                 </h3>
               </div>
               <p className="text-xs text-[#94A3B8] mt-0.5 font-medium">
-                <span className="text-[#00C0F3] font-bold">Student Developer</span> · 286 days on the platform
+                <span className="text-[#00C0F3] font-bold">{profile?.careerGoal || "Student Developer"}</span> · Verified Ledger
               </p>
 
               {/* 4-Item Contact Grid with Micro-Icons */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5 mt-3 text-xs text-[#94A3B8]">
                 <div className="flex items-center gap-2">
                   <Phone size={13} className="text-[#64748B] shrink-0" />
-                  <span className="truncate">{profile?.phone || "+91 98765-43210"}</span>
+                  <span className="truncate">{profile?.phone || "Phone not added"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail size={13} className="text-[#64748B] shrink-0" />
-                  <span className="truncate">{profile?.email || "rahul.sharma@university.edu"}</span>
+                  <span className="truncate">{profile?.email || "Email not added"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin size={13} className="text-[#64748B] shrink-0" />
-                  <span className="truncate">{profile?.location || "Bangalore, India"}</span>
+                  <span className="truncate">{profile?.location || "Location not added"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Building2 size={13} className="text-[#64748B] shrink-0" />
-                  <span className="truncate">{profile?.college || "National Institute of Tech"}</span>
+                  <span className="truncate">{profile?.college || "University / College"}</span>
                 </div>
               </div>
             </div>
@@ -127,14 +127,14 @@ export function DashboardPage({
           <div className="flex items-center gap-2 self-end sm:self-start">
             <button
               onClick={() => onNavigate("profile")}
-              className="w-9 h-9 rounded-full bg-[#182030] border border-[#232F47] hover:bg-[#202B40] text-[#94A3B8] hover:text-[#F1F5F9] flex items-center justify-center transition-all shadow-sm"
+              className="w-9 h-9 rounded-full bg-[#182030] border border-[#232F47] hover:bg-[#202B40] text-[#94A3B8] hover:text-[#F1F5F9] flex items-center justify-center transition-all shadow-sm cursor-pointer"
               title="Verified Student Identity"
             >
               <Lock size={15} />
             </button>
             <button
               onClick={() => onNavigate("profile")}
-              className="w-9 h-9 rounded-full bg-[#182030] border border-[#232F47] hover:bg-[#202B40] text-[#94A3B8] hover:text-[#F1F5F9] flex items-center justify-center transition-all shadow-sm"
+              className="w-9 h-9 rounded-full bg-[#182030] border border-[#232F47] hover:bg-[#202B40] text-[#94A3B8] hover:text-[#F1F5F9] flex items-center justify-center transition-all shadow-sm cursor-pointer"
               title="Edit Profile"
             >
               <Edit3 size={15} />
@@ -302,37 +302,59 @@ export function DashboardPage({
         {/* Growth chart */}
         <Card className="p-6 sm:p-7">
           <SectionHeading title="Growth Progress" />
-          <div className="h-44" role="img" aria-label="Line chart showing career readiness score rising">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={PROGRESS_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid stroke="#1F293D" vertical={false} />
-                <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={{ stroke: "#1F293D" }} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} domain={[40, 100]} />
-                <Tooltip contentStyle={{ borderRadius: 16, backgroundColor: "#182030", border: "1px solid #232F47", color: "#F1F5F9", boxShadow: "0 8px 24px rgba(0,0,0,0.4)" }} />
-                <Line type="monotone" dataKey="score" stroke="#00C0F3" strokeWidth={3} dot={{ fill: "#00C0F3", r: 4, stroke: "#131824", strokeWidth: 2 }} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-          <p className="text-xs text-[#A3E635] font-bold mt-2">
-            📈 Readiness score has improved by +21% over the last 6 months.
-          </p>
+          {PROGRESS_DATA.length > 0 ? (
+            <>
+              <div className="h-44" role="img" aria-label="Line chart showing career readiness score rising">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={PROGRESS_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                    <CartesianGrid stroke="#1F293D" vertical={false} />
+                    <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={{ stroke: "#1F293D" }} tickLine={false} />
+                    <YAxis tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} domain={[40, 100]} />
+                    <Tooltip contentStyle={{ borderRadius: 16, backgroundColor: "#182030", border: "1px solid #232F47", color: "#F1F5F9", boxShadow: "0 8px 24px rgba(0,0,0,0.4)" }} />
+                    <Line type="monotone" dataKey="score" stroke="#00C0F3" strokeWidth={3} dot={{ fill: "#00C0F3", r: 4, stroke: "#131824", strokeWidth: 2 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="text-xs text-[#A3E635] font-bold mt-2">
+                📈 Readiness score tracked in real-time as you add skills & projects.
+              </p>
+            </>
+          ) : (
+            <div className="h-44 flex flex-col items-center justify-center text-center p-4 border border-dashed border-[#1F293D] rounded-2xl bg-[#182030]/40">
+              <TrendingUp size={28} className="text-[#00C0F3] mb-2" />
+              <p className="text-xs font-bold text-[#F1F5F9]">Milestone Trajectory</p>
+              <p className="text-[11px] text-[#94A3B8] max-w-[240px] mt-0.5">
+                Add skills, pass proficiency checks, and publish projects to generate your growth trajectory.
+              </p>
+            </div>
+          )}
         </Card>
 
         {/* Skill Gaps */}
         <Card className="p-6 sm:p-7">
           <SectionHeading title="Priority Skill Gaps" />
-          <div className="space-y-2.5 mb-3">
-            {GAP_DATA.slice(0, 3).map((g) => (
-              <button
-                key={g.skill}
-                onClick={() => onNavigate("gap")}
-                className="w-full flex items-center justify-between gap-2 text-xs p-2.5 rounded-2xl hover:bg-[#182030] transition-all text-left border border-transparent hover:border-[#232F47]"
-              >
-                <span className="text-[#F1F5F9] font-semibold truncate">{g.skill}</span>
-                <PriorityBadge priority={gapPriority(g.curVal, g.reqVal)} />
-              </button>
-            ))}
-          </div>
+          {GAP_DATA.length > 0 ? (
+            <div className="space-y-2.5 mb-3">
+              {GAP_DATA.slice(0, 3).map((g) => (
+                <button
+                  key={g.skill}
+                  onClick={() => onNavigate("gap")}
+                  className="w-full flex items-center justify-between gap-2 text-xs p-2.5 rounded-2xl hover:bg-[#182030] transition-all text-left border border-transparent hover:border-[#232F47]"
+                >
+                  <span className="text-[#F1F5F9] font-semibold truncate">{g.skill}</span>
+                  <PriorityBadge priority={gapPriority(g.curVal, g.reqVal)} />
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="py-6 text-center border border-dashed border-[#1F293D] rounded-2xl bg-[#182030]/40 mb-3">
+              <Sparkles size={24} className="mx-auto text-[#A3E635] mb-1.5" />
+              <p className="text-xs font-bold text-[#F1F5F9]">Custom Gap Analysis</p>
+              <p className="text-[11px] text-[#94A3B8] max-w-[240px] mx-auto mt-0.5">
+                Targeting <strong className="text-[#00C0F3]">{profile?.careerGoal || "Software Developer"}</strong>. Add skills to benchmark your gaps.
+              </p>
+            </div>
+          )}
           <button
             onClick={() => onNavigate("gap")}
             className="text-xs font-bold text-[#00C0F3] hover:underline block pt-2 border-t border-[#1F293D]"

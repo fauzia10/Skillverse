@@ -93,10 +93,10 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
               <span>GitHub Developer Profile</span>
             </p>
             <div className="grid sm:grid-cols-2 gap-x-4">
-              <TextField label="GitHub Username / Handle" value={form.githubUsername || ""} onChange={set("githubUsername")} placeholder="e.g. rahul-sharma" />
+              <TextField label="GitHub Username / Handle" value={form.githubUsername || ""} onChange={set("githubUsername")} placeholder="e.g. your-github-handle" />
               <TextField label="GitHub Profile URL" value={form.github || ""} onChange={set("github")} placeholder="https://github.com/..." />
-              <TextField label="Public Repositories Count" type="number" value={form.githubRepos || ""} onChange={set("githubRepos")} placeholder="18" />
-              <TextField label="Annual Contributions / Commits" type="number" value={form.githubContributions || ""} onChange={set("githubContributions")} placeholder="340" />
+              <TextField label="Public Repositories Count" type="number" value={form.githubRepos || ""} onChange={set("githubRepos")} placeholder="0" />
+              <TextField label="Annual Contributions / Commits" type="number" value={form.githubContributions || ""} onChange={set("githubContributions")} placeholder="0" />
             </div>
           </div>
 
@@ -107,10 +107,10 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
               <span>LeetCode Competitive Programming</span>
             </p>
             <div className="grid sm:grid-cols-2 gap-x-4">
-              <TextField label="LeetCode Username" value={form.leetcodeUsername || ""} onChange={set("leetcodeUsername")} placeholder="e.g. rahul_codes" />
+              <TextField label="LeetCode Username" value={form.leetcodeUsername || ""} onChange={set("leetcodeUsername")} placeholder="e.g. your_leetcode" />
               <TextField label="LeetCode Profile URL" value={form.leetcode || ""} onChange={set("leetcode")} placeholder="https://leetcode.com/u/..." />
-              <TextField label="Total Problems Solved" type="number" value={form.leetcodeSolved || ""} onChange={set("leetcodeSolved")} placeholder="428" />
-              <TextField label="Contest Rating" type="number" value={form.leetcodeRating || ""} onChange={set("leetcodeRating")} placeholder="1845" />
+              <TextField label="Total Problems Solved" type="number" value={form.leetcodeSolved || ""} onChange={set("leetcodeSolved")} placeholder="0" />
+              <TextField label="Contest Rating" type="number" value={form.leetcodeRating || ""} onChange={set("leetcodeRating")} placeholder="0" />
             </div>
             <div className="grid grid-cols-3 gap-2 mt-2">
               <TextField label="Easy" type="number" value={form.leetcodeEasy || ""} onChange={set("leetcodeEasy")} />
@@ -119,18 +119,60 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
             </div>
           </div>
 
-          {/* Codeforces & LinkedIn */}
+          {/* Codeforces */}
           <div className="p-5 rounded-3xl bg-[#182030] border border-[#232F47]">
             <p className="text-xs font-bold text-[#F1F5F9] mb-3 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
-              <span>Codeforces & Professional Links</span>
+              <span>Codeforces Contest Rating</span>
             </p>
             <div className="grid sm:grid-cols-2 gap-x-4">
-              <TextField label="Codeforces Handle" value={form.codeforcesHandle || ""} onChange={set("codeforcesHandle")} placeholder="e.g. rahul_sharma" />
+              <TextField label="Codeforces Handle" value={form.codeforcesHandle || ""} onChange={set("codeforcesHandle")} placeholder="e.g. your_codeforces" />
               <TextField label="Codeforces Profile URL" value={form.codeforces || ""} onChange={set("codeforces")} placeholder="https://codeforces.com/profile/..." />
-              <TextField label="Codeforces Rating" type="number" value={form.codeforcesRating || ""} onChange={set("codeforcesRating")} placeholder="1492" />
+              <TextField label="Codeforces Rating" type="number" value={form.codeforcesRating || ""} onChange={set("codeforcesRating")} placeholder="0" />
               <TextField label="Codeforces Rank Title" value={form.codeforcesRank || ""} onChange={set("codeforcesRank")} placeholder="Specialist / Expert" />
-              <div className="sm:col-span-2">
+            </div>
+          </div>
+
+          {/* HackerRank */}
+          <div className="p-5 rounded-3xl bg-[#182030] border border-[#232F47]">
+            <p className="text-xs font-bold text-[#F1F5F9] mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+              <span>HackerRank Verified Badges</span>
+            </p>
+            <div className="grid sm:grid-cols-2 gap-x-4">
+              <TextField label="HackerRank Username" value={form.hackerrankUsername || ""} onChange={set("hackerrankUsername")} placeholder="e.g. your_hackerrank" />
+              <TextField label="HackerRank Profile URL" value={form.hackerrank || ""} onChange={set("hackerrank")} placeholder="https://hackerrank.com/profile/..." />
+              <TextField label="HackerRank Star Tier" value={form.hackerrankStars || ""} onChange={set("hackerrankStars")} placeholder="5★" />
+              <TextField label="Gold Badges Count" type="number" value={form.hackerrankBadges || ""} onChange={set("hackerrankBadges")} placeholder="0" />
+            </div>
+          </div>
+
+          {/* GeeksforGeeks */}
+          <div className="p-5 rounded-3xl bg-[#182030] border border-[#232F47]">
+            <p className="text-xs font-bold text-[#F1F5F9] mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#34D399]" />
+              <span>GeeksforGeeks (GFG) Practice</span>
+            </p>
+            <div className="grid sm:grid-cols-2 gap-x-4">
+              <TextField label="GFG Username" value={form.gfgUsername || ""} onChange={set("gfgUsername")} placeholder="e.g. your_gfg" />
+              <TextField label="GFG Profile URL" value={form.gfg || ""} onChange={set("gfg")} placeholder="https://auth.geeksforgeeks.org/user/..." />
+              <TextField label="Problems Solved" type="number" value={form.gfgSolved || ""} onChange={set("gfgSolved")} placeholder="0" />
+              <TextField label="Campus / College Rank" type="number" value={form.gfgRank || ""} onChange={set("gfgRank")} placeholder="0" />
+            </div>
+          </div>
+
+          {/* CodeChef & Professional Network */}
+          <div className="p-5 rounded-3xl bg-[#182030] border border-[#232F47]">
+            <p className="text-xs font-bold text-[#F1F5F9] mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
+              <span>CodeChef & LinkedIn Network</span>
+            </p>
+            <div className="grid sm:grid-cols-2 gap-x-4">
+              <TextField label="CodeChef Handle" value={form.codechefHandle || ""} onChange={set("codechefHandle")} placeholder="e.g. your_codechef" />
+              <TextField label="CodeChef Profile URL" value={form.codechef || ""} onChange={set("codechef")} placeholder="https://codechef.com/users/..." />
+              <TextField label="CodeChef Stars" value={form.codechefStars || ""} onChange={set("codechefStars")} placeholder="0★" />
+              <TextField label="CodeChef Contest Rating" type="number" value={form.codechefRating || ""} onChange={set("codechefRating")} placeholder="0" />
+              <div className="sm:col-span-2 mt-2">
                 <TextField label="LinkedIn Profile URL" value={form.linkedin || ""} onChange={set("linkedin")} placeholder="https://linkedin.com/in/..." />
               </div>
             </div>

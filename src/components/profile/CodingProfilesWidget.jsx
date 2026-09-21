@@ -1,188 +1,195 @@
 import React from "react";
-import { ExternalLink, Code2, Trophy, GitBranch, CheckCircle2, Star } from "lucide-react";
-import { LeetCodeIcon, CodeforcesIcon, GithubIcon, LinkedinIcon } from "../common/PlatformIcons";
+import { ExternalLink, Zap } from "lucide-react";
+import {
+  LeetCodeIcon,
+  CodeforcesIcon,
+  GithubIcon,
+  HackerRankIcon,
+  GfgIcon,
+  CodeChefIcon,
+} from "../common/PlatformIcons";
 
 export function CodingProfilesWidget({ profile = {} }) {
   const leetcodeUrl = profile.leetcode || (profile.leetcodeUsername ? `https://leetcode.com/u/${profile.leetcodeUsername}` : "https://leetcode.com/");
   const githubUrl = profile.github || (profile.githubUsername ? `https://github.com/${profile.githubUsername}` : "https://github.com/");
   const codeforcesUrl = profile.codeforces || (profile.codeforcesHandle ? `https://codeforces.com/profile/${profile.codeforcesHandle}` : "https://codeforces.com/");
+  const hackerrankUrl = profile.hackerrank || (profile.hackerrankUsername ? `https://hackerrank.com/profile/${profile.hackerrankUsername}` : "https://hackerrank.com/");
+  const gfgUrl = profile.gfg || (profile.gfgUsername ? `https://auth.geeksforgeeks.org/user/${profile.gfgUsername}` : "https://geeksforgeeks.org/");
+  const codechefUrl = profile.codechef || (profile.codechefHandle ? `https://codechef.com/users/${profile.codechefHandle}` : "https://codechef.com/");
+
+  const allCards = [
+    {
+      id: "leetcode",
+      title: "LeetCode",
+      handle: profile.leetcodeUsername ? `@${profile.leetcodeUsername}` : "Not linked",
+      url: leetcodeUrl,
+      icon: LeetCodeIcon,
+      accentColor: "#FFA116",
+      bgGradient: "from-[#131824] via-[#181510] to-[#131824]",
+      hoverBorder: "hover:border-[#FFA116]",
+      hoverShadow: "hover:shadow-[0_12px_24px_-6px_rgba(255,161,22,0.25)]",
+      iconBg: "bg-[#2D2010] border-[#523A16] text-[#FFA116]",
+      mainStat: `${profile.leetcodeSolved || 0} Solved`,
+      badge: profile.leetcodeRating ? `Rating ${profile.leetcodeRating}` : "Unrated",
+      badgeColor: "text-[#FFA116] bg-[#2D2010] border-[#523A16]",
+      tag: "DSA & Algorithmic",
+      linkText: profile.leetcodeUsername ? "View LeetCode" : "Link Profile",
+    },
+    {
+      id: "github",
+      title: "GitHub",
+      handle: profile.githubUsername ? `@${profile.githubUsername}` : "Not linked",
+      url: githubUrl,
+      icon: GithubIcon,
+      accentColor: "#00C0F3",
+      bgGradient: "from-[#131824] via-[#101824] to-[#131824]",
+      hoverBorder: "hover:border-[#00C0F3]",
+      hoverShadow: "hover:shadow-[0_12px_24px_-6px_rgba(0,192,243,0.25)]",
+      iconBg: "bg-[#182030] border-[#232F47] text-[#F1F5F9]",
+      mainStat: `${profile.githubRepos || 0} Repos`,
+      badge: `${profile.githubContributions || 0} Commits/yr`,
+      badgeColor: "text-[#00C0F3] bg-[#0D2D3E] border-[#164863]",
+      tag: "Open Source Code",
+      linkText: profile.githubUsername ? "View GitHub" : "Link Profile",
+    },
+    {
+      id: "codeforces",
+      title: "Codeforces",
+      handle: profile.codeforcesHandle ? `@${profile.codeforcesHandle}` : "Not linked",
+      url: codeforcesUrl,
+      icon: CodeforcesIcon,
+      accentColor: "#1F8ACB",
+      bgGradient: "from-[#131824] via-[#101924] to-[#131824]",
+      hoverBorder: "hover:border-[#1F8ACB]",
+      hoverShadow: "hover:shadow-[0_12px_24px_-6px_rgba(31,138,203,0.25)]",
+      iconBg: "bg-[#0D2434] border-[#16425F] text-[#1F8ACB]",
+      mainStat: profile.codeforcesRating ? `${profile.codeforcesRating} Rating` : "Unrated",
+      badge: profile.codeforcesRank || "Unranked",
+      badgeColor: "text-[#1F8ACB] bg-[#0D2434] border-[#16425F]",
+      tag: "Competitive Contest",
+      linkText: profile.codeforcesHandle ? "View Contests" : "Link Profile",
+    },
+    {
+      id: "hackerrank",
+      title: "HackerRank",
+      handle: profile.hackerrankUsername ? `@${profile.hackerrankUsername}` : "Not linked",
+      url: hackerrankUrl,
+      icon: HackerRankIcon,
+      accentColor: "#10B981",
+      bgGradient: "from-[#131824] via-[#102018] to-[#131824]",
+      hoverBorder: "hover:border-[#10B981]",
+      hoverShadow: "hover:shadow-[0_12px_24px_-6px_rgba(16,185,129,0.25)]",
+      iconBg: "bg-[#0A261D] border-[#134E3C] text-[#10B981]",
+      mainStat: `${profile.hackerrankStars || "0★"} Stars`,
+      badge: `${profile.hackerrankBadges || 0} Badges`,
+      badgeColor: "text-[#10B981] bg-[#0A261D] border-[#134E3C]",
+      tag: "Verified Badges",
+      linkText: profile.hackerrankUsername ? "View Badges" : "Link Profile",
+    },
+    {
+      id: "gfg",
+      title: "GeeksforGeeks",
+      handle: profile.gfgUsername ? `@${profile.gfgUsername}` : "Not linked",
+      url: gfgUrl,
+      icon: GfgIcon,
+      accentColor: "#34D399",
+      bgGradient: "from-[#131824] via-[#102018] to-[#131824]",
+      hoverBorder: "hover:border-[#34D399]",
+      hoverShadow: "hover:shadow-[0_12px_24px_-6px_rgba(52,211,153,0.25)]",
+      iconBg: "bg-[#0B2E20] border-[#155E3F] text-[#34D399]",
+      mainStat: `${profile.gfgSolved || 0} Solved`,
+      badge: profile.gfgRank ? `Rank #${profile.gfgRank}` : "Score 0",
+      badgeColor: "text-[#34D399] bg-[#0B2E20] border-[#155E3F]",
+      tag: "Practice & POTD",
+      linkText: profile.gfgUsername ? "View GFG" : "Link Profile",
+    },
+    {
+      id: "codechef",
+      title: "CodeChef",
+      handle: profile.codechefHandle ? `@${profile.codechefHandle}` : "Not linked",
+      url: codechefUrl,
+      icon: CodeChefIcon,
+      accentColor: "#F59E0B",
+      bgGradient: "from-[#131824] via-[#1F1810] to-[#131824]",
+      hoverBorder: "hover:border-[#F59E0B]",
+      hoverShadow: "hover:shadow-[0_12px_24px_-6px_rgba(245,158,11,0.25)]",
+      iconBg: "bg-[#332210] border-[#5C3E18] text-[#F59E0B]",
+      mainStat: `${profile.codechefStars || "0★"} Stars`,
+      badge: profile.codechefRating ? `Rating ${profile.codechefRating}` : "Unrated",
+      badgeColor: "text-[#F59E0B] bg-[#332210] border-[#5C3E18]",
+      tag: profile.codechefDiv || "Rated Contests",
+      linkText: profile.codechefHandle ? "View Ratings" : "Link Profile",
+    },
+  ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {/* LeetCode Card */}
-      <div className="group relative p-5 rounded-2xl border border-[#232F47] bg-gradient-to-br from-[#131824] via-[#161D2B] to-[#131824] hover:border-[#FFA116] hover:shadow-[0_16px_32px_-8px_rgba(255,161,22,0.25)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FFA116] to-[#FFC069] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
-        <div>
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[#2D2010] border border-[#523A16] flex items-center justify-center text-[#FFA116] shrink-0 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-[0_4px_12px_rgba(255,161,22,0.2)] transition-all duration-300">
-                <LeetCodeIcon size={20} />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-[#F1F5F9] group-hover:text-[#FFA116] transition-colors duration-200">LeetCode</p>
-                <p className="text-xs text-[#94A3B8]">@{profile.leetcodeUsername || "rahul_codes"}</p>
-              </div>
-            </div>
-            <a
-              href={leetcodeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#FFA116] hover:bg-[#2D2010] group-hover:scale-105 transition-all"
-              title="Open LeetCode Profile"
+    <div className="w-full">
+      {/* Responsive One-Row Horizontal Strip (Scrollable on small screens, 6-col on large) */}
+      <div className="flex xl:grid xl:grid-cols-6 gap-3.5 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-[#1F293D] scrollbar-track-transparent">
+        {allCards.map((card) => {
+          const Icon = card.icon;
+          return (
+            <div
+              key={card.id}
+              className={`group relative p-4 rounded-2xl border border-[#232F47] bg-gradient-to-br ${card.bgGradient} ${card.hoverBorder} ${card.hoverShadow} hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden shrink-0 min-w-[200px] xl:min-w-0 xl:w-auto`}
             >
-              <ExternalLink size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-            </a>
-          </div>
+              {/* Top Accent Line */}
+              <div
+                className="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ backgroundColor: card.accentColor }}
+              />
 
-          <div className="mb-3">
-            <div className="flex items-baseline justify-between mb-1">
-              <span className="text-2xl font-extrabold text-[#F1F5F9] font-display group-hover:text-[#FFA116] transition-colors duration-200">
-                {profile.leetcodeSolved || 428}
-              </span>
-              <span className="text-xs font-semibold text-[#FFA116] bg-[#2D2010] px-2 py-0.5 rounded-md border border-[#523A16] group-hover:bg-[#FFA116] group-hover:text-[#0A0D14] transition-colors duration-200">
-                Rating: {profile.leetcodeRating || 1845}
-              </span>
-            </div>
-            <p className="text-[11px] text-[#94A3B8]">Problems Solved across Data Structures & Algorithms</p>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-[10px] font-semibold">
-            <span className="px-2 py-0.5 rounded-md bg-[#062E23] text-[#10B981] border border-[#0F5132]">
-              Easy: {profile.leetcodeEasy || 160}
-            </span>
-            <span className="px-2 py-0.5 rounded-md bg-[#3A2A10] text-[#FBBF24] border border-[#5C4218]">
-              Med: {profile.leetcodeMedium || 215}
-            </span>
-            <span className="px-2 py-0.5 rounded-md bg-[#36121C] text-[#FB7185] border border-[#541B2C]">
-              Hard: {profile.leetcodeHard || 53}
-            </span>
-          </div>
-        </div>
-
-        <a
-          href={leetcodeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 pt-3 border-t border-[#232F47] text-xs font-semibold text-[#FFA116] hover:text-[#FFC069] flex items-center justify-between group/link"
-        >
-          <span className="group-hover/link:underline">View LeetCode Activity</span>
-          <ExternalLink size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
-        </a>
-      </div>
-
-      {/* GitHub Card */}
-      <div className="group relative p-5 rounded-2xl border border-[#232F47] bg-gradient-to-br from-[#131824] via-[#161D2B] to-[#131824] hover:border-[#00C0F3] hover:shadow-[0_16px_32px_-8px_rgba(0,192,243,0.22)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00C0F3] to-[#38BDF8] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-        <div>
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[#182030] border border-[#232F47] flex items-center justify-center text-[#F1F5F9] shrink-0 group-hover:scale-110 group-hover:-rotate-3 group-hover:shadow-[0_4px_12px_rgba(0,192,243,0.18)] transition-all duration-300">
-                <GithubIcon size={20} />
-              </div>
               <div>
-                <p className="text-sm font-bold text-[#F1F5F9] group-hover:text-[#00C0F3] transition-colors duration-200">GitHub</p>
-                <p className="text-xs text-[#94A3B8]">@{profile.githubUsername || "rahul-sharma"}</p>
+                <div className="flex items-center justify-between gap-2 mb-2.5">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 ${card.iconBg}`}>
+                      <Icon size={20} />
+                    </div>
+                    <div className="min-w-0 truncate">
+                      <p className="text-xs font-bold text-[#F1F5F9] group-hover:text-white transition-colors truncate">
+                        {card.title}
+                      </p>
+                      <p className="text-[10px] text-[#94A3B8] truncate">{card.handle}</p>
+                    </div>
+                  </div>
+                  <a
+                    href={card.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1 rounded-md text-[#94A3B8] hover:text-[#00C0F3] hover:bg-[#182030] transition-all shrink-0"
+                    title={`Open ${card.title}`}
+                  >
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+
+                <div className="mb-2">
+                  <span className="text-base font-extrabold text-[#F1F5F9] font-display block truncate">
+                    {card.mainStat}
+                  </span>
+                  <span className={`inline-block mt-1 text-[10px] font-semibold px-1.5 py-0.5 rounded border ${card.badgeColor} truncate max-w-full`}>
+                    {card.badge}
+                  </span>
+                </div>
+
+                <p className="text-[10px] text-[#94A3B8] truncate mb-1">
+                  {card.tag}
+                </p>
               </div>
+
+              <a
+                href={card.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2.5 pt-2 border-t border-[#1F293D] text-[11px] font-semibold flex items-center justify-between group/link"
+                style={{ color: card.accentColor }}
+              >
+                <span className="group-hover/link:underline truncate">{card.linkText}</span>
+                <ExternalLink size={11} className="group-hover:translate-x-0.5 transition-transform shrink-0" />
+              </a>
             </div>
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#00C0F3] hover:bg-[#182030] group-hover:scale-105 transition-all"
-              title="Open GitHub Profile"
-            >
-              <ExternalLink size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-            </a>
-          </div>
-
-          <div className="mb-3">
-            <div className="flex items-baseline justify-between mb-1">
-              <span className="text-2xl font-extrabold text-[#F1F5F9] font-display group-hover:text-[#00C0F3] transition-colors duration-200">
-                {profile.githubRepos || 18}
-              </span>
-              <span className="text-xs font-semibold text-[#00C0F3] bg-[#0D2D3E] px-2 py-0.5 rounded-md border border-[#164863] group-hover:bg-[#00C0F3] group-hover:text-[#0A0D14] transition-colors duration-200">
-                {profile.githubContributions || 342} Commits / yr
-              </span>
-            </div>
-            <p className="text-[11px] text-[#94A3B8]">Public Repositories & Open Source Contributions</p>
-          </div>
-
-          <div className="flex flex-wrap gap-1.5 text-[10px] font-semibold text-[#94A3B8]">
-            <span className="px-2 py-0.5 rounded-md bg-[#182030] border border-[#232F47] text-[#F1F5F9]">Python</span>
-            <span className="px-2 py-0.5 rounded-md bg-[#182030] border border-[#232F47] text-[#F1F5F9]">JavaScript</span>
-            <span className="px-2 py-0.5 rounded-md bg-[#182030] border border-[#232F47] text-[#F1F5F9]">SQL</span>
-            <span className="px-2 py-0.5 rounded-md bg-[#182030] border border-[#232F47] text-[#F1F5F9]">React</span>
-          </div>
-        </div>
-
-        <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 pt-3 border-t border-[#232F47] text-xs font-semibold text-[#00C0F3] hover:text-[#38BDF8] flex items-center justify-between group/link"
-        >
-          <span className="group-hover/link:underline">Explore Repositories</span>
-          <ExternalLink size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
-        </a>
-      </div>
-
-      {/* Codeforces Card */}
-      <div className="group relative p-5 rounded-2xl border border-[#232F47] bg-gradient-to-br from-[#131824] via-[#161D2B] to-[#131824] hover:border-[#1F8ACB] hover:shadow-[0_16px_32px_-8px_rgba(31,138,203,0.25)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#1F8ACB] to-[#6BC0F0] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-        <div>
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[#0D2434] border border-[#16425F] flex items-center justify-center text-[#1F8ACB] shrink-0 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-[0_4px_12px_rgba(31,138,203,0.2)] transition-all duration-300">
-                <CodeforcesIcon size={20} />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-[#F1F5F9] group-hover:text-[#1F8ACB] transition-colors duration-200">Codeforces</p>
-                <p className="text-xs text-[#94A3B8]">@{profile.codeforcesHandle || "rahul_sharma"}</p>
-              </div>
-            </div>
-            <a
-              href={codeforcesUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#1F8ACB] hover:bg-[#0D2434] group-hover:scale-105 transition-all"
-              title="Open Codeforces Profile"
-            >
-              <ExternalLink size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-            </a>
-          </div>
-
-          <div className="mb-3">
-            <div className="flex items-baseline justify-between mb-1">
-              <span className="text-2xl font-extrabold text-[#F1F5F9] font-display group-hover:text-[#1F8ACB] transition-colors duration-200">
-                {profile.codeforcesRating || 1492}
-              </span>
-              <span className="text-xs font-semibold text-[#1F8ACB] bg-[#0D2434] px-2 py-0.5 rounded-md border border-[#16425F] group-hover:bg-[#1F8ACB] group-hover:text-[#0A0D14] transition-colors duration-200">
-                {profile.codeforcesRank || "Specialist"}
-              </span>
-            </div>
-            <p className="text-[11px] text-[#94A3B8]">Contest Rating & Algorithmic Benchmarks</p>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-[10px] font-medium text-[#94A3B8]">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#0D2434] text-[#1F8ACB] font-semibold border border-[#16425F]">
-              <Trophy size={11} /> Active Competitor
-            </span>
-            <span className="px-2 py-0.5 rounded-md bg-[#182030] border border-[#232F47] text-[#F1F5F9]">32 Contests</span>
-          </div>
-        </div>
-
-        <a
-          href={codeforcesUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 pt-3 border-t border-[#232F47] text-xs font-semibold text-[#1F8ACB] hover:text-[#6BC0F0] flex items-center justify-between group/link"
-        >
-          <span className="group-hover/link:underline">View Contest History</span>
-          <ExternalLink size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
-        </a>
+          );
+        })}
       </div>
     </div>
   );

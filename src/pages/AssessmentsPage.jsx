@@ -70,53 +70,64 @@ export function AssessmentsPage({
         </p>
 
         <div className="space-y-3">
-          {skills.map((s) => {
-            const Icon = getSkillIcon(s.name);
-            const proof = getSkillProof(s.name, projects, certificates);
-            const isVerified = s.verified || proof.hasProof;
+          {skills.length === 0 ? (
+            <div className="text-center py-12 border border-dashed border-[#1F293D] rounded-3xl bg-[#182030]/50">
+              <BadgeCheck size={36} className="mx-auto text-[#10B981] mb-2" />
+              <p className="text-sm font-bold text-[#F1F5F9] font-display">No skills available for verification</p>
+              <p className="text-xs text-[#94A3B8] mb-4">Add skills to your portfolio first, then link projects, certificates, or complete assessments.</p>
+              <PrimaryButton onClick={() => onNavigate("skills")} className="!px-4 !py-2 text-xs font-bold">
+                Go to Skills Page →
+              </PrimaryButton>
+            </div>
+          ) : (
+            skills.map((s) => {
+              const Icon = getSkillIcon(s.name);
+              const proof = getSkillProof(s.name, projects, certificates);
+              const isVerified = s.verified || proof.hasProof;
 
-            return (
-              <div
-                key={s.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 rounded-3xl border border-[#1F293D] bg-[#182030]/60 hover:bg-[#1C2538] hover:border-[#00C0F3]/40 hover:shadow-sm transition-all gap-4"
-              >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-11 h-11 rounded-2xl bg-[#131824] border border-[#1F293D] flex items-center justify-center shrink-0 shadow-sm">
-                    <Icon size={19} className="text-[#00C0F3]" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <p className="text-sm font-bold text-[#F1F5F9] font-display">{s.name}</p>
-                      <LevelBadge level={s.level} />
-                      {isVerified && (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#10B981] bg-[#10B981]/15 px-2.5 py-0.5 rounded-full border border-[#10B981]/30">
-                          <BadgeCheck size={12} /> Verified
-                        </span>
-                      )}
+              return (
+                <div
+                  key={s.id}
+                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 rounded-3xl border border-[#1F293D] bg-[#182030]/60 hover:bg-[#1C2538] hover:border-[#00C0F3]/40 hover:shadow-sm transition-all gap-4"
+                >
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    <div className="w-11 h-11 rounded-2xl bg-[#131824] border border-[#1F293D] flex items-center justify-center shrink-0 shadow-sm">
+                      <Icon size={19} className="text-[#00C0F3]" />
                     </div>
-                    <p className="text-xs text-[#94A3B8] truncate">
-                      {proof.projects.length > 0 ? (
-                        <span>📁 Project proof: <strong className="text-[#F1F5F9]">{proof.projects[0].title}</strong></span>
-                      ) : proof.certificates.length > 0 ? (
-                        <span>📜 Accredited by: <strong className="text-[#F1F5F9]">{proof.certificates[0].org}</strong></span>
-                      ) : (
-                        <span className="text-[#64748B]">⚠️ No proof linked yet · Tag in a project or add certificate</span>
-                      )}
-                    </p>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <p className="text-sm font-bold text-[#F1F5F9] font-display">{s.name}</p>
+                        <LevelBadge level={s.level} />
+                        {isVerified && (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#10B981] bg-[#10B981]/15 px-2.5 py-0.5 rounded-full border border-[#10B981]/30">
+                            <BadgeCheck size={12} /> Verified
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-[#94A3B8] truncate">
+                        {proof.projects.length > 0 ? (
+                          <span>📁 Project proof: <strong className="text-[#F1F5F9]">{proof.projects[0].title}</strong></span>
+                        ) : proof.certificates.length > 0 ? (
+                          <span>📜 Accredited by: <strong className="text-[#F1F5F9]">{proof.certificates[0].org}</strong></span>
+                        ) : (
+                          <span className="text-[#64748B]">⚠️ No proof linked yet · Tag in a project or add certificate</span>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                    <SecondaryButton
+                      onClick={() => setSelectedSkill(s)}
+                      className="!px-3.5 !py-2 text-xs font-bold text-[#F1F5F9]"
+                    >
+                      <Eye size={13} /> View Evidence
+                    </SecondaryButton>
                   </div>
                 </div>
-
-                <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
-                  <SecondaryButton
-                    onClick={() => setSelectedSkill(s)}
-                    className="!px-3.5 !py-2 text-xs font-bold text-[#F1F5F9]"
-                  >
-                    <Eye size={13} /> View Evidence
-                  </SecondaryButton>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </Card>
 

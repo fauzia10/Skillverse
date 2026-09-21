@@ -10,9 +10,9 @@ export function CertificatesPage({
   certificates = [],
   onAddCertificate,
   onDeleteCertificate,
-  studentName = "Rahul Sharma",
-  projectsCount = 4,
-  skillsCount = 7,
+  studentName = "Student Developer",
+  projectsCount = 0,
+  skillsCount = 0,
 }) {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [previewCert, setPreviewCert] = useState(null);

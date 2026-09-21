@@ -50,23 +50,9 @@ export function getSkillProof(skillName = "", projects = [], certificates = []) 
   };
 }
 
-export const INITIAL_SKILLS = [
-  { id: 1, name: "Python", level: "Intermediate", verified: true, proofType: "project", proofTitle: "Customer Churn Analysis" },
-  { id: 2, name: "SQL", level: "Beginner", verified: true, proofType: "project", proofTitle: "Customer Churn Analysis" },
-  { id: 3, name: "Excel", level: "Advanced", verified: true, proofType: "certificate", proofTitle: "Google Data Analytics Certificate" },
-  { id: 4, name: "Data Analysis", level: "Intermediate", verified: true, proofType: "certificate", proofTitle: "Google Data Analytics Certificate" },
-  { id: 5, name: "Communication", level: "Advanced", verified: false },
-  { id: 6, name: "Problem Solving", level: "Intermediate", verified: false },
-  { id: 7, name: "JavaScript", level: "Beginner", verified: true, proofType: "project", proofTitle: "Expense Tracker" },
-];
+export const INITIAL_SKILLS = [];
 
-export const GAP_DATA = [
-  { skill: "SQL", current: "Beginner", required: "Intermediate", curVal: 1, reqVal: 2 },
-  { skill: "Data Visualization", current: "Beginner", required: "Intermediate", curVal: 1, reqVal: 2 },
-  { skill: "Statistics", current: "Beginner", required: "Intermediate", curVal: 1, reqVal: 2 },
-  { skill: "Python", current: "Intermediate", required: "Intermediate", curVal: 2, reqVal: 2 },
-  { skill: "Communication", current: "Advanced", required: "Intermediate", curVal: 3, reqVal: 2 },
-];
+export const GAP_DATA = [];
 
 export function gapPriority(cur, req) {
   const diff = req - cur;
@@ -75,186 +61,91 @@ export function gapPriority(cur, req) {
   return "Ready";
 }
 
-export const INITIAL_PROJECTS = [
-  {
-    id: 1,
-    title: "Customer Churn Analysis",
-    category: "Other",
-    skills: ["Python", "Pandas", "SQL", "Power BI"],
-    description:
-      "Analyzed customer behavior data to identify churn patterns and generate actionable business insights.",
-    github: "https://github.com/",
-    demo: "https://example.com/",
-    visual: "churn",
-    usage: [
-      { name: "Python", value: 42 },
-      { name: "SQL", value: 28 },
-      { name: "Pandas", value: 18 },
-      { name: "Power BI", value: 12 },
-    ],
-  },
-  {
-    id: 2,
-    title: "Expense Tracker",
-    category: "App",
-    skills: ["React", "JavaScript", "Firebase"],
-    description:
-      "A personal finance application for recording expenses, tracking budgets, and visualizing monthly spending.",
-    github: "https://github.com/",
-    demo: "https://example.com/",
-    visual: "expense",
-    usage: [
-      { name: "React", value: 48 },
-      { name: "JavaScript", value: 32 },
-      { name: "Firebase", value: 20 },
-    ],
-  },
-  {
-    id: 3,
-    title: "Campus Connect",
-    category: "Website",
-    skills: ["HTML", "CSS", "JavaScript", "Node.js"],
-    description:
-      "A student community platform for discovering events, announcements, clubs, and campus opportunities.",
-    github: "https://github.com/",
-    demo: "https://example.com/",
-    visual: "campus",
-    usage: [
-      { name: "JavaScript", value: 34 },
-      { name: "Node.js", value: 26 },
-      { name: "HTML", value: 22 },
-      { name: "CSS", value: 18 },
-    ],
-  },
-  {
-    id: 4,
-    title: "Smart Irrigation System",
-    category: "Hardware",
-    skills: ["Arduino", "IoT", "Soil Moisture Sensors", "C++"],
-    description:
-      "An IoT-based system that monitors soil conditions and automatically controls water delivery.",
-    github: "https://github.com/",
-    demo: "https://example.com/",
-    visual: "irrigation",
-    usage: [
-      { name: "C++", value: 38 },
-      { name: "Arduino", value: 30 },
-      { name: "IoT", value: 20 },
-      { name: "Soil Sensors", value: 12 },
-    ],
-  },
-];
+export const INITIAL_PROJECTS = [];
 
-export const INITIAL_CERTIFICATES = [
-  {
-    id: 1,
-    title: "Google Data Analytics Professional Certificate",
-    org: "Coursera · Google",
-    date: "Jan 2026",
-    verified: true,
-    credentialId: "GDA-89241-SV",
-    skills: ["Data Cleaning", "R Programming", "SQL", "Tableau", "Spreadsheets"],
-    description: "Demonstrated hands-on proficiency in data cleaning, exploratory analysis, visualization, and actionable business storytelling.",
-    verificationUrl: "https://coursera.org/verify/GDA-89241-SV",
-  },
-  {
-    id: 2,
-    title: "Joy of Computing using Python",
-    org: "NPTEL · IIT Madras",
-    date: "Nov 2025",
-    verified: true,
-    credentialId: "NPTEL-CS-58219",
-    skills: ["Python", "Algorithms", "Data Processing", "Object Oriented Programming"],
-    description: "Completed comprehensive computer science foundations covering logic, algorithms, and computational problem solving in Python.",
-    verificationUrl: "https://nptel.ac.in/verify/NPTEL-CS-58219",
-  },
-  {
-    id: 3,
-    title: "Applied Machine Learning & Deep Learning Workshop",
-    org: "ABC University",
-    date: "Aug 2025",
-    verified: false,
-    credentialId: "ABC-ML-2025-084",
-    skills: ["Supervised Learning", "Scikit-Learn", "Neural Networks"],
-    description: "3-day intensive hands-on lab covering regression, decision trees, cross-validation, and introductory neural networks.",
-    verificationUrl: "https://abc.edu/credentials/ABC-ML-2025-084",
-  },
-];
+export const INITIAL_CERTIFICATES = [];
 
-export const PROGRESS_DATA = [
-  { month: "September", score: 61 },
-  { month: "October", score: 65 },
-  { month: "November", score: 68 },
-  { month: "December", score: 72 },
-  { month: "January", score: 76 },
-  { month: "February", score: 78 },
-  { month: "March", score: 82 },
-];
+export const PROGRESS_DATA = [];
 
-export const BADGE_PROGRESSION = [
-  { skill: "SQL", from: "Beginner", to: "Intermediate" },
-  { skill: "Python", from: "Beginner", to: "Intermediate" },
-  { skill: "Excel", from: "Intermediate", to: "Advanced" },
-  { skill: "Data Analysis", from: "Beginner", to: "Intermediate" },
-];
+export const BADGE_PROGRESSION = [];
 
 export const CAREER_OPTIONS = [
-  "Data Analyst",
   "Software Developer",
+  "Full Stack Engineer",
+  "Data Analyst",
   "AI/ML Engineer",
-  "Web Developer",
-  "Business Analyst",
-  "UI/UX Designer",
+  "Frontend Engineer",
+  "Backend Engineer",
+  "Cybersecurity Analyst",
   "Cloud Solutions Architect",
+  "UI/UX Designer",
+  "DevOps Engineer",
 ];
 
 export const COURSEWORK = [
   "Data Structures & Algorithms",
   "Database Management Systems (DBMS)",
-  "Applied Statistics & Probability",
-  "Machine Learning Foundations",
+  "Operating Systems",
+  "Computer Networks",
   "Object Oriented Programming",
   "Full Stack Web Development",
+  "Applied Machine Learning",
 ];
 
 export const DEFAULT_AVATAR =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(`
   <svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'>
-    <rect width='96' height='96' rx='48' fill='#E7EEEE'/>
-    <circle cx='48' cy='38' r='17' fill='#315C61'/>
-    <path d='M14 90c4-22 22-32 34-32s30 10 34 32' fill='#315C61'/>
+    <rect width='96' height='96' rx='48' fill='#182030'/>
+    <circle cx='48' cy='38' r='17' fill='#00C0F3'/>
+    <path d='M14 90c4-22 22-32 34-32s30 10 34 32' fill='#00C0F3'/>
   </svg>`);
 
 export const INITIAL_PROFILE = {
-  name: "Rahul Sharma",
-  college: "ABC University",
-  degree: "B.Tech",
-  department: "Computer Science",
-  year: "3rd Year · Semester 5",
-  location: "Bengaluru, India",
-  email: "rahul.sharma@example.edu",
-  studentId: "CS2023-8942",
-  bio: "Aspiring software developer & data analyst passionate about building resilient systems and turning raw data into actionable insight.",
-  cgpa: "8.2",
-  achievements: "Dean's List — Semester 4; Runner-up, Inter-college Data Hackathon 2025; Lead Organizer of TechFest Data Track.",
-  careerGoal: "Data Analyst",
-  github: "https://github.com/rahul-sharma",
-  githubUsername: "rahul-sharma",
-  githubRepos: 18,
-  githubContributions: 342,
-  leetcode: "https://leetcode.com/u/rahul_codes",
-  leetcodeUsername: "rahul_codes",
-  leetcodeSolved: 428,
-  leetcodeRating: 1845,
-  leetcodeEasy: 160,
-  leetcodeMedium: 215,
-  leetcodeHard: 53,
-  codeforces: "https://codeforces.com/profile/rahul_sharma",
-  codeforcesHandle: "rahul_sharma",
-  codeforcesRating: 1492,
-  codeforcesRank: "Specialist",
-  linkedin: "https://linkedin.com/in/rahul-sharma-dev",
+  name: "",
+  college: "",
+  degree: "",
+  department: "",
+  year: "",
+  location: "",
+  email: "",
+  phone: "",
+  studentId: "",
+  bio: "",
+  cgpa: "",
+  achievements: "",
+  careerGoal: "Software Developer",
+  github: "",
+  githubUsername: "",
+  githubRepos: 0,
+  githubContributions: 0,
+  leetcode: "",
+  leetcodeUsername: "",
+  leetcodeSolved: 0,
+  leetcodeRating: 0,
+  leetcodeEasy: 0,
+  leetcodeMedium: 0,
+  leetcodeHard: 0,
+  codeforces: "",
+  codeforcesHandle: "",
+  codeforcesRating: 0,
+  codeforcesRank: "",
+  hackerrank: "",
+  hackerrankUsername: "",
+  hackerrankStars: "",
+  hackerrankBadges: 0,
+  hackerrankScore: 0,
+  gfg: "",
+  gfgUsername: "",
+  gfgScore: 0,
+  gfgSolved: 0,
+  gfgRank: 0,
+  codechef: "",
+  codechefHandle: "",
+  codechefStars: "",
+  codechefRating: 0,
+  codechefDiv: "",
+  linkedin: "",
 };
 
 export const DEFAULT_SETTINGS = {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function SkillVerseIcon({ size = 36, className = "" }) {
+export function SkillVerseIcon({ size = 50, className = "" }) {
   const [useFallback, setUseFallback] = useState(false);
 
   if (!useFallback) {
@@ -9,8 +9,8 @@ export function SkillVerseIcon({ size = 36, className = "" }) {
         src="./logo.png"
         alt="SkillVerse Logo"
         onError={() => setUseFallback(true)}
-        className={`object-contain rounded-lg ${className}`}
-        style={{ width: size, height: size }}
+        className={`object-contain ${className}`}
+        style={size ? { height: typeof size === "number" ? `${size}px` : size, width: "auto" } : {}}
       />
     );
   }
@@ -116,7 +116,7 @@ export function SkillVerseIcon({ size = 36, className = "" }) {
 }
 
 export function SkillVerseLogo({
-  size = 40,
+  size = 60,
   className = "",
 }) {
   return (

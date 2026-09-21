@@ -15,12 +15,14 @@ import {
   Menu,
   X,
   Sparkles,
+  LogOut,
 } from "lucide-react";
 import { SkillVerseIcon } from "../common/Logo";
 
 export function Sidebar({
   activePage,
   onNavigate,
+  onLogout,
   mobileOpen,
   setMobileOpen,
   profile,
@@ -61,8 +63,8 @@ export function Sidebar({
   const studentAvatar =
     avatar ||
     "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120&auto=format&fit=crop&q=80";
-  const studentName = profile?.name || "Rahul Sharma";
-  const studentEmail = profile?.email || "rahul@university.edu";
+  const studentName = profile?.name || "Student";
+  const studentEmail = profile?.email || "student@university.edu";
 
   const renderNavGroup = (title, items, sectionKey) => (
     <div className="mb-3">
@@ -74,9 +76,8 @@ export function Sidebar({
         <span className="truncate">{title}</span>
         <ChevronDown
           size={13}
-          className={`transition-transform duration-200 shrink-0 ${
-            openSections[sectionKey] ? "rotate-0" : "-rotate-90 text-[#64748B]"
-          }`}
+          className={`transition-transform duration-200 shrink-0 ${openSections[sectionKey] ? "rotate-0" : "-rotate-90 text-[#64748B]"
+            }`}
         />
       </div>
 
@@ -92,11 +93,10 @@ export function Sidebar({
                   onNavigate(item.id);
                   setMobileOpen?.(false);
                 }}
-                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all select-none ${
-                  active
-                    ? "bg-[#182338] text-[#00C0F3] border border-[#233554] shadow-sm"
-                    : "text-[#94A3B8] hover:bg-[#131824] hover:text-[#F1F5F9]"
-                }`}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all select-none ${active
+                  ? "bg-[#182338] text-[#00C0F3] border border-[#233554] shadow-sm"
+                  : "text-[#94A3B8] hover:bg-[#131824] hover:text-[#F1F5F9]"
+                  }`}
               >
                 <Icon
                   size={17}
@@ -121,31 +121,29 @@ export function Sidebar({
         onMouseLeave={() => setIsHovered(false)}
       >
         <aside
-          className={`h-full bg-[#0E1320] border-r border-[#1F293D] flex flex-col justify-between overflow-y-auto overflow-x-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isHovered
-              ? "w-[260px] p-4 shadow-[0_10px_35px_rgba(0,0,0,0.5)]"
-              : "w-[72px] p-3 shadow-[0_2px_10px_rgba(0,0,0,0.2)]"
-          }`}
+          className={`h-full bg-[#0E1320] border-r border-[#1F293D] flex flex-col justify-between overflow-y-auto overflow-x-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHovered
+            ? "w-[260px] p-4 shadow-[0_10px_35px_rgba(0,0,0,0.5)]"
+            : "w-[72px] p-3 shadow-[0_2px_10px_rgba(0,0,0,0.2)]"
+            }`}
         >
           {/* Top Section: Brand Logo & Profile Overview */}
           <div>
             {/* Logo Header (Clicking takes to default Dashboard) */}
             <button
               onClick={() => onNavigate("dashboard")}
-              className={`flex items-center w-full rounded-2xl transition-all select-none mb-3 ${
-                isHovered
-                  ? "p-2 justify-start hover:bg-[#131824]"
-                  : "justify-center p-1.5 hover:bg-[#131824]"
-              }`}
+              className={`flex items-center w-full rounded-2xl transition-all select-none mb-3 ${isHovered
+                ? "p-2 justify-start hover:bg-[#131824]"
+                : "justify-center p-1.5 hover:bg-[#131824]"
+                }`}
               title="SkillVerse Dashboard"
             >
               {isHovered ? (
-                <div className="flex items-center h-10 px-1 overflow-hidden">
-                  <SkillVerseIcon size={38} className="h-9 w-auto max-w-[210px] object-contain" />
+                <div className="flex items-center px-1 overflow-hidden py-1">
+                  <SkillVerseIcon size={70} className="h-16 w-auto max-w-[230px] object-contain" />
                 </div>
               ) : (
-                <div className="flex items-center justify-center w-10 h-10">
-                  <SkillVerseIcon size={32} className="w-8 h-8 object-contain" />
+                <div className="flex items-center justify-center w-12 h-12">
+                  <SkillVerseIcon size={46} className="h-11 w-auto max-w-[48px] object-contain" />
                 </div>
               )}
             </button>
@@ -153,11 +151,10 @@ export function Sidebar({
             {/* Unified Profile Overview (Left Sidebar Header) */}
             <div
               onClick={() => onNavigate("profile")}
-              className={`rounded-2xl transition-all cursor-pointer border select-none mb-4 ${
-                activePage === "profile"
-                  ? "bg-[#182338] border-[#2A3754] shadow-sm"
-                  : "bg-[#131824]/90 border-[#1F293D] hover:bg-[#182030] hover:border-[#2A3754]"
-              } ${isHovered ? "p-2.5" : "p-1.5 flex justify-center"}`}
+              className={`rounded-2xl transition-all cursor-pointer border select-none mb-4 ${activePage === "profile"
+                ? "bg-[#182338] border-[#2A3754] shadow-sm"
+                : "bg-[#131824]/90 border-[#1F293D] hover:bg-[#182030] hover:border-[#2A3754]"
+                } ${isHovered ? "p-2.5" : "p-1.5 flex justify-center"}`}
               title="Profile Overview"
             >
               <div className="flex items-center gap-2.5 min-w-0">
@@ -203,11 +200,10 @@ export function Sidebar({
                       key={item.id}
                       onClick={() => onNavigate(item.id)}
                       title={item.label}
-                      className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${
-                        active
-                          ? "bg-[#182338] text-[#00C0F3] border border-[#233554] shadow-sm"
-                          : "text-[#94A3B8] hover:bg-[#131824] hover:text-[#F1F5F9]"
-                      }`}
+                      className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${active
+                        ? "bg-[#182338] text-[#00C0F3] border border-[#233554] shadow-sm"
+                        : "text-[#94A3B8] hover:bg-[#131824] hover:text-[#F1F5F9]"
+                        }`}
                     >
                       <Icon size={18} />
                     </button>
@@ -217,22 +213,43 @@ export function Sidebar({
             )}
           </div>
 
-          {/* Bottom Settings Button (when collapsed) */}
-          {!isHovered && (
-            <div className="pt-2 flex flex-col items-center">
-              <button
-                onClick={() => onNavigate("settings")}
-                title="Settings"
-                className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${
-                  activePage === "settings"
+          {/* Bottom Settings & Sign Out Buttons (when collapsed / expanded) */}
+          <div className="pt-2 border-t border-[#1F293D]/60 space-y-1">
+            {isHovered ? (
+              onLogout && (
+                <button
+                  onClick={onLogout}
+                  className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-[#FB7185] hover:bg-[#FB7185]/10 border border-transparent hover:border-[#FB7185]/30 transition-all select-none"
+                  title="Sign Out"
+                >
+                  <LogOut size={16} className="shrink-0 text-[#FB7185]" />
+                  <span className="truncate whitespace-nowrap">Sign Out</span>
+                </button>
+              )
+            ) : (
+              <div className="flex flex-col items-center gap-1">
+                <button
+                  onClick={() => onNavigate("settings")}
+                  title="Settings"
+                  className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${activePage === "settings"
                     ? "bg-[#182338] text-[#00C0F3] border border-[#233554]"
                     : "text-[#94A3B8] hover:bg-[#131824] hover:text-[#F1F5F9]"
-                }`}
-              >
-                <Settings size={18} />
-              </button>
-            </div>
-          )}
+                    }`}
+                >
+                  <Settings size={18} />
+                </button>
+                {onLogout && (
+                  <button
+                    onClick={onLogout}
+                    title="Sign Out"
+                    className="w-10 h-10 rounded-2xl flex items-center justify-center text-[#94A3B8] hover:text-[#FB7185] hover:bg-[#FB7185]/10 transition-all"
+                  >
+                    <LogOut size={17} />
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </aside>
       </div>
 
@@ -240,36 +257,32 @@ export function Sidebar({
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0E1320]/95 backdrop-blur-md border-t border-[#1F293D] flex items-center justify-around px-2 py-2">
         <button
           onClick={() => onNavigate("dashboard")}
-          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
-            activePage === "dashboard" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
-          }`}
+          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${activePage === "dashboard" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
+            }`}
         >
           <LayoutDashboard size={18} />
           <span>Home</span>
         </button>
         <button
           onClick={() => onNavigate("profile")}
-          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
-            activePage === "profile" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
-          }`}
+          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${activePage === "profile" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
+            }`}
         >
           <User size={18} />
           <span>Overview</span>
         </button>
         <button
           onClick={() => onNavigate("skills")}
-          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
-            activePage === "skills" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
-          }`}
+          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${activePage === "skills" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
+            }`}
         >
           <Award size={18} />
           <span>Skills</span>
         </button>
         <button
           onClick={() => onNavigate("projects")}
-          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
-            activePage === "projects" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
-          }`}
+          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${activePage === "projects" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
+            }`}
         >
           <FolderKanban size={18} />
           <span>Projects</span>
@@ -278,7 +291,7 @@ export function Sidebar({
           onClick={() => setMobileOpen(true)}
           className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold text-[#94A3B8]"
         >
-          <Menu size={18} />
+          <Menu size={30} />
           <span>More</span>
         </button>
       </nav>
@@ -292,7 +305,7 @@ export function Sidebar({
           <div className="absolute bottom-0 left-0 right-0 bg-[#0E1320] border-t border-[#1F293D] rounded-t-[32px] p-5 max-h-[85vh] overflow-y-auto shadow-2xl">
             <div className="flex items-center justify-between mb-4 px-1">
               <div className="flex items-center">
-                <SkillVerseIcon size={34} className="h-8 w-auto max-w-[180px] object-contain" />
+                <SkillVerseIcon size={70} className="h-16 w-auto max-w-[220px] object-contain" />
               </div>
               <button
                 onClick={() => setMobileOpen(false)}
@@ -326,6 +339,21 @@ export function Sidebar({
               {renderNavGroup("Skills & Growth", skillItems, "skills")}
               {renderNavGroup("Showcase", showcaseItems, "showcase")}
             </div>
+
+            {onLogout && (
+              <div className="mt-4 pt-3 border-t border-[#1F293D]">
+                <button
+                  onClick={() => {
+                    setMobileOpen(false);
+                    onLogout();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold text-[#FB7185] bg-[#FB7185]/10 border border-[#FB7185]/30"
+                >
+                  <LogOut size={16} />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

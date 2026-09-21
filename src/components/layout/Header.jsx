@@ -1,7 +1,7 @@
 import React from "react";
-import { Search, Mic, Command, Bell, HelpCircle, User, ChevronDown, Sparkles, Layers } from "lucide-react";
+import { Search, Mic, Command, Bell, LogOut, User, Sparkles } from "lucide-react";
 
-export function Header({ title, onNavigate }) {
+export function Header({ title, onNavigate, onLogout, profile, avatar }) {
   return (
     <header className="sticky top-0 z-30 bg-[#0A0D14]/90 backdrop-blur-md px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4 border-b border-[#1F293D]/60 transition-all">
       {/* Left / Title or Search Pill */}
@@ -31,7 +31,7 @@ export function Header({ title, onNavigate }) {
         )}
       </div>
 
-      {/* Right Side: Quick Action & Notifications */}
+      {/* Right Side: Quick Action, Notifications & Sign Out */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <button
           className="w-9 h-9 rounded-full bg-[#131824] border border-[#1F293D] hover:bg-[#182030] text-[#94A3B8] hover:text-[#F1F5F9] relative flex items-center justify-center shadow-sm transition-all"
@@ -41,6 +41,17 @@ export function Header({ title, onNavigate }) {
           <Bell size={16} />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#10B981] ring-2 ring-[#131824]" />
         </button>
+
+        {onLogout && (
+          <button
+            onClick={onLogout}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#131824] hover:bg-[#FB7185]/15 border border-[#1F293D] hover:border-[#FB7185]/30 text-xs font-bold text-[#94A3B8] hover:text-[#FB7185] transition-all cursor-pointer shadow-xs"
+            title="Sign Out of SkillVerse"
+          >
+            <LogOut size={14} />
+            <span className="hidden sm:inline">Sign Out</span>
+          </button>
+        )}
       </div>
     </header>
   );
