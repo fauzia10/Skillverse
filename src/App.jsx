@@ -327,6 +327,8 @@ export default function App() {
           projects={projects}
           certificates={certificates}
           profile={profile}
+          setProfile={setProfile}
+          showToast={showToast}
           onAddSkill={handleAddSkill}
           onAddProject={handleAddProject}
           onNavigate={setActivePage}

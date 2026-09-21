@@ -1,12 +1,14 @@
 import React, { useState, useRef } from "react";
-import { Camera, Trash2, CheckCircle2 } from "lucide-react";
+import { Camera, Trash2, CheckCircle2, Zap, Sparkles, RefreshCw } from "lucide-react";
 import { Card } from "../components/common/Card";
 import { SectionHeading } from "../components/common/SectionHeading";
 import { TextField, TextArea, SelectField, PrimaryButton, SecondaryButton } from "../components/common/FormControls";
 import { COURSEWORK, CAREER_OPTIONS, DEFAULT_AVATAR } from "../data/mockData";
+import { AutoFetchPlatformModal } from "../components/modals/AutoFetchPlatformModal";
 
 export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast }) {
   const [form, setForm] = useState(profile);
+  const [autoFetchOpen, setAutoFetchOpen] = useState(false);
   const fileRef = useRef(null);
 
   const handlePhoto = (e) => {
@@ -19,6 +21,52 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
   const save = () => {
     setProfile(form);
     showToast("Profile changes saved.");
+  };
+
+  const handleApplyFetchedMetrics = (data) => {
+    let updated = { ...form };
+    if (data.platform === "github") {
+      updated.githubUsername = data.username;
+      updated.github = data.url;
+      updated.githubRepos = data.repos;
+      updated.githubContributions = data.contributions;
+      showToast(`GitHub profile @${data.username} synced (${data.repos} repos, ${data.contributions} commits) 🚀`);
+    } else if (data.platform === "codeforces") {
+      updated.codeforcesHandle = data.handle;
+      updated.codeforces = data.url;
+      updated.codeforcesRating = data.rating;
+      updated.codeforcesRank = data.rank;
+      showToast(`Codeforces profile @${data.handle} synced (${data.rating} rating, ${data.rank}) 🏆`);
+    } else if (data.platform === "leetcode") {
+      updated.leetcodeUsername = data.username;
+      updated.leetcode = data.url;
+      updated.leetcodeSolved = data.totalSolved;
+      updated.leetcodeRating = data.rating;
+      updated.leetcodeEasy = data.easySolved;
+      updated.leetcodeMedium = data.mediumSolved;
+      updated.leetcodeHard = data.hardSolved;
+      showToast(`LeetCode profile @${data.username} synced (${data.totalSolved} solved) ⚡`);
+    } else if (data.platform === "hackerrank") {
+      updated.hackerrankUsername = data.username;
+      updated.hackerrank = data.url;
+      updated.hackerrankStars = data.stars || "5★";
+      updated.hackerrankBadges = data.badges || 3;
+      showToast(`HackerRank profile @${data.username} linked.`);
+    } else if (data.platform === "gfg") {
+      updated.gfgUsername = data.username;
+      updated.gfg = data.url;
+      updated.gfgSolved = data.solved || 0;
+      showToast(`GeeksforGeeks profile @${data.username} linked.`);
+    } else if (data.platform === "codechef") {
+      updated.codechefHandle = data.handle;
+      updated.codechef = data.url;
+      updated.codechefStars = data.stars || "3★";
+      updated.codechefRating = data.rating || 1600;
+      updated.codechefDiv = data.div || "Div 2";
+      showToast(`CodeChef profile @${data.handle} linked.`);
+    }
+    setForm(updated);
+    setProfile(updated);
   };
 
   return (
@@ -80,10 +128,23 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
       </Card>
 
       <Card className="p-6 sm:p-8">
-        <SectionHeading title="Developer & Coding Profiles" />
-        <p className="text-xs text-[#94A3B8] -mt-2 mb-5">
-          Connect your GitHub, LeetCode, and Codeforces profiles so recruiters and companies can view your verified coding metrics.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <div>
+            <SectionHeading title="Developer & Coding Profiles" />
+            <p className="text-xs text-[#94A3B8] -mt-2">
+              Connect your GitHub, LeetCode, and Codeforces profiles so recruiters can view your verified coding metrics.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setAutoFetchOpen(true)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#00C0F3] to-[#38BDF8] hover:from-[#38BDF8] hover:to-[#00C0F3] text-[#0A0D14] text-xs font-bold shadow-[0_4px_16px_rgba(0,192,243,0.25)] transition-all cursor-pointer shrink-0 active:scale-98"
+          >
+            <Zap size={15} />
+            <span>⚡ Auto-Fetch Metrics from Link</span>
+          </button>
+        </div>
 
         <div className="space-y-4">
           {/* GitHub */}
@@ -184,6 +245,13 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
         <PrimaryButton onClick={save}>Save Changes</PrimaryButton>
         <SecondaryButton onClick={() => setForm(profile)}>Cancel</SecondaryButton>
       </div>
+
+      {/* Auto Fetch Modal */}
+      <AutoFetchPlatformModal
+        isOpen={autoFetchOpen}
+        onClose={() => setAutoFetchOpen(false)}
+        onApplyMetrics={handleApplyFetchedMetrics}
+      />
     </div>
   );
 }

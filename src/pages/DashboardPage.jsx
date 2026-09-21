@@ -32,21 +32,72 @@ import { LevelBadge, PriorityBadge } from "../components/common/Badges";
 import { ProgressBar, CircularProgress } from "../components/common/Progress";
 import { PrimaryButton, SecondaryButton } from "../components/common/FormControls";
 import { AddSkillModal } from "../components/modals/AddSkillModal";
+import { AutoFetchPlatformModal } from "../components/modals/AutoFetchPlatformModal";
 import { ProjectsShowcase } from "../components/projects/ProjectsShowcase";
 import { GAP_DATA, gapPriority, PROGRESS_DATA, getSkillIcon } from "../data/mockData";
 import { CodingProfilesWidget } from "../components/profile/CodingProfilesWidget";
+import { Zap } from "lucide-react";
 
 export function DashboardPage({
   skills = [],
   projects = [],
   certificates = [],
   profile = {},
+  setProfile,
+  showToast,
   onAddSkill,
   onAddProject,
   onNavigate,
   avatar,
 }) {
   const [skillModal, setSkillModal] = useState(false);
+  const [autoFetchOpen, setAutoFetchOpen] = useState(false);
+
+  const handleApplyFetchedMetrics = (data) => {
+    if (!setProfile) return;
+    let updated = { ...profile };
+    if (data.platform === "github") {
+      updated.githubUsername = data.username;
+      updated.github = data.url;
+      updated.githubRepos = data.repos;
+      updated.githubContributions = data.contributions;
+      if (showToast) showToast(`GitHub profile @${data.username} synced (${data.repos} repos, ${data.contributions} commits) 🚀`);
+    } else if (data.platform === "codeforces") {
+      updated.codeforcesHandle = data.handle;
+      updated.codeforces = data.url;
+      updated.codeforcesRating = data.rating;
+      updated.codeforcesRank = data.rank;
+      if (showToast) showToast(`Codeforces profile @${data.handle} synced (${data.rating} rating, ${data.rank}) 🏆`);
+    } else if (data.platform === "leetcode") {
+      updated.leetcodeUsername = data.username;
+      updated.leetcode = data.url;
+      updated.leetcodeSolved = data.totalSolved;
+      updated.leetcodeRating = data.rating;
+      updated.leetcodeEasy = data.easySolved;
+      updated.leetcodeMedium = data.mediumSolved;
+      updated.leetcodeHard = data.hardSolved;
+      if (showToast) showToast(`LeetCode profile @${data.username} synced (${data.totalSolved} solved) ⚡`);
+    } else if (data.platform === "hackerrank") {
+      updated.hackerrankUsername = data.username;
+      updated.hackerrank = data.url;
+      updated.hackerrankStars = data.stars || "5★";
+      updated.hackerrankBadges = data.badges || 3;
+      if (showToast) showToast(`HackerRank profile @${data.username} linked.`);
+    } else if (data.platform === "gfg") {
+      updated.gfgUsername = data.username;
+      updated.gfg = data.url;
+      updated.gfgSolved = data.solved || 0;
+      if (showToast) showToast(`GeeksforGeeks profile @${data.username} linked.`);
+    } else if (data.platform === "codechef") {
+      updated.codechefHandle = data.handle;
+      updated.codechef = data.url;
+      updated.codechefStars = data.stars || "3★";
+      updated.codechefRating = data.rating || 1600;
+      updated.codechefDiv = data.div || "Div 2";
+      if (showToast) showToast(`CodeChef profile @${data.handle} linked.`);
+    }
+    setProfile(updated);
+  };
 
   const verifiedCount = skills.filter((s) => s.verified).length;
   const hasAnyData = skills.length > 0 || (projects?.length || 0) > 0 || (certificates?.length || 0) > 0;
@@ -277,19 +328,29 @@ export function DashboardPage({
 
       {/* Developer & Competitive Coding Profiles */}
       <Card className="p-6 sm:p-7">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
             <SectionHeading title="Developer & Competitive Coding Profiles" />
             <p className="text-xs text-[#94A3B8] -mt-2">
               Verified problem-solving metrics and GitHub repositories aggregated for recruiters.
             </p>
           </div>
-          <button
-            onClick={() => onNavigate("profile")}
-            className="text-xs font-bold text-[#00C0F3] hover:underline"
-          >
-            Edit Profiles →
-          </button>
+          <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={() => setAutoFetchOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#00C0F3]/10 hover:bg-[#00C0F3]/20 text-[#00C0F3] border border-[#00C0F3]/30 text-xs font-bold transition-all cursor-pointer active:scale-98"
+            >
+              <Zap size={14} />
+              <span>⚡ Auto-Fetch Link</span>
+            </button>
+            <button
+              onClick={() => onNavigate("profile")}
+              className="text-xs font-bold text-[#94A3B8] hover:text-white hover:underline cursor-pointer"
+            >
+              Edit All →
+            </button>
+          </div>
         </div>
         <CodingProfilesWidget profile={profile} />
       </Card>
@@ -365,6 +426,12 @@ export function DashboardPage({
       </div>
 
       <AddSkillModal open={skillModal} onClose={() => setSkillModal(false)} onSave={onAddSkill} />
+
+      <AutoFetchPlatformModal
+        isOpen={autoFetchOpen}
+        onClose={() => setAutoFetchOpen(false)}
+        onApplyMetrics={handleApplyFetchedMetrics}
+      />
     </div>
   );
 }
