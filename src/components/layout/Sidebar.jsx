@@ -145,7 +145,7 @@ export function Sidebar({
               {isHovered && (
                 <div className="text-left overflow-hidden transition-opacity duration-200">
                   <span className="text-lg font-black tracking-tight text-[#111827] font-display block leading-none">
-                    SkillVerse
+                    Skill<span className="text-[#00C0F3]">Verse</span>
                   </span>
                   <span className="text-[10px] text-[#64748B] font-medium block mt-0.5">
                     Student Platform
@@ -300,7 +300,7 @@ export function Sidebar({
                   <SkillVerseIcon size={20} />
                 </div>
                 <span className="font-extrabold text-base text-[#111827] tracking-tight">
-                  SkillVerse
+                  Skill<span className="text-[#00C0F3]">Verse</span>
                 </span>
               </div>
               <button
