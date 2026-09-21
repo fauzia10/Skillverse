@@ -31,27 +31,15 @@ export function Header({ title, onNavigate }) {
         )}
       </div>
 
-      {/* Right Side: Notifications & User Profile */}
+      {/* Right Side: Quick Action & Notifications */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <button
           className="w-9 h-9 rounded-full bg-white border border-[#E2EBF0] hover:bg-[#F4F8FA] text-[#64748B] hover:text-[#111827] relative flex items-center justify-center shadow-sm transition-all"
           aria-label="Notifications"
+          title="Notifications"
         >
           <Bell size={16} />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#2D9F75] ring-2 ring-white" />
-        </button>
-
-        <button
-          onClick={() => onNavigate?.("profile")}
-          className="flex items-center gap-2 p-1 pl-1.5 pr-2.5 rounded-full bg-white border border-[#E2EBF0] hover:bg-[#F4F8FA] shadow-sm transition-all"
-          aria-label="Profile"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120&auto=format&fit=crop&q=80"
-            alt="Profile"
-            className="w-7 h-7 rounded-full object-cover border border-white"
-          />
-          <ChevronDown size={13} className="text-[#64748B] hidden sm:block" />
         </button>
       </div>
     </header>

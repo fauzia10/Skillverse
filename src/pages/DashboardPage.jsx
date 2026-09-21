@@ -64,7 +64,7 @@ export function DashboardPage({
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl sm:text-3xl font-black text-[#111827] font-display tracking-tight">
-            My Activity
+            Dashboard
           </h2>
           <p className="text-xs sm:text-sm text-[#64748B] mt-0.5">
             Verified proof-of-work, learning ledger & career readiness.

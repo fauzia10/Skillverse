@@ -238,7 +238,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen bg-[#EBF2F6] text-[#111827] font-[Inter,sans-serif] flex"
+      className="min-h-screen bg-[#EBF2F6] text-[#111827] font-[Inter,sans-serif]"
       style={{ fontFamily: "Inter, system-ui, sans-serif" }}
     >
       <Sidebar
@@ -246,9 +246,11 @@ export default function App() {
         onNavigate={setActivePage}
         mobileOpen={mobileOpen}
         setMobileOpen={setMobileOpen}
+        profile={profile}
+        avatar={avatar}
       />
 
-      <div className="flex-1 min-w-0 pb-20 md:pb-0">
+      <div className="min-w-0 md:pl-[72px] pb-20 md:pb-8 transition-all duration-300">
         <Header
           onNavigate={setActivePage}
           title={activePage === "dashboard" ? null : PAGE_TITLES[activePage]}
