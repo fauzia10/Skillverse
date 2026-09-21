@@ -99,8 +99,8 @@ export function SettingsPage({
               onClick={() => setActiveTab(t.id)}
               className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all ${
                 isActive
-                  ? "bg-[#111827] text-white shadow-sm"
-                  : "bg-white border border-[#E2EBF0] text-[#64748B] hover:text-[#111827] hover:bg-[#F4F8FA]"
+                  ? "bg-[#00C0F3] text-[#0A0D14] shadow-sm shadow-[#00C0F3]/20"
+                  : "bg-[#131824] border border-[#1F293D] text-[#94A3B8] hover:text-[#F1F5F9] hover:bg-[#182030]"
               }`}
             >
               <Icon size={15} />
@@ -115,7 +115,7 @@ export function SettingsPage({
         <Card className="p-6 sm:p-8 space-y-6 animate-[fadeIn_0.2s_ease]">
           <div>
             <SectionHeading title="Notification Preferences" />
-            <p className="text-xs sm:text-sm text-[#64748B] -mt-2">
+            <p className="text-xs sm:text-sm text-[#94A3B8] -mt-2">
               Choose how you want to be notified about assessment results, course completions, and career goals.
             </p>
           </div>
@@ -145,11 +145,11 @@ export function SettingsPage({
             ].map((item) => (
               <div
                 key={item.key}
-                className="flex items-center justify-between p-4 sm:p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0] hover:bg-white transition-colors"
+                className="flex items-center justify-between p-4 sm:p-5 rounded-3xl bg-[#182030] border border-[#1F293D] hover:bg-[#1C2538] transition-colors"
               >
                 <div className="pr-4">
-                  <p className="text-sm font-bold text-[#111827] font-display">{item.title}</p>
-                  <p className="text-xs text-[#64748B] mt-0.5">{item.desc}</p>
+                  <p className="text-sm font-bold text-[#F1F5F9] font-display">{item.title}</p>
+                  <p className="text-xs text-[#94A3B8] mt-0.5">{item.desc}</p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer shrink-0">
                   <input
@@ -158,7 +158,7 @@ export function SettingsPage({
                     onChange={() => toggleNotif(item.key)}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#111827]"></div>
+                  <div className="w-11 h-6 bg-[#232F47] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00C0F3]"></div>
                 </label>
               </div>
             ))}
@@ -178,7 +178,7 @@ export function SettingsPage({
         <Card className="p-6 sm:p-8 space-y-6 animate-[fadeIn_0.2s_ease]">
           <div>
             <SectionHeading title="Privacy & Security Controls" />
-            <p className="text-xs sm:text-sm text-[#64748B] -mt-2">
+            <p className="text-xs sm:text-sm text-[#94A3B8] -mt-2">
               Manage who can see your digital skill credentials, projects, and readiness metrics.
             </p>
           </div>
@@ -203,11 +203,11 @@ export function SettingsPage({
             ].map((item) => (
               <div
                 key={item.key}
-                className="flex items-center justify-between p-4 sm:p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0] hover:bg-white transition-colors"
+                className="flex items-center justify-between p-4 sm:p-5 rounded-3xl bg-[#182030] border border-[#1F293D] hover:bg-[#1C2538] transition-colors"
               >
                 <div className="pr-4">
-                  <p className="text-sm font-bold text-[#111827] font-display">{item.title}</p>
-                  <p className="text-xs text-[#64748B] mt-0.5">{item.desc}</p>
+                  <p className="text-sm font-bold text-[#F1F5F9] font-display">{item.title}</p>
+                  <p className="text-xs text-[#94A3B8] mt-0.5">{item.desc}</p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer shrink-0">
                   <input
@@ -216,17 +216,17 @@ export function SettingsPage({
                     onChange={() => togglePrivacy(item.key)}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#111827]"></div>
+                  <div className="w-11 h-6 bg-[#232F47] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00C0F3]"></div>
                 </label>
               </div>
             ))}
           </div>
 
-          <div className="p-4 rounded-3xl bg-[#EDF9D4] border border-[#D5F29B] flex items-start gap-3">
-            <Shield size={20} className="text-[#2E4D0C] shrink-0 mt-0.5" />
+          <div className="p-4 rounded-3xl bg-[#10B981]/10 border border-[#10B981]/30 flex items-start gap-3">
+            <Shield size={20} className="text-[#10B981] shrink-0 mt-0.5" />
             <div>
-              <p className="text-xs font-bold text-[#2E4D0C]">Two-Factor Authentication (2FA)</p>
-              <p className="text-xs text-[#2E4D0C]/80 mt-0.5">
+              <p className="text-xs font-bold text-[#10B981]">Two-Factor Authentication (2FA)</p>
+              <p className="text-xs text-[#10B981]/80 mt-0.5">
                 Two-factor authentication is active on your university Single Sign-On (SSO) account.
               </p>
             </div>
@@ -246,7 +246,7 @@ export function SettingsPage({
         <Card className="p-6 sm:p-8 space-y-6 animate-[fadeIn_0.2s_ease]">
           <div>
             <SectionHeading title="Account Information" />
-            <p className="text-xs sm:text-sm text-[#64748B] -mt-2">
+            <p className="text-xs sm:text-sm text-[#94A3B8] -mt-2">
               Connected academic identifiers and system defaults.
             </p>
           </div>
@@ -258,9 +258,9 @@ export function SettingsPage({
             <TextField label="Department & Major" value={`${profile.department || "Computer Science"}`} disabled className="opacity-80" />
           </div>
 
-          <div className="p-4 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0] space-y-1.5">
-            <p className="text-xs font-bold text-[#111827]">Single Sign-On (SSO) Status</p>
-            <p className="text-xs text-[#64748B]">
+          <div className="p-4 rounded-3xl bg-[#182030] border border-[#1F293D] space-y-1.5">
+            <p className="text-xs font-bold text-[#F1F5F9]">Single Sign-On (SSO) Status</p>
+            <p className="text-xs text-[#94A3B8]">
               Your student account is authenticated via your institutional portal. Profile details like CGPA and enrolled courses sync with the campus registry.
             </p>
           </div>
@@ -272,20 +272,20 @@ export function SettingsPage({
         <Card className="p-6 sm:p-8 space-y-6 animate-[fadeIn_0.2s_ease]">
           <div>
             <SectionHeading title="Data Backup & Storage Management" />
-            <p className="text-xs sm:text-sm text-[#64748B] -mt-2">
+            <p className="text-xs sm:text-sm text-[#94A3B8] -mt-2">
               Export your portfolio data, manage local caching, or reset your workspace.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             {/* Export Card */}
-            <div className="p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0] flex flex-col justify-between space-y-4">
+            <div className="p-5 rounded-3xl bg-[#182030] border border-[#1F293D] flex flex-col justify-between space-y-4">
               <div>
-                <div className="w-10 h-10 rounded-2xl bg-white border border-[#E2EBF0] flex items-center justify-center text-[#111827] mb-3 shadow-xs">
+                <div className="w-10 h-10 rounded-2xl bg-[#131824] border border-[#1F293D] flex items-center justify-center text-[#00C0F3] mb-3 shadow-xs">
                   <Download size={20} />
                 </div>
-                <h4 className="text-sm font-bold text-[#111827] font-display">Export Portfolio (JSON)</h4>
-                <p className="text-xs text-[#64748B] mt-1">
+                <h4 className="text-sm font-bold text-[#F1F5F9] font-display">Export Portfolio (JSON)</h4>
+                <p className="text-xs text-[#94A3B8] mt-1">
                   Download a complete backup archive of your profile, verified badges, projects, certificates, and scores.
                 </p>
               </div>
@@ -295,17 +295,17 @@ export function SettingsPage({
             </div>
 
             {/* Reset Card */}
-            <div className="p-5 rounded-3xl bg-[#FDE5E5] border border-[#F8B6B6] flex flex-col justify-between space-y-4">
+            <div className="p-5 rounded-3xl bg-[#FB7185]/10 border border-[#FB7185]/30 flex flex-col justify-between space-y-4">
               <div>
-                <div className="w-10 h-10 rounded-2xl bg-white border border-[#F8B6B6] flex items-center justify-center text-[#5C1B1B] mb-3 shadow-xs">
+                <div className="w-10 h-10 rounded-2xl bg-[#131824] border border-[#FB7185]/30 flex items-center justify-center text-[#FB7185] mb-3 shadow-xs">
                   <RotateCcw size={20} />
                 </div>
-                <h4 className="text-sm font-bold text-[#5C1B1B] font-display">Reset to Sample Data</h4>
-                <p className="text-xs text-[#5C1B1B]/80 mt-1">
+                <h4 className="text-sm font-bold text-[#FB7185] font-display">Reset to Sample Data</h4>
+                <p className="text-xs text-[#FB7185]/80 mt-1">
                   Restore all skills, projects, certificates, and profile details back to the initial sample state.
                 </p>
               </div>
-              <SecondaryButton onClick={handleReset} className="!w-full !text-xs text-[#5C1B1B] hover:bg-white">
+              <SecondaryButton onClick={handleReset} className="!w-full !text-xs text-[#FB7185] hover:bg-[#FB7185]/20 border-[#FB7185]/30">
                 <RotateCcw size={14} /> Reset Demo Data
               </SecondaryButton>
             </div>

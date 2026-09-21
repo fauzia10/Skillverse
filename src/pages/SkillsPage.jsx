@@ -32,8 +32,8 @@ export function SkillsPage({
             </PrimaryButton>
           }
         />
-        <p className="text-xs sm:text-sm text-[#64748B] mb-6">
-          <strong className="text-[#111827]">{verifiedCount} of {skills.length} skills</strong> verified via portfolio projects and accredited credentials. Tap any skill card to inspect evidence or run a practice check.
+        <p className="text-xs sm:text-sm text-[#94A3B8] mb-6">
+          <strong className="text-[#F1F5F9]">{verifiedCount} of {skills.length} skills</strong> verified via portfolio projects and accredited credentials. Tap any skill card to inspect evidence or run a practice check.
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
@@ -67,22 +67,22 @@ export function SkillsPage({
                     setSelectedSkill(s);
                   }
                 }}
-                className="group flex flex-col justify-between p-4 sm:p-5 rounded-3xl border border-[#E2EBF0] bg-[#F4F8FA]/60 hover:bg-white hover:border-[#CBD5E1] hover:shadow-[0_8px_24px_rgba(20,40,60,0.06)] active:scale-[0.99] transition-all cursor-pointer text-left select-none gap-3.5"
+                className="group flex flex-col justify-between p-4 sm:p-5 rounded-3xl border border-[#1F293D] bg-[#182030]/60 hover:bg-[#1C2538] hover:border-[#00C0F3]/40 hover:shadow-[0_8px_24px_rgba(0,0,0,0.4)] active:scale-[0.99] transition-all cursor-pointer text-left select-none gap-3.5"
               >
                 <div className="flex items-start gap-3.5">
-                  <div className="w-11 h-11 rounded-2xl bg-white border border-[#E2EBF0] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-                    {Icon && <Icon size={19} className="text-[#111827]" />}
+                  <div className="w-11 h-11 rounded-2xl bg-[#131824] border border-[#1F293D] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                    {Icon && <Icon size={19} className="text-[#00C0F3]" />}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-1 mb-1">
-                      <p className="text-sm font-bold text-[#111827] truncate font-display">{s.name}</p>
+                      <p className="text-sm font-bold text-[#F1F5F9] truncate font-display">{s.name}</p>
                       {onDeleteSkill && (
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             onDeleteSkill(s.id);
                           }}
-                          className="p-1 text-[#94A3B8] hover:text-[#EF4444] hover:bg-[#FEE2E2] rounded-lg transition-all -mr-1 -mt-1"
+                          className="p-1 text-[#64748B] hover:text-[#FB7185] hover:bg-[#FB7185]/10 rounded-lg transition-all -mr-1 -mt-1"
                           title="Delete Skill"
                           aria-label="Delete Skill"
                         >
@@ -94,15 +94,15 @@ export function SkillsPage({
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2.5 border-t border-[#E2EBF0] text-xs">
+                <div className="flex items-center justify-between pt-2.5 border-t border-[#1F293D] text-xs">
                   <span className={`inline-flex items-center gap-1.5 text-[11px] font-semibold truncate max-w-[170px] ${
-                    hasProof ? "text-[#2E4D0C]" : "text-[#64748B]"
+                    hasProof ? "text-[#A3E635]" : "text-[#94A3B8]"
                   }`}>
-                    <ProofIcon size={13} className={hasProof ? "text-[#2E4D0C]" : "text-[#94A3B8]"} />
+                    <ProofIcon size={13} className={hasProof ? "text-[#A3E635]" : "text-[#64748B]"} />
                     <span className="truncate">{proofLabel}</span>
                   </span>
 
-                  <span className="text-[11px] text-[#111827] font-bold group-hover:underline">
+                  <span className="text-[11px] text-[#00C0F3] font-bold group-hover:underline">
                     View Proof →
                   </span>
                 </div>

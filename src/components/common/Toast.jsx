@@ -8,9 +8,9 @@ export function Toast({ message, show }) {
         show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
     >
-      <div className="flex items-center gap-2.5 bg-[#101218] text-white px-5 py-3 rounded-full shadow-2xl border border-[#2B2E3C] text-sm font-semibold">
-        <div className="w-5 h-5 rounded-full bg-[#BA203B] flex items-center justify-center">
-          <Check size={13} className="text-white" />
+      <div className="flex items-center gap-2.5 bg-[#131824] text-[#F1F5F9] px-5 py-3 rounded-full shadow-2xl border border-[#232F47] text-sm font-semibold">
+        <div className="w-5 h-5 rounded-full bg-[#00C0F3] flex items-center justify-center">
+          <Check size={13} className="text-[#0A0D14]" />
         </div>
         {message}
       </div>

@@ -238,7 +238,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen bg-[#EBF2F6] text-[#111827] font-[Inter,sans-serif]"
+      className="min-h-screen bg-[#0A0D14] text-[#F1F5F9] font-[Inter,sans-serif]"
       style={{ fontFamily: "Inter, system-ui, sans-serif" }}
     >
       <Sidebar

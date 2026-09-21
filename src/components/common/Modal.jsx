@@ -25,21 +25,21 @@ export function Modal({ open, onClose, title, children, wide = false, size }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#101218]/65 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#0A0D14]/85 backdrop-blur-md"
       onMouseDown={(e) => e.target === e.currentTarget && onClose()}
     >
       <div
-        className={`bg-white rounded-[24px] w-full ${sizeClass} max-h-[90vh] overflow-y-auto shadow-2xl border border-[#E9E2E5] animate-[fadeIn_0.2s_ease]`}
+        className={`bg-[#131824] text-[#F1F5F9] rounded-[24px] w-full ${sizeClass} max-h-[90vh] overflow-y-auto shadow-2xl border border-[#232F47] animate-[fadeIn_0.2s_ease]`}
         role="dialog"
         aria-modal="true"
         aria-label={title}
       >
-        <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b border-[#E9E2E5] sticky top-0 bg-white/95 backdrop-blur-md rounded-t-[24px] z-10">
-          <h3 className="text-lg sm:text-xl font-bold text-[#101218] font-display">{title}</h3>
+        <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b border-[#1F293D] sticky top-0 bg-[#131824]/95 backdrop-blur-md rounded-t-[24px] z-10">
+          <h3 className="text-lg sm:text-xl font-bold text-[#F1F5F9] font-display">{title}</h3>
           <button
             onClick={onClose}
             aria-label="Close dialog"
-            className="p-2 rounded-full text-[#707584] hover:bg-[#FCEBEF] hover:text-[#BA203B] transition-colors"
+            className="p-2 rounded-full text-[#94A3B8] hover:bg-[#182030] hover:text-[#F1F5F9] transition-colors"
           >
             <X size={19} />
           </button>

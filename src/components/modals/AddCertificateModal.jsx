@@ -51,7 +51,7 @@ export function AddCertificateModal({ open, onClose, onSave }) {
     <Modal open={open} onClose={onClose} title="Add Certificate or Credential" wide={true}>
       <div className="space-y-4">
         {error && (
-          <div className="p-3 rounded-xl bg-[#FCEBEF] border border-[#F5CAD3] text-xs text-[#BA203B] font-medium">
+          <div className="p-3 rounded-xl bg-[#36121C] border border-[#541B2C] text-xs text-[#FB7185] font-medium">
             {error}
           </div>
         )}

@@ -29,7 +29,7 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
             <img
               src={avatar}
               alt="Profile"
-              className="w-24 h-24 rounded-3xl object-cover border-2 border-white shadow-md mb-3 ring-2 ring-[#111827]/10"
+              className="w-24 h-24 rounded-3xl object-cover border-2 border-[#2A3754] shadow-md mb-3 ring-2 ring-[#00C0F3]/20"
             />
             <div className="flex gap-2 justify-center flex-wrap">
               <SecondaryButton onClick={() => fileRef.current?.click()} className="!px-3 !py-1.5 text-xs">
@@ -38,14 +38,14 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
               {avatar.includes("blob:") && (
                 <button
                   onClick={() => setAvatar(DEFAULT_AVATAR)}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-2xl text-xs text-[#EF4444] hover:bg-[#FEE2E2] transition-colors"
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-2xl text-xs text-[#FB7185] hover:bg-[#36121C] transition-colors"
                 >
                   <Trash2 size={13} /> Remove
                 </button>
               )}
             </div>
             <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handlePhoto} />
-            <p className="text-[11px] text-[#64748B] mt-2 max-w-[160px]">Upload a JPG, PNG, or WebP image.</p>
+            <p className="text-[11px] text-[#94A3B8] mt-2 max-w-[160px]">Upload a JPG, PNG, or WebP image.</p>
           </div>
 
           <div className="flex-1 w-full grid sm:grid-cols-2 gap-x-4">
@@ -67,10 +67,10 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
           <TextField label="CGPA / Grade" value={form.cgpa} onChange={set("cgpa")} />
         </div>
         <div className="mb-4">
-          <span className="block text-xs font-bold text-[#111827] uppercase tracking-wider mb-2">Relevant coursework</span>
+          <span className="block text-xs font-bold text-[#F1F5F9] uppercase tracking-wider mb-2">Relevant coursework</span>
           <div className="flex flex-wrap gap-2">
             {COURSEWORK.map((c) => (
-              <span key={c} className="px-3.5 py-1.5 rounded-full text-xs bg-[#DDF5F2] text-[#0C453E] font-bold border border-[#A5E3DC]">
+              <span key={c} className="px-3.5 py-1.5 rounded-full text-xs bg-[#0D2D3E] text-[#00C0F3] font-bold border border-[#164863]">
                 {c}
               </span>
             ))}
@@ -81,15 +81,15 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
 
       <Card className="p-6 sm:p-8">
         <SectionHeading title="Developer & Coding Profiles" />
-        <p className="text-xs text-[#64748B] -mt-2 mb-5">
+        <p className="text-xs text-[#94A3B8] -mt-2 mb-5">
           Connect your GitHub, LeetCode, and Codeforces profiles so recruiters and companies can view your verified coding metrics.
         </p>
 
         <div className="space-y-4">
           {/* GitHub */}
-          <div className="p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0]">
-            <p className="text-xs font-bold text-[#111827] mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#111827]" />
+          <div className="p-5 rounded-3xl bg-[#182030] border border-[#232F47]">
+            <p className="text-xs font-bold text-[#F1F5F9] mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#00C0F3]" />
               <span>GitHub Developer Profile</span>
             </p>
             <div className="grid sm:grid-cols-2 gap-x-4">
@@ -101,8 +101,8 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
           </div>
 
           {/* LeetCode */}
-          <div className="p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0]">
-            <p className="text-xs font-bold text-[#111827] mb-3 flex items-center gap-2">
+          <div className="p-5 rounded-3xl bg-[#182030] border border-[#232F47]">
+            <p className="text-xs font-bold text-[#F1F5F9] mb-3 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
               <span>LeetCode Competitive Programming</span>
             </p>
@@ -120,8 +120,8 @@ export function ProfilePage({ profile, setProfile, avatar, setAvatar, showToast 
           </div>
 
           {/* Codeforces & LinkedIn */}
-          <div className="p-5 rounded-3xl bg-[#F4F8FA] border border-[#E2EBF0]">
-            <p className="text-xs font-bold text-[#111827] mb-3 flex items-center gap-2">
+          <div className="p-5 rounded-3xl bg-[#182030] border border-[#232F47]">
+            <p className="text-xs font-bold text-[#F1F5F9] mb-3 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
               <span>Codeforces & Professional Links</span>
             </p>

@@ -11,16 +11,16 @@ export function CareerGoalPage({ profile, setProfile, showToast }) {
   return (
     <Card className="p-6 sm:p-8 max-w-xl">
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-11 h-11 rounded-2xl bg-[#DDF5F2] border border-[#A5E3DC] flex items-center justify-center text-[#0C453E] shadow-sm">
+        <div className="w-11 h-11 rounded-2xl bg-[#00C0F3]/10 border border-[#00C0F3]/30 flex items-center justify-center text-[#00C0F3] shadow-sm">
           <Target size={22} />
         </div>
         <div>
-          <h2 className="text-xl font-black text-[#111827] font-display">Target Career Objective</h2>
-          <p className="text-xs text-[#64748B]">Personalized benchmarks and career readiness trajectory</p>
+          <h2 className="text-xl font-black text-[#F1F5F9] font-display">Target Career Objective</h2>
+          <p className="text-xs text-[#94A3B8]">Personalized benchmarks and career readiness trajectory</p>
         </div>
       </div>
 
-      <p className="text-xs sm:text-sm text-[#64748B] mb-5 leading-relaxed">
+      <p className="text-xs sm:text-sm text-[#94A3B8] mb-5 leading-relaxed">
         Your target career dynamically shapes your verified Skill-Gap analysis, recommended coursework, and candidate readiness score for recruiters.
       </p>
 

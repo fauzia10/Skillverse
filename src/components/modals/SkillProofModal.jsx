@@ -75,17 +75,17 @@ export function SkillProofModal({
     >
       <div className="space-y-6">
         {/* Header summary */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#FAF8F9] border border-[#E9E2E5]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#182030] border border-[#232F47]">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-white border border-[#E9E2E5] flex items-center justify-center shrink-0 shadow-xs">
-              {Icon && <Icon size={22} className="text-[#BA203B]" />}
+            <div className="w-12 h-12 rounded-xl bg-[#131824] border border-[#232F47] flex items-center justify-center shrink-0 shadow-xs">
+              {Icon && <Icon size={22} className="text-[#00C0F3]" />}
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h4 className="text-base font-bold text-[#101218] font-display">{skill.name}</h4>
+                <h4 className="text-base font-bold text-[#F1F5F9] font-display">{skill.name}</h4>
                 <LevelBadge level={skill.level} />
               </div>
-              <p className="text-xs text-[#707584] mt-0.5">
+              <p className="text-xs text-[#94A3B8] mt-0.5">
                 {skill.verified
                   ? "Validated via real-world Proof of Work"
                   : "Unverified · Add project evidence or certificate"}
@@ -95,13 +95,13 @@ export function SkillProofModal({
 
           <div className="flex items-center gap-2">
             {skill.verified ? (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#E8F7F1] text-[#1B7352] border border-[#C6EFE0]">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#062E23] text-[#10B981] border border-[#0F5132]">
                 <BadgeCheck size={16} /> Verified Badge Active
               </span>
             ) : (
               <button
                 onClick={handleVerify}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#BA203B] text-white hover:bg-[#A31C34] active:scale-95 transition-all shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#00C0F3] text-[#0A0D14] hover:bg-[#38BDF8] active:scale-95 transition-all shadow-xs"
               >
                 <Check size={14} /> Endorse / Mark Verified
               </button>
@@ -113,8 +113,8 @@ export function SkillProofModal({
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <FolderKanban size={16} className="text-[#BA203B]" />
-              <h5 className="text-sm font-bold text-[#101218] font-display">
+              <FolderKanban size={16} className="text-[#00C0F3]" />
+              <h5 className="text-sm font-bold text-[#F1F5F9] font-display">
                 Demonstrated in Projects ({proof.projects.length})
               </h5>
             </div>
@@ -124,7 +124,7 @@ export function SkillProofModal({
                   onClose();
                   onNavigate?.("projects");
                 }}
-                className="text-xs text-[#BA203B] font-semibold hover:underline"
+                className="text-xs text-[#00C0F3] font-semibold hover:underline"
               >
                 + Add Project with {skill.name}
               </button>
@@ -136,16 +136,16 @@ export function SkillProofModal({
               {proof.projects.map((p) => (
                 <div
                   key={p.id}
-                  className="p-3.5 rounded-xl border border-[#E9E2E5] bg-white hover:border-[#BA203B]/40 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-3.5 rounded-xl border border-[#232F47] bg-[#131824] hover:border-[#00C0F3]/40 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <p className="text-sm font-bold text-[#101218] truncate">{p.title}</p>
-                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-[#FCEBEF] text-[#BA203B] font-semibold">
+                      <p className="text-sm font-bold text-[#F1F5F9] truncate">{p.title}</p>
+                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-[#0D2D3E] text-[#00C0F3] font-semibold">
                         {p.category}
                       </span>
                     </div>
-                    <p className="text-xs text-[#707584] line-clamp-1">{p.description}</p>
+                    <p className="text-xs text-[#94A3B8] line-clamp-1">{p.description}</p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     {p.github && (
@@ -153,7 +153,7 @@ export function SkillProofModal({
                         href={p.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-[#707584] hover:text-[#101218] px-2.5 py-1 rounded-lg border border-[#E9E2E5] bg-[#FAF8F9]"
+                        className="inline-flex items-center gap-1 text-xs text-[#94A3B8] hover:text-[#F1F5F9] px-2.5 py-1 rounded-lg border border-[#232F47] bg-[#182030]"
                       >
                         <ExternalLink size={12} /> Code
                       </a>
@@ -163,7 +163,7 @@ export function SkillProofModal({
                         href={p.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-[#BA203B] font-semibold hover:bg-[#FCEBEF] px-2.5 py-1 rounded-lg border border-[#F5CAD3] bg-[#FAF8F9]"
+                        className="inline-flex items-center gap-1 text-xs text-[#00C0F3] font-semibold hover:bg-[#0D2D3E] px-2.5 py-1 rounded-lg border border-[#00C0F3]/30 bg-[#182030]"
                       >
                         <ExternalLink size={12} /> Live Demo
                       </a>
@@ -173,9 +173,9 @@ export function SkillProofModal({
               ))}
             </div>
           ) : (
-            <div className="p-4 rounded-xl border border-dashed border-[#E9E2E5] text-center bg-[#FAF8F9]">
-              <p className="text-xs text-[#707584]">
-                No portfolio projects currently tagged with <strong>{skill.name}</strong>. Tag this skill in a showcase project to provide verifiable GitHub proof to recruiters.
+            <div className="p-4 rounded-xl border border-dashed border-[#232F47] text-center bg-[#182030]/60">
+              <p className="text-xs text-[#94A3B8]">
+                No portfolio projects currently tagged with <strong className="text-[#F1F5F9]">{skill.name}</strong>. Tag this skill in a showcase project to provide verifiable GitHub proof to recruiters.
               </p>
             </div>
           )}
@@ -185,8 +185,8 @@ export function SkillProofModal({
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <FileBadge size={16} className="text-[#BA203B]" />
-              <h5 className="text-sm font-bold text-[#101218] font-display">
+              <FileBadge size={16} className="text-[#00C0F3]" />
+              <h5 className="text-sm font-bold text-[#F1F5F9] font-display">
                 Accredited Certificates & Honors ({proof.certificates.length})
               </h5>
             </div>
@@ -196,7 +196,7 @@ export function SkillProofModal({
                   onClose();
                   onNavigate?.("certificates");
                 }}
-                className="text-xs text-[#BA203B] font-semibold hover:underline"
+                className="text-xs text-[#00C0F3] font-semibold hover:underline"
               >
                 + Add Certificate
               </button>
@@ -208,16 +208,16 @@ export function SkillProofModal({
               {proof.certificates.map((c) => (
                 <div
                   key={c.id}
-                  className="p-3.5 rounded-xl border border-[#E9E2E5] bg-white flex items-center justify-between gap-3"
+                  className="p-3.5 rounded-xl border border-[#232F47] bg-[#131824] flex items-center justify-between gap-3"
                 >
                   <div className="min-w-0">
-                    <p className="text-sm font-bold text-[#101218] truncate">{c.title}</p>
-                    <p className="text-xs text-[#707584]">
+                    <p className="text-sm font-bold text-[#F1F5F9] truncate">{c.title}</p>
+                    <p className="text-xs text-[#94A3B8]">
                       {c.org} · {c.date} {c.credentialId ? `· ID: ${c.credentialId}` : ""}
                     </p>
                   </div>
                   {c.verified && (
-                    <span className="inline-flex items-center gap-1 text-[11px] text-[#1B7352] font-semibold bg-[#E8F7F1] px-2 py-0.5 rounded-full shrink-0">
+                    <span className="inline-flex items-center gap-1 text-[11px] text-[#10B981] font-semibold bg-[#062E23] px-2 py-0.5 rounded-full shrink-0">
                       <BadgeCheck size={13} /> Accredited
                     </span>
                   )}
@@ -225,9 +225,9 @@ export function SkillProofModal({
               ))}
             </div>
           ) : (
-            <div className="p-4 rounded-xl border border-dashed border-[#E9E2E5] text-center bg-[#FAF8F9]">
-              <p className="text-xs text-[#707584]">
-                No certificates registered covering <strong>{skill.name}</strong>. Upload a course or university certificate to strengthen this credential.
+            <div className="p-4 rounded-xl border border-dashed border-[#232F47] text-center bg-[#182030]/60">
+              <p className="text-xs text-[#94A3B8]">
+                No certificates registered covering <strong className="text-[#F1F5F9]">{skill.name}</strong>. Upload a course or university certificate to strengthen this credential.
               </p>
             </div>
           )}

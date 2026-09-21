@@ -69,13 +69,13 @@ export function Sidebar({
       {/* Section Header (visible on expand) */}
       <div
         onClick={() => toggleSection(sectionKey)}
-        className="flex items-center justify-between px-3 py-1 text-[11px] font-bold text-[#64748B] uppercase tracking-wider cursor-pointer hover:text-[#111827] select-none transition-opacity duration-200"
+        className="flex items-center justify-between px-3 py-1 text-[11px] font-bold text-[#94A3B8] uppercase tracking-wider cursor-pointer hover:text-[#F1F5F9] select-none transition-opacity duration-200"
       >
         <span className="truncate">{title}</span>
         <ChevronDown
           size={13}
           className={`transition-transform duration-200 shrink-0 ${
-            openSections[sectionKey] ? "rotate-0" : "-rotate-90 text-[#94A3B8]"
+            openSections[sectionKey] ? "rotate-0" : "-rotate-90 text-[#64748B]"
           }`}
         />
       </div>
@@ -94,13 +94,13 @@ export function Sidebar({
                 }}
                 className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all select-none ${
                   active
-                    ? "bg-[#111827] text-white shadow-sm"
-                    : "text-[#64748B] hover:bg-white hover:text-[#111827]"
+                    ? "bg-[#182338] text-[#00C0F3] border border-[#233554] shadow-sm"
+                    : "text-[#94A3B8] hover:bg-[#131824] hover:text-[#F1F5F9]"
                 }`}
               >
                 <Icon
                   size={17}
-                  className={`shrink-0 ${active ? "text-white" : "text-[#64748B]"}`}
+                  className={`shrink-0 ${active ? "text-[#00C0F3]" : "text-[#94A3B8]"}`}
                 />
                 <span className="truncate whitespace-nowrap">{item.label}</span>
               </button>
@@ -121,10 +121,10 @@ export function Sidebar({
         onMouseLeave={() => setIsHovered(false)}
       >
         <aside
-          className={`h-full bg-[#EBF2F6] border-r border-[#E2EBF0] flex flex-col justify-between overflow-y-auto overflow-x-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`h-full bg-[#0E1320] border-r border-[#1F293D] flex flex-col justify-between overflow-y-auto overflow-x-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isHovered
-              ? "w-[260px] p-4 shadow-[0_10px_35px_rgba(15,23,42,0.14)]"
-              : "w-[72px] p-3 shadow-[0_2px_10px_rgba(15,23,42,0.04)]"
+              ? "w-[260px] p-4 shadow-[0_10px_35px_rgba(0,0,0,0.5)]"
+              : "w-[72px] p-3 shadow-[0_2px_10px_rgba(0,0,0,0.2)]"
           }`}
         >
           {/* Top Section: Brand Logo & Profile Overview */}
@@ -132,24 +132,20 @@ export function Sidebar({
             {/* Logo Header (Clicking takes to default Dashboard) */}
             <button
               onClick={() => onNavigate("dashboard")}
-              className={`flex items-center gap-3 w-full rounded-2xl transition-all select-none mb-3 ${
+              className={`flex items-center w-full rounded-2xl transition-all select-none mb-3 ${
                 isHovered
-                  ? "p-2 hover:bg-white/80"
-                  : "justify-center p-1.5 hover:bg-white/80"
+                  ? "p-2 justify-start hover:bg-[#131824]"
+                  : "justify-center p-1.5 hover:bg-[#131824]"
               }`}
               title="SkillVerse Dashboard"
             >
-              <div className="w-10 h-10 rounded-2xl bg-[#111827] flex items-center justify-center shadow-sm shrink-0 text-white transition-transform">
-                <SkillVerseIcon size={22} />
-              </div>
-              {isHovered && (
-                <div className="text-left overflow-hidden transition-opacity duration-200">
-                  <span className="text-lg font-black tracking-tight text-[#111827] font-display block leading-none">
-                    Skill<span className="text-[#00C0F3]">Verse</span>
-                  </span>
-                  <span className="text-[10px] text-[#64748B] font-medium block mt-0.5">
-                    Student Platform
-                  </span>
+              {isHovered ? (
+                <div className="flex items-center h-10 px-1 overflow-hidden">
+                  <SkillVerseIcon size={38} className="h-9 w-auto max-w-[210px] object-contain" />
+                </div>
+              ) : (
+                <div className="flex items-center justify-center w-10 h-10">
+                  <SkillVerseIcon size={32} className="w-8 h-8 object-contain" />
                 </div>
               )}
             </button>
@@ -159,8 +155,8 @@ export function Sidebar({
               onClick={() => onNavigate("profile")}
               className={`rounded-2xl transition-all cursor-pointer border select-none mb-4 ${
                 activePage === "profile"
-                  ? "bg-white border-[#CBD5E1] shadow-sm"
-                  : "bg-white/70 border-[#E2EBF0] hover:bg-white hover:border-[#CBD5E1]"
+                  ? "bg-[#182338] border-[#2A3754] shadow-sm"
+                  : "bg-[#131824]/90 border-[#1F293D] hover:bg-[#182030] hover:border-[#2A3754]"
               } ${isHovered ? "p-2.5" : "p-1.5 flex justify-center"}`}
               title="Profile Overview"
             >
@@ -169,19 +165,19 @@ export function Sidebar({
                   <img
                     src={studentAvatar}
                     alt={studentName}
-                    className="w-9 h-9 rounded-xl object-cover border border-white shadow-xs"
+                    className="w-9 h-9 rounded-xl object-cover border border-[#2A3754] shadow-xs"
                   />
-                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#2D9F75] border-2 border-white rounded-full" />
+                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#10B981] border-2 border-[#131824] rounded-full" />
                 </div>
                 {isHovered && (
                   <div className="min-w-0 flex-1 overflow-hidden">
                     <div className="flex items-center gap-1">
-                      <h4 className="text-xs font-bold text-[#111827] truncate font-display">
+                      <h4 className="text-xs font-bold text-[#F1F5F9] truncate font-display">
                         {studentName}
                       </h4>
-                      <BadgeCheck size={13} className="text-[#2D9F75] shrink-0" />
+                      <BadgeCheck size={13} className="text-[#10B981] shrink-0" />
                     </div>
-                    <p className="text-[10px] text-[#64748B] truncate">
+                    <p className="text-[10px] text-[#94A3B8] truncate">
                       {studentEmail}
                     </p>
                   </div>
@@ -209,8 +205,8 @@ export function Sidebar({
                       title={item.label}
                       className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${
                         active
-                          ? "bg-[#111827] text-white shadow-sm"
-                          : "text-[#64748B] hover:bg-white hover:text-[#111827]"
+                          ? "bg-[#182338] text-[#00C0F3] border border-[#233554] shadow-sm"
+                          : "text-[#94A3B8] hover:bg-[#131824] hover:text-[#F1F5F9]"
                       }`}
                     >
                       <Icon size={18} />
@@ -229,8 +225,8 @@ export function Sidebar({
                 title="Settings"
                 className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${
                   activePage === "settings"
-                    ? "bg-[#111827] text-white"
-                    : "text-[#64748B] hover:bg-white hover:text-[#111827]"
+                    ? "bg-[#182338] text-[#00C0F3] border border-[#233554]"
+                    : "text-[#94A3B8] hover:bg-[#131824] hover:text-[#F1F5F9]"
                 }`}
               >
                 <Settings size={18} />
@@ -241,11 +237,11 @@ export function Sidebar({
       </div>
 
       {/* Mobile Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E2EBF0] flex items-center justify-around px-2 py-2">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0E1320]/95 backdrop-blur-md border-t border-[#1F293D] flex items-center justify-around px-2 py-2">
         <button
           onClick={() => onNavigate("dashboard")}
           className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
-            activePage === "dashboard" ? "text-[#111827] font-bold" : "text-[#64748B]"
+            activePage === "dashboard" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
           }`}
         >
           <LayoutDashboard size={18} />
@@ -254,7 +250,7 @@ export function Sidebar({
         <button
           onClick={() => onNavigate("profile")}
           className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
-            activePage === "profile" ? "text-[#111827] font-bold" : "text-[#64748B]"
+            activePage === "profile" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
           }`}
         >
           <User size={18} />
@@ -263,7 +259,7 @@ export function Sidebar({
         <button
           onClick={() => onNavigate("skills")}
           className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
-            activePage === "skills" ? "text-[#111827] font-bold" : "text-[#64748B]"
+            activePage === "skills" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
           }`}
         >
           <Award size={18} />
@@ -272,7 +268,7 @@ export function Sidebar({
         <button
           onClick={() => onNavigate("projects")}
           className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold transition-colors ${
-            activePage === "projects" ? "text-[#111827] font-bold" : "text-[#64748B]"
+            activePage === "projects" ? "text-[#00C0F3] font-bold" : "text-[#94A3B8]"
           }`}
         >
           <FolderKanban size={18} />
@@ -280,7 +276,7 @@ export function Sidebar({
         </button>
         <button
           onClick={() => setMobileOpen(true)}
-          className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold text-[#64748B]"
+          className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-semibold text-[#94A3B8]"
         >
           <Menu size={18} />
           <span>More</span>
@@ -290,22 +286,17 @@ export function Sidebar({
       {/* Mobile Slide-Up Full Drawer */}
       {mobileOpen && (
         <div
-          className="md:hidden fixed inset-0 z-50 bg-[#111827]/50 backdrop-blur-sm"
+          className="md:hidden fixed inset-0 z-50 bg-[#0A0D14]/80 backdrop-blur-sm"
           onMouseDown={(e) => e.target === e.currentTarget && setMobileOpen(false)}
         >
-          <div className="absolute bottom-0 left-0 right-0 bg-[#EBF2F6] rounded-t-[32px] p-5 max-h-[85vh] overflow-y-auto shadow-2xl">
+          <div className="absolute bottom-0 left-0 right-0 bg-[#0E1320] border-t border-[#1F293D] rounded-t-[32px] p-5 max-h-[85vh] overflow-y-auto shadow-2xl">
             <div className="flex items-center justify-between mb-4 px-1">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-[#111827] flex items-center justify-center text-white">
-                  <SkillVerseIcon size={20} />
-                </div>
-                <span className="font-extrabold text-base text-[#111827] tracking-tight">
-                  Skill<span className="text-[#00C0F3]">Verse</span>
-                </span>
+              <div className="flex items-center">
+                <SkillVerseIcon size={34} className="h-8 w-auto max-w-[180px] object-contain" />
               </div>
               <button
                 onClick={() => setMobileOpen(false)}
-                className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#64748B] shadow-xs"
+                className="w-8 h-8 rounded-full bg-[#182030] border border-[#232F47] flex items-center justify-center text-[#94A3B8] hover:text-white shadow-xs"
               >
                 <X size={16} />
               </button>
@@ -317,16 +308,16 @@ export function Sidebar({
                 onNavigate("profile");
                 setMobileOpen(false);
               }}
-              className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#E2EBF0] mb-4 cursor-pointer"
+              className="flex items-center gap-3 p-3 rounded-2xl bg-[#131824] border border-[#1F293D] mb-4 cursor-pointer"
             >
               <img
                 src={studentAvatar}
                 alt={studentName}
-                className="w-10 h-10 rounded-xl object-cover"
+                className="w-10 h-10 rounded-xl object-cover border border-[#2A3754]"
               />
               <div>
-                <h4 className="text-xs font-bold text-[#111827]">{studentName}</h4>
-                <p className="text-[10px] text-[#64748B]">{studentEmail}</p>
+                <h4 className="text-xs font-bold text-[#F1F5F9]">{studentName}</h4>
+                <p className="text-[10px] text-[#94A3B8]">{studentEmail}</p>
               </div>
             </div>
 

@@ -45,10 +45,10 @@ export function AddProjectModal({ open, onClose, onSave }) {
   return (
     <Modal open={open} onClose={onClose} title="Add a project" wide>
       <TextField label="Project title" placeholder="e.g. Attendance Tracker" value={form.title} onChange={set("title")} />
-      {errors.title && <p className="text-xs text-[#C15B5B] -mt-3 mb-4">{errors.title}</p>}
+      {errors.title && <p className="text-xs text-[#FB7185] -mt-3 mb-4">{errors.title}</p>}
       <SelectField label="Category" options={["App", "Website", "Hardware", "Other"]} value={form.category} onChange={set("category")} />
       <TextArea label="Short description" rows={3} placeholder="What does this project do?" value={form.description} onChange={set("description")} />
-      {errors.description && <p className="text-xs text-[#C15B5B] -mt-3 mb-4">{errors.description}</p>}
+      {errors.description && <p className="text-xs text-[#FB7185] -mt-3 mb-4">{errors.description}</p>}
       <TextField label="Skills / technologies used (comma separated)" placeholder="React, Node.js, MongoDB" value={form.skills} onChange={set("skills")} />
       <div className="grid sm:grid-cols-2 gap-x-4">
         <TextField label="GitHub URL" placeholder="https://github.com/…" value={form.github} onChange={set("github")} />

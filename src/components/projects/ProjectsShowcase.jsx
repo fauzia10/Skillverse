@@ -43,9 +43,9 @@ export function ProjectsShowcase({ projects, onAddProject }) {
   if (!projects.length) {
     return (
       <Card className="p-10 text-center">
-        <FolderKanban size={32} className="mx-auto text-[#111827] mb-3" />
-        <p className="text-[#111827] font-bold mb-1 font-display">No projects yet</p>
-        <p className="text-xs text-[#64748B] mb-4">Add your first project to showcase your technical skills.</p>
+        <FolderKanban size={32} className="mx-auto text-[#00C0F3] mb-3" />
+        <p className="text-[#F1F5F9] font-bold mb-1 font-display">No projects yet</p>
+        <p className="text-xs text-[#94A3B8] mb-4">Add your first project to showcase your technical skills.</p>
         <PrimaryButton onClick={() => setAddOpen(true)}>
           <Plus size={16} /> Add Project
         </PrimaryButton>
@@ -66,7 +66,7 @@ export function ProjectsShowcase({ projects, onAddProject }) {
           </SecondaryButton>
         }
       />
-      <p className="text-xs text-[#64748B] -mt-2 mb-5">
+      <p className="text-xs text-[#94A3B8] -mt-2 mb-5">
         Hover or tap any project to inspect live proof-of-work, code analytics, and architecture demo.
       </p>
 
@@ -86,22 +86,22 @@ export function ProjectsShowcase({ projects, onAddProject }) {
                   onFocus={() => setHoveredId(p.id)}
                   onBlur={() => setHoveredId(null)}
                   onClick={() => setDetailProject(p)}
-                  className={`group relative w-full text-left rounded-3xl border overflow-hidden bg-white transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111827] focus-visible:ring-offset-2 ${
+                  className={`group relative w-full text-left rounded-3xl border overflow-hidden bg-[#131824] transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00C0F3] focus-visible:ring-offset-2 ${
                     isHovered
-                      ? "shadow-[0_14px_32px_rgba(20,40,60,0.12)] -translate-y-1 border-[#111827]"
-                      : "border-[#E2EBF0] hover:border-[#CBD5E1]"
+                      ? "shadow-[0_14px_32px_rgba(0,192,243,0.18)] -translate-y-1 border-[#00C0F3]"
+                      : "border-[#232F47] hover:border-[#2A3754]"
                   } ${dimmed ? "opacity-60" : "opacity-100"}`}
                 >
                   <div className="h-24 relative p-2 pb-0">
                     <ProjectVisual variant={p.visual} className="h-full rounded-2xl" />
                   </div>
                   <div className="p-3.5">
-                    <p className="text-xs font-bold text-[#111827] truncate mb-1 font-display">{p.title}</p>
+                    <p className="text-xs font-bold text-[#F1F5F9] truncate mb-1 font-display">{p.title}</p>
                     <div className="flex items-center justify-between">
-                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#64748B]">
-                        <Icon size={11} className="text-[#111827]" /> {p.category}
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#94A3B8]">
+                        <Icon size={11} className="text-[#00C0F3]" /> {p.category}
                       </span>
-                      <span className="text-[10px] text-[#2E4D0C] font-bold bg-[#EDF9D4] px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] text-[#10B981] font-bold bg-[#062E23] px-2 py-0.5 rounded-full">
                         Live
                       </span>
                     </div>
@@ -117,18 +117,18 @@ export function ProjectsShowcase({ projects, onAddProject }) {
                         : "left-[calc(100%+14px)] animate-[tabPop_0.18s_ease]"
                     } w-[330px] z-50 pointer-events-none`}
                   >
-                    <div className="rounded-[28px] border border-[#E2EBF0] bg-white shadow-[0_24px_54px_rgba(20,40,60,0.16)] overflow-hidden">
+                    <div className="rounded-[28px] border border-[#232F47] bg-[#182030] shadow-[0_24px_54px_rgba(0,0,0,0.6)] overflow-hidden">
                       <div className="h-28 relative p-2.5 pb-0">
                         <ProjectVisual variant={p.visual} className="h-full rounded-2xl" />
                       </div>
                       <div className="p-5">
-                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold bg-[#DDF5F2] text-[#0C453E] border border-[#A5E3DC] mb-2">
+                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold bg-[#0D2D3E] text-[#00C0F3] border border-[#164863] mb-2">
                           <DetailIcon size={11} /> {p.category}
                         </span>
-                        <p className="text-sm font-bold text-[#111827] mb-1.5 leading-snug font-display">{p.title}</p>
-                        <p className="text-xs text-[#64748B] mb-3.5 leading-relaxed line-clamp-2">{p.description}</p>
+                        <p className="text-sm font-bold text-[#F1F5F9] mb-1.5 leading-snug font-display">{p.title}</p>
+                        <p className="text-xs text-[#94A3B8] mb-3.5 leading-relaxed line-clamp-2">{p.description}</p>
 
-                        <p className="text-[10px] font-bold text-[#111827] uppercase tracking-wider mb-2">Tech Stack Breakdown</p>
+                        <p className="text-[10px] font-bold text-[#F1F5F9] uppercase tracking-wider mb-2">Tech Stack Breakdown</p>
                         <div className="h-[96px] -ml-2 mb-2">
                           <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={p.usage || []} layout="vertical" margin={{ top: 0, right: 12, left: 0, bottom: 0 }}>
@@ -137,7 +137,7 @@ export function ProjectsShowcase({ projects, onAddProject }) {
                                 dataKey="name"
                                 type="category"
                                 width={84}
-                                tick={{ fontSize: 10, fill: "#111827", fontWeight: 600 }}
+                                tick={{ fontSize: 10, fill: "#F1F5F9", fontWeight: 600 }}
                                 axisLine={false}
                                 tickLine={false}
                               />
@@ -149,7 +149,7 @@ export function ProjectsShowcase({ projects, onAddProject }) {
                             </BarChart>
                           </ResponsiveContainer>
                         </div>
-                        <p className="text-xs text-[#111827] font-bold mt-2.5">Click tile for full project modal →</p>
+                        <p className="text-xs text-[#00C0F3] font-bold mt-2.5">Click tile for full project modal →</p>
                       </div>
                     </div>
                   </div>
@@ -164,13 +164,13 @@ export function ProjectsShowcase({ projects, onAddProject }) {
 
       {detailProject && (
         <Modal open={!!detailProject} onClose={() => setDetailProject(null)} title={detailProject.title} wide>
-          <div className="h-48 rounded-3xl overflow-hidden mb-4 border border-[#E2EBF0] p-2 bg-[#F4F8FA]">
+          <div className="h-48 rounded-3xl overflow-hidden mb-4 border border-[#232F47] p-2 bg-[#182030]">
             <ProjectVisual variant={detailProject.visual} className="h-full rounded-2xl" />
           </div>
-          <p className="text-xs sm:text-sm text-[#64748B] mb-4 leading-relaxed">{detailProject.description}</p>
+          <p className="text-xs sm:text-sm text-[#94A3B8] mb-4 leading-relaxed">{detailProject.description}</p>
           <div className="flex flex-wrap gap-2 mb-5">
             {detailProject.skills.map((s) => (
-              <span key={s} className="px-3 py-1 rounded-full text-xs bg-[#EDF9D4] border border-[#D5F29B] text-[#2E4D0C] font-bold">
+              <span key={s} className="px-3 py-1 rounded-full text-xs bg-[#0D2D3E] border border-[#164863] text-[#00C0F3] font-bold">
                 {s}
               </span>
             ))}

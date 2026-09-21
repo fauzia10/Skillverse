@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 export function SkillVerseIcon({ size = 36, className = "" }) {
+  const [useFallback, setUseFallback] = useState(false);
+
+  if (!useFallback) {
+    return (
+      <img
+        src="./logo.png"
+        alt="SkillVerse Logo"
+        onError={() => setUseFallback(true)}
+        className={`object-contain rounded-lg ${className}`}
+        style={{ width: size, height: size }}
+      />
+    );
+  }
+
   return (
     <svg
       width={size}
@@ -102,27 +116,12 @@ export function SkillVerseIcon({ size = 36, className = "" }) {
 }
 
 export function SkillVerseLogo({
-  size = 32,
-  dark = false,
-  showTagline = false,
+  size = 40,
   className = "",
 }) {
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
-      <div className="w-9 h-9 rounded-2xl bg-[#111827] flex items-center justify-center shrink-0 shadow-sm">
-        <SkillVerseIcon size={24} />
-      </div>
-      <div className="flex flex-col">
-        <div className="flex items-center font-extrabold text-base font-display leading-none tracking-tight">
-          <span className={dark ? "text-white" : "text-[#111827]"}>Skill</span>
-          <span className="text-[#00C0F3]">Verse</span>
-        </div>
-        {showTagline && (
-          <p className="text-[8px] font-semibold tracking-[0.2em] text-[#64748B] uppercase mt-0.5">
-            YOUR JOURNEY. VERIFIED. LIMITLESS.
-          </p>
-        )}
-      </div>
+    <div className={`flex items-center ${className}`}>
+      <SkillVerseIcon size={size} className="w-auto max-w-full object-contain" />
     </div>
   );
 }
