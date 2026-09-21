@@ -10,17 +10,20 @@ import {
   ShieldCheck,
   Sparkles,
   Zap,
-  GraduationCap,
   BadgeCheck,
   CheckCircle2,
   FolderKanban,
   Trophy,
+  KeyRound,
 } from "lucide-react";
 import { GoogleIcon, GithubIcon } from "../components/common/PlatformIcons";
 import { SkillVerseLogo } from "../components/common/Logo";
+import { GoogleAuthModal } from "../components/auth/GoogleAuthModal";
+import { OtpVerificationModal } from "../components/auth/OtpVerificationModal";
 
 export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
   const [mode, setMode] = useState(initialMode); // "login" | "signup"
+  const [authMethod, setAuthMethod] = useState("password"); // "password" | "otp"
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
 
@@ -33,9 +36,28 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Modals
+  const [googleModalOpen, setGoogleModalOpen] = useState(false);
+  const [otpModalOpen, setOtpModalOpen] = useState(false);
+
+  const handleSendOtp = (e) => {
+    if (e) e.preventDefault();
+    if (!usernameOrEmail.trim()) {
+      setError("Please enter your Gmail or academic email to receive the code.");
+      return;
+    }
+    setError("");
+    setOtpModalOpen(true);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
+
+    if (authMethod === "otp") {
+      handleSendOtp();
+      return;
+    }
 
     if (!usernameOrEmail.trim()) {
       setError("Please enter your username or email address.");
@@ -55,42 +77,59 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
       setLoading(false);
       onLogin({
         type: mode === "signup" ? "credentials_signup" : "credentials_login",
-        username: usernameOrEmail,
+        username: usernameOrEmail.includes("@") ? usernameOrEmail.split("@")[0] : usernameOrEmail,
         email: usernameOrEmail.includes("@") ? usernameOrEmail : `${usernameOrEmail}@university.edu`,
-        name: fullName || usernameOrEmail.split("@")[0] || "Student",
+        name: fullName || (usernameOrEmail.includes("@") ? usernameOrEmail.split("@")[0] : usernameOrEmail) || "Student Developer",
         college: college || "",
         degree: degree || "",
       });
-    }, 450);
+    }, 400);
   };
 
   const handleOAuthLogin = (provider) => {
+    if (provider === "google") {
+      setGoogleModalOpen(true);
+      return;
+    }
+
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      if (provider === "google") {
-        onLogin({
-          type: "google",
-          name: "Google Student",
-          email: "student@gmail.com",
-          username: "google_student",
-          provider: "Google",
-          college: "",
-          degree: "",
-        });
-      } else if (provider === "github") {
-        onLogin({
-          type: "github",
-          name: "GitHub Developer",
-          email: "developer@github.com",
-          username: "github_developer",
-          githubUsername: "github_developer",
-          provider: "GitHub",
-          college: "",
-          degree: "",
-        });
-      }
-    }, 400);
+      onLogin({
+        type: "github",
+        name: "GitHub Developer",
+        email: "developer@github.com",
+        username: "github_developer",
+        githubUsername: "github_developer",
+        provider: "GitHub",
+        college: "",
+        degree: "",
+      });
+    }, 350);
+  };
+
+  const handleSelectGoogleAccount = (googleUser) => {
+    onLogin({
+      type: "google",
+      name: googleUser.name,
+      email: googleUser.email,
+      username: googleUser.username,
+      provider: "Google Identity Services",
+      college: "",
+      degree: "",
+    });
+  };
+
+  const handleVerifyOtpUser = (otpUser) => {
+    onLogin({
+      type: mode === "signup" ? "credentials_signup" : "email_otp",
+      name: fullName || otpUser.name || "Student Developer",
+      email: otpUser.email,
+      username: otpUser.username,
+      college: college || "",
+      degree: degree || "",
+      provider: "Gmail Security Verification",
+    });
   };
 
   return (
@@ -98,16 +137,6 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
       {/* Luminous Ambient Background Glows */}
       <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#00C0F3]/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#10B981]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#A3E635]/5 rounded-full blur-[180px] pointer-events-none" />
-
-      {/* Decorative Grid Overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(#F1F5F9 1px, transparent 1px)`,
-          backgroundSize: "28px 28px",
-        }}
-      />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full">
         {/* Top Header & Logo */}
@@ -137,7 +166,7 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
 
         {/* Main Bento Split */}
         <div className="grid lg:grid-cols-12 gap-8 items-center">
-          {/* Left Hero / Highlights Column (Hidden on tiny screens) */}
+          {/* Left Hero / Highlights Column */}
           <div className="hidden lg:flex lg:col-span-5 flex-col justify-between space-y-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00C0F3]/10 border border-[#00C0F3]/30 text-[#00C0F3] text-xs font-bold mb-4 shadow-sm">
@@ -209,7 +238,7 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
           {/* Right Auth Card */}
           <div className="lg:col-span-7">
             <div className="rounded-3xl border border-[#1F293D] bg-[#131824]/90 backdrop-blur-xl p-6 sm:p-9 shadow-[0_24px_48px_rgba(0,0,0,0.5)] relative overflow-hidden">
-              {/* Subtle top card neon line */}
+              {/* Top Accent Line */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00C0F3] via-[#A3E635] to-[#10B981]" />
 
               {/* Title & Mode Switcher */}
@@ -233,10 +262,11 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
                       setMode("login");
                       setError("");
                     }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${mode === "login"
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      mode === "login"
                         ? "bg-[#00C0F3] text-[#0A0D14] shadow-sm"
                         : "text-[#94A3B8] hover:text-[#F1F5F9]"
-                      }`}
+                    }`}
                   >
                     Sign In
                   </button>
@@ -246,10 +276,11 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
                       setMode("signup");
                       setError("");
                     }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${mode === "signup"
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      mode === "signup"
                         ? "bg-[#00C0F3] text-[#0A0D14] shadow-sm"
                         : "text-[#94A3B8] hover:text-[#F1F5F9]"
-                      }`}
+                    }`}
                   >
                     Register
                   </button>
@@ -257,7 +288,7 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
               </div>
 
               {/* OAuth Social Logins */}
-              <div className="grid sm:grid-cols-2 gap-3 mb-6">
+              <div className="grid sm:grid-cols-2 gap-3 mb-5">
                 <button
                   type="button"
                   onClick={() => handleOAuthLogin("google")}
@@ -279,14 +310,39 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
                 </button>
               </div>
 
-              {/* Divider */}
-              <div className="relative flex items-center justify-center mb-6">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-[#1F293D]"></div>
-                </div>
-                <div className="relative px-3 bg-[#131824] text-[11px] font-semibold text-[#64748B] uppercase tracking-wider">
-                  or sign in with username & email
-                </div>
+              {/* Auth Method Switcher */}
+              <div className="flex items-center justify-between p-1.5 rounded-2xl bg-[#0A0D14] border border-[#1F293D] mb-5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthMethod("password");
+                    setError("");
+                  }}
+                  className={`flex-1 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                    authMethod === "password"
+                      ? "bg-[#182030] text-[#00C0F3] font-bold border border-[#232F47]"
+                      : "text-[#94A3B8] hover:text-white"
+                  }`}
+                >
+                  <Lock size={13} />
+                  <span>Password Sign In</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthMethod("otp");
+                    setError("");
+                  }}
+                  className={`flex-1 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                    authMethod === "otp"
+                      ? "bg-[#182030] text-[#00C0F3] font-bold border border-[#232F47]"
+                      : "text-[#94A3B8] hover:text-white"
+                  }`}
+                >
+                  <KeyRound size={13} />
+                  <span>Gmail 6-Digit OTP</span>
+                </button>
               </div>
 
               {/* Error Alert */}
@@ -303,7 +359,7 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
                   <>
                     <div>
                       <label className="block text-xs font-bold text-[#F1F5F9] uppercase tracking-wider mb-1.5">
-                        Full Name
+                        Full Name <span className="text-[#00C0F3]">*</span>
                       </label>
                       <div className="relative">
                         <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" />
@@ -311,7 +367,7 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
                           type="text"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
-                          placeholder="e.g. Rahul Sharma"
+                          placeholder="e.g. Alex Rivera"
                           className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#182030] border border-[#232F47] text-sm text-[#F1F5F9] placeholder-[#64748B] focus:border-[#00C0F3] focus:ring-2 focus:ring-[#00C0F3]/20 outline-none transition-all"
                         />
                       </div>
@@ -349,7 +405,8 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
                 {/* Username or Email */}
                 <div>
                   <label className="block text-xs font-bold text-[#F1F5F9] uppercase tracking-wider mb-1.5">
-                    Username or Academic Email
+                    {authMethod === "otp" ? "Gmail or Academic Email" : "Username or Academic Email"}{" "}
+                    <span className="text-[#00C0F3]">*</span>
                   </label>
                   <div className="relative">
                     <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" />
@@ -357,75 +414,80 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
                       type="text"
                       value={usernameOrEmail}
                       onChange={(e) => setUsernameOrEmail(e.target.value)}
-                      placeholder="username or student@university.edu"
+                      placeholder={authMethod === "otp" ? "yourname@gmail.com" : "username or student@university.edu"}
                       className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#182030] border border-[#232F47] text-sm text-[#F1F5F9] placeholder-[#64748B] focus:border-[#00C0F3] focus:ring-2 focus:ring-[#00C0F3]/20 outline-none transition-all"
                     />
                   </div>
                 </div>
 
-                {/* Password */}
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-bold text-[#F1F5F9] uppercase tracking-wider">
-                      Password
-                    </label>
-                    {mode === "login" && (
+                {/* Password Input (only in password mode) */}
+                {authMethod === "password" ? (
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-bold text-[#F1F5F9] uppercase tracking-wider">
+                        Password <span className="text-[#00C0F3]">*</span>
+                      </label>
+                      {mode === "login" && (
+                        <span className="text-xs font-semibold text-[#00C0F3] hover:underline cursor-pointer">
+                          Forgot password?
+                        </span>
+                      )}
+                    </div>
+                    <div className="relative">
+                      <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" />
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="••••••••••••"
+                        className="w-full pl-10 pr-11 py-2.5 rounded-2xl bg-[#182030] border border-[#232F47] text-sm text-[#F1F5F9] placeholder-[#64748B] focus:border-[#00C0F3] focus:ring-2 focus:ring-[#00C0F3]/20 outline-none transition-all"
+                      />
                       <button
                         type="button"
-                        onClick={() => alert("Password reset link sent to your registered academic email address.")}
-                        className="text-xs text-[#00C0F3] hover:underline"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-[#F1F5F9] transition-colors cursor-pointer"
                       >
-                        Forgot password?
+                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                       </button>
-                    )}
+                    </div>
                   </div>
-                  <div className="relative">
-                    <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••••••"
-                      className="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-[#182030] border border-[#232F47] text-sm text-[#F1F5F9] placeholder-[#64748B] focus:border-[#00C0F3] focus:ring-2 focus:ring-[#00C0F3]/20 outline-none transition-all"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-[#F1F5F9] transition-colors"
-                      tabIndex={-1}
-                      title={showPassword ? "Hide password" : "Show password"}
-                    >
-                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                    </button>
+                ) : (
+                  <div className="p-3.5 rounded-2xl bg-[#0A0D14] border border-[#1F293D] text-xs text-[#94A3B8] flex items-center gap-2">
+                    <KeyRound size={16} className="text-[#00C0F3] shrink-0" />
+                    <span>A 6-digit one-time verification code will be sent to your Gmail inbox.</span>
                   </div>
-                </div>
+                )}
 
                 {/* Remember Me */}
                 <div className="flex items-center justify-between pt-1">
-                  <label className="inline-flex items-center gap-2 cursor-pointer text-xs text-[#94A3B8] select-none">
+                  <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="rounded bg-[#182030] border-[#232F47] text-[#00C0F3] focus:ring-[#00C0F3]/20 focus:ring-offset-0 h-4 w-4"
+                      className="w-4 h-4 rounded-md border-[#232F47] bg-[#182030] text-[#00C0F3] focus:ring-0 focus:ring-offset-0 transition-colors"
                     />
-                    <span>Remember this device</span>
+                    <span className="text-xs text-[#94A3B8]">Remember this device</span>
                   </label>
-
-                  <span className="text-xs text-[#64748B] hidden sm:inline">256-bit encrypted</span>
+                  <span className="text-xs text-[#64748B]">256-bit encrypted</span>
                 </div>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-2 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold bg-gradient-to-r from-[#00C0F3] to-[#38BDF8] hover:from-[#38BDF8] hover:to-[#00C0F3] text-[#0A0D14] shadow-[0_12px_24px_-6px_rgba(0,192,243,0.35)] hover:shadow-[0_16px_32px_-6px_rgba(0,192,243,0.5)] active:scale-[0.99] transition-all cursor-pointer font-display"
+                  className="w-full py-3 px-4 rounded-2xl bg-[#00C0F3] hover:bg-[#38BDF8] text-[#0A0D14] font-black text-sm transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(0,192,243,0.25)] cursor-pointer disabled:opacity-50"
                 >
                   {loading ? (
                     <div className="w-5 h-5 border-2 border-[#0A0D14] border-t-transparent rounded-full animate-spin" />
+                  ) : authMethod === "otp" ? (
+                    <>
+                      <span>Send 6-Digit Code to Gmail</span>
+                      <ArrowRight size={16} />
+                    </>
                   ) : (
                     <>
-                      <span>{mode === "login" ? "Sign In to SkillVerse" : "Create My Student Account"}</span>
+                      <span>{mode === "login" ? "Sign In to SkillVerse" : "Create Student Account"}</span>
                       <ArrowRight size={16} />
                     </>
                   )}
@@ -434,14 +496,22 @@ export function LoginPage({ onLogin, onBackToLanding, initialMode = "login" }) {
             </div>
           </div>
         </div>
-
-        {/* Footer info */}
-        <div className="mt-10 text-center text-xs text-[#64748B]">
-          <p>
-            Protected by institutional authentication. By signing in, you accept SkillVerse's Terms of Service and Privacy Policy.
-          </p>
-        </div>
       </div>
+
+      {/* Google Sign-In Account Chooser Modal */}
+      <GoogleAuthModal
+        isOpen={googleModalOpen}
+        onClose={() => setGoogleModalOpen(false)}
+        onSelectAccount={handleSelectGoogleAccount}
+      />
+
+      {/* 6-Digit Gmail OTP Verification Modal */}
+      <OtpVerificationModal
+        isOpen={otpModalOpen}
+        onClose={() => setOtpModalOpen(false)}
+        email={usernameOrEmail.includes("@") ? usernameOrEmail : `${usernameOrEmail}@gmail.com`}
+        onVerify={handleVerifyOtpUser}
+      />
     </div>
   );
 }

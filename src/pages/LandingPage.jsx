@@ -16,14 +16,17 @@ import {
   Sparkles,
   BadgeCheck,
   Trophy,
-  ChevronDown,
+  KeyRound,
 } from "lucide-react";
 import { GoogleIcon, GithubIcon } from "../components/common/PlatformIcons";
 import { SkillVerseLogo } from "../components/common/Logo";
+import { GoogleAuthModal } from "../components/auth/GoogleAuthModal";
+import { OtpVerificationModal } from "../components/auth/OtpVerificationModal";
 
 export function LandingPage({ onLogin }) {
   // Auth Form State
   const [mode, setMode] = useState("login"); // "login" | "signup"
+  const [authMethod, setAuthMethod] = useState("password"); // "password" | "otp"
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
 
@@ -34,6 +37,10 @@ export function LandingPage({ onLogin }) {
   const [degree, setDegree] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Modals
+  const [googleModalOpen, setGoogleModalOpen] = useState(false);
+  const [otpModalOpen, setOtpModalOpen] = useState(false);
 
   const scrollToAuth = (targetMode = "login") => {
     setMode(targetMode);
@@ -48,9 +55,25 @@ export function LandingPage({ onLogin }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleSendOtp = (e) => {
+    if (e) e.preventDefault();
+    if (!usernameOrEmail.trim()) {
+      setError("Please enter your Gmail or academic email to receive the code.");
+      return;
+    }
+    const email = usernameOrEmail.includes("@") ? usernameOrEmail : `${usernameOrEmail}@gmail.com`;
+    setError("");
+    setOtpModalOpen(true);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
+
+    if (authMethod === "otp") {
+      handleSendOtp();
+      return;
+    }
 
     if (!usernameOrEmail.trim()) {
       setError("Please enter your username or email address.");
@@ -91,34 +114,56 @@ export function LandingPage({ onLogin }) {
   };
 
   const handleOAuthLogin = (provider) => {
+    if (provider === "google") {
+      setGoogleModalOpen(true);
+      return;
+    }
+
+    // GitHub OAuth simulation
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       if (onLogin) {
-        if (provider === "google") {
-          onLogin({
-            type: "google",
-            name: "Google Student",
-            email: "student@gmail.com",
-            username: "google_student",
-            provider: "Google",
-            college: "",
-            degree: "",
-          });
-        } else if (provider === "github") {
-          onLogin({
-            type: "github",
-            name: "GitHub Developer",
-            email: "developer@github.com",
-            username: "github_developer",
-            githubUsername: "github_developer",
-            provider: "GitHub",
-            college: "",
-            degree: "",
-          });
-        }
+        onLogin({
+          type: "github",
+          name: "GitHub Developer",
+          email: "developer@github.com",
+          username: "github_developer",
+          githubUsername: "github_developer",
+          provider: "GitHub",
+          college: "",
+          degree: "",
+        });
       }
     }, 350);
+  };
+
+  const handleSelectGoogleAccount = (googleUser) => {
+    if (onLogin) {
+      onLogin({
+        type: "google",
+        name: googleUser.name,
+        email: googleUser.email,
+        username: googleUser.username,
+        provider: "Google Identity Services",
+        college: "",
+        degree: "",
+      });
+    }
+  };
+
+  const handleVerifyOtpUser = (otpUser) => {
+    if (onLogin) {
+      onLogin({
+        type: mode === "signup" ? "credentials_signup" : "email_otp",
+        name: fullName || otpUser.name || "Student Developer",
+        email: otpUser.email,
+        username: otpUser.username,
+        college: college || "",
+        degree: degree || "",
+        provider: "Gmail Security Verification",
+      });
+    }
   };
 
   return (
@@ -516,7 +561,7 @@ export function LandingPage({ onLogin }) {
                     type="button"
                     onClick={() => handleOAuthLogin("google")}
                     disabled={loading}
-                    className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-[#0A0D14] hover:bg-[#182030] border border-[#1F293D] hover:border-[#2A3754] text-xs font-medium text-white transition-all cursor-pointer"
+                    className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-[#0A0D14] hover:bg-[#182030] border border-[#1F293D] hover:border-[#2A3754] text-xs font-medium text-white transition-all cursor-pointer group"
                   >
                     <GoogleIcon size={16} />
                     <span>Continue with Google</span>
@@ -533,11 +578,39 @@ export function LandingPage({ onLogin }) {
                   </button>
                 </div>
 
-                <div className="relative flex items-center justify-center mb-5">
-                  <div className="w-full border-t border-[#1F293D]" />
-                  <span className="absolute px-3 bg-[#131824] text-[10px] uppercase font-bold text-[#64748B] tracking-wider">
-                    or sign in with username & email
-                  </span>
+                {/* Auth Method Switcher (Password vs Email OTP) */}
+                <div className="flex items-center justify-between p-1.5 rounded-2xl bg-[#0A0D14] border border-[#1F293D] mb-5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuthMethod("password");
+                      setError("");
+                    }}
+                    className={`flex-1 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                      authMethod === "password"
+                        ? "bg-[#182030] text-[#00C0F3] font-bold border border-[#232F47]"
+                        : "text-[#94A3B8] hover:text-white"
+                    }`}
+                  >
+                    <Lock size={13} />
+                    <span>Password Sign In</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuthMethod("otp");
+                      setError("");
+                    }}
+                    className={`flex-1 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                      authMethod === "otp"
+                        ? "bg-[#182030] text-[#00C0F3] font-bold border border-[#232F47]"
+                        : "text-[#94A3B8] hover:text-white"
+                    }`}
+                  >
+                    <KeyRound size={13} />
+                    <span>Gmail 6-Digit OTP</span>
+                  </button>
                 </div>
 
                 {/* Error Alert */}
@@ -547,7 +620,7 @@ export function LandingPage({ onLogin }) {
                   </div>
                 )}
 
-                {/* Credentials Form */}
+                {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {mode === "signup" && (
                     <div>
@@ -571,7 +644,8 @@ export function LandingPage({ onLogin }) {
 
                   <div>
                     <label className="block text-xs font-medium text-[#94A3B8] mb-1.5">
-                      Username or Academic Email <span className="text-[#00C0F3]">*</span>
+                      {authMethod === "otp" ? "Gmail or Academic Email" : "Username or Email"}{" "}
+                      <span className="text-[#00C0F3]">*</span>
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#64748B]">
@@ -581,43 +655,50 @@ export function LandingPage({ onLogin }) {
                         type="text"
                         value={usernameOrEmail}
                         onChange={(e) => setUsernameOrEmail(e.target.value)}
-                        placeholder="username or student@university.edu"
+                        placeholder={authMethod === "otp" ? "yourname@gmail.com" : "username or student@university.edu"}
                         className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-[#0A0D14] border border-[#1F293D] focus:border-[#00C0F3] text-xs text-white placeholder-[#64748B] focus:outline-none transition-colors"
                       />
                     </div>
                   </div>
 
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label className="block text-xs font-medium text-[#94A3B8]">
-                        Password <span className="text-[#00C0F3]">*</span>
-                      </label>
-                      {mode === "login" && (
-                        <span className="text-[11px] text-[#00C0F3] hover:underline cursor-pointer">
-                          Forgot password?
-                        </span>
-                      )}
-                    </div>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#64748B]">
-                        <Lock size={15} />
+                  {authMethod === "password" ? (
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="block text-xs font-medium text-[#94A3B8]">
+                          Password <span className="text-[#00C0F3]">*</span>
+                        </label>
+                        {mode === "login" && (
+                          <span className="text-[11px] text-[#00C0F3] hover:underline cursor-pointer">
+                            Forgot password?
+                          </span>
+                        )}
                       </div>
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="••••••••••••"
-                        className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#0A0D14] border border-[#1F293D] focus:border-[#00C0F3] text-xs text-white placeholder-[#64748B] focus:outline-none transition-colors"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#64748B] hover:text-white transition-colors cursor-pointer"
-                      >
-                        {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
-                      </button>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#64748B]">
+                          <Lock size={15} />
+                        </div>
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="••••••••••••"
+                          className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#0A0D14] border border-[#1F293D] focus:border-[#00C0F3] text-xs text-white placeholder-[#64748B] focus:outline-none transition-colors"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#64748B] hover:text-white transition-colors cursor-pointer"
+                        >
+                          {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="p-3.5 rounded-2xl bg-[#0A0D14] border border-[#1F293D] text-xs text-[#94A3B8] flex items-center gap-2">
+                      <KeyRound size={16} className="text-[#00C0F3] shrink-0" />
+                      <span>A 6-digit one-time verification code will be sent to your Gmail inbox.</span>
+                    </div>
+                  )}
 
                   {mode === "signup" && (
                     <div className="grid grid-cols-2 gap-3">
@@ -670,6 +751,11 @@ export function LandingPage({ onLogin }) {
                   >
                     {loading ? (
                       <span className="inline-block w-4 h-4 border-2 border-[#0A0D14] border-t-transparent rounded-full animate-spin" />
+                    ) : authMethod === "otp" ? (
+                      <>
+                        <span>Send 6-Digit Code to Gmail</span>
+                        <ArrowRight size={14} />
+                      </>
                     ) : (
                       <>
                         <span>
@@ -711,6 +797,21 @@ export function LandingPage({ onLogin }) {
           </div>
         </div>
       </footer>
+
+      {/* Google Sign-In Account Chooser Modal */}
+      <GoogleAuthModal
+        isOpen={googleModalOpen}
+        onClose={() => setGoogleModalOpen(false)}
+        onSelectAccount={handleSelectGoogleAccount}
+      />
+
+      {/* 6-Digit Gmail OTP Verification Modal */}
+      <OtpVerificationModal
+        isOpen={otpModalOpen}
+        onClose={() => setOtpModalOpen(false)}
+        email={usernameOrEmail.includes("@") ? usernameOrEmail : `${usernameOrEmail}@gmail.com`}
+        onVerify={handleVerifyOtpUser}
+      />
     </div>
   );
 }
